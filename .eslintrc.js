@@ -104,5 +104,13 @@ module.exports = {
       },
     ],
     '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-empty-function': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    '@typescript-eslint/no-redeclare': ['error'],
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-useless-constructor': 'error',
   },
 };
