@@ -11,18 +11,12 @@ function join(...args) {
   return fullPath;
 }
 
-const defaultLintStagedConfigPath = join(__dirname, 'lint-staged.config.js');
+const lintStagedConfigPath = join(__dirname, 'lint-staged.config.js');;
 
-let lintStagedConfigPath = defaultLintStagedConfigPath;
-
-const userLintStagedConfigPath = join(process.cwd(), 'lint-staged.config.js');
-
-if (fs.existsSync(userLintStagedConfigPath)) {
-  lintStagedConfigPath = userLintStagedConfigPath;
-}
 
 module.exports = {
   hooks: {
+    "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
     'pre-commit': `lint-staged -c ${lintStagedConfigPath}`,
   },
 };
