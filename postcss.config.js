@@ -1,3 +1,4 @@
 module.exports = {
-    plugins: [require('postcss-nested')],
+  // eslint-disable-next-line global-require
+  plugins: [require('postcss-nested')],
 };

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 
 function join(...args) {
@@ -11,7 +10,7 @@ function join(...args) {
   return fullPath;
 }
 
-const lintStagedConfigPath = join(__dirname, 'lint-staged.config.js');;
+const lintStagedConfigPath = join(__dirname, 'lint-staged.config.js');
 
 
 module.exports = {
