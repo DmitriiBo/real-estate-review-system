@@ -23,13 +23,15 @@ module.exports = {
             loader: 'css-loader',
             options: {
               importLoaders: 1,
-              localsConvention: 'camelCase',
             },
           },
           {
             loader: 'postcss-loader',
-            // eslint-disable-next-line global-require
-            options: { ...require('./postcss.config') },
+            options: {
+              postcssOptions: {
+                plugins: [{ 'postcss-nested': { preserveEmpty: true } }],
+              },
+            },
           },
         ],
       },
