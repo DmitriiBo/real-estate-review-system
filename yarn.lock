@@ -963,6 +963,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@fontsource/roboto@^4.2.1":
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.2.1.tgz#fc75a2c6f5267230f37c40c00bec5bf05d61c5c0"
+  integrity sha512-C236dlY57hG+Gg4C9SS2i5qNBILg31uzSdVhO6wUk27rgOz+rtztcUA17VI+HWdAd4LQaTp/vF6NDi303KRtqg==
+
 "@material-ui/core@^4.11.3":
   version "4.11.3"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.3.tgz#f22e41775b0bd075e36a7a093d43951bf7f63850"
@@ -980,6 +985,13 @@
     prop-types "^15.7.2"
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
+
+"@material-ui/icons@^4.11.2":
+  version "4.11.2"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.2.tgz#b3a7353266519cd743b6461ae9fdfcb1b25eb4c5"
+  integrity sha512-fQNsKX2TxBmqIGJCSi3tGTO/gZ+eJgWmMJkgDiOfyNaunNaxcklJQFaFogYcFl0qFuaEz1qaXYXboa/bUXVSOQ==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
 
 "@material-ui/styles@^4.11.3":
   version "4.11.3"
