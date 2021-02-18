@@ -1,5 +1,7 @@
 import React from 'react';
 
+import '@fontsource/roboto';
+
 import Header from '../components/Header';
 
 import { cnApp } from './cn-app';
