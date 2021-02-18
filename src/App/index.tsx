@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from '../components/Header';
+import InputMain from '../components/inputMain';
 
 import { cnApp } from './cn-app';
 
@@ -11,6 +12,7 @@ export const App: React.FC = () => {
     <div className={cnApp()}>
       <p className={cnApp('Title')}>Real Estate Review System</p>
       <Header title="Main" />
+      <InputMain />
     </div>
   );
 };
