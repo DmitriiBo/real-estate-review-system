@@ -9,8 +9,11 @@
   "scripts": {
     "dev": "webpack serve --open --mode development",
     "build": "webpack",
-    "lint:css": "stylelint \"src/**/*.css\"",
-    "lint-fix:css": "stylelint \"src/**/*.css\" --fix"
+    "lint": "yarn run lint:ts && yarn run lint:css",
+    "lint:ts": "eslint --ext=.ts,.tsx .",
+    "lint:ts:fix": "eslint --ext=.ts,.tsx . --fix",
+    "lint:css": "stylelint",
+    "lint:css:fix": "stylelint --fix"
   },
   "engines": {
     "node": "^v12.19.0",
