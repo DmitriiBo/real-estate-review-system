@@ -1,0 +1,29 @@
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.Search {
+  margin: 10px;
+  max-width: 620px;
+  display: flex;
+  flex-direction: row;
+  flex-basis: 200px;
+  justify-content: center;
+  background: #deddf126;
+  border-radius: 18px;
+  padding: 10px;
+  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+
+  &__formBlock {
+    padding: 10px;
+  }
+
+  &__formBlockError {
+    padding: 10px;
+    border-bottom: 2px solid #f50057;
+  }
+
+  &__selectEmpty {
+    margin-top: 10px;
+  }
+}

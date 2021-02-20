@@ -75,7 +75,6 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@fontsource/roboto": "^4.2.1",
-    "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "bem-cn": "^3.0.1",
     "react": "^17.0.1",
