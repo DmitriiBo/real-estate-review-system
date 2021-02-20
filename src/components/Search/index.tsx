@@ -41,6 +41,9 @@ const Search: React.FC = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (FormState.error) {
+      return alert(`обнаружена ошибка ввода`);
+    }
     setFormState({ ...FormState, input: '' });
     return alert(`Данные успешно отправлены ${JSON.stringify(FormState)}`);
   };
