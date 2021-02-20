@@ -15,10 +15,6 @@
     "lint:css": "stylelint",
     "lint:css:fix": "stylelint --fix"
   },
-  "engines": {
-    "node": "^v12.19.0",
-    "yarn": "^1.22.10"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-customizable"
