@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import {
   Button,
   Container,
@@ -8,6 +8,7 @@ import {
   MenuItem,
   Select,
 } from '@material-ui/core';
+import { debounce } from 'lodash';
 
 import validateSearch from '../../utils/validation';
 
@@ -22,16 +23,16 @@ const Search: React.FC = () => {
     error: false,
   });
 
-  const handleInputChange = async (e: string) => {
-    const resValidate = await validateSearch(e);
+  // функция debounce, задержка перед проверкой данных
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debounced = useCallback(
+    debounce((e) => validateSearch(e), 2000),
+    [],
+  );
+
+  const handleInputChange = (e: string) => {
     setFormState({ ...FormState, input: e });
-    // проверка при вводе более 4 символов
-    if (e.length > 4) {
-      console.log(resValidate);
-      if (resValidate !== 'ok') {
-        setFormState({ ...FormState, input: e, error: true });
-      } else setFormState({ ...FormState, input: e, error: false });
-    }
+    debounced(e);
   };
 
   const handleOtherFields = (e: string, formField: string) => {
