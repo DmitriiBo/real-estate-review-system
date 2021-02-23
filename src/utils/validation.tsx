@@ -7,9 +7,10 @@ const validateSearch = (inputValue: any): any => {
   );
 
   if (regMatch === null) {
-    return console.log('Data is Invalid');
+    return false;
   }
-  return console.log('ok');
+
+  return true;
 };
 
 export default validateSearch;
