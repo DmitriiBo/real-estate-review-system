@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, CardMedia, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+import type { NilCard } from '../Card/Card';
+
 import { cnEstateCard } from './cn-EstateCard';
 
 import './index.css';
@@ -16,13 +18,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface EstateCardPropsF {
-  handleCardClick(card: Record<string, unknown>): void;
+  handleCardClick(card: NilCard): void;
   title: string;
   place: string;
-  pictures: [];
+  pictures: NilCard[];
   showButton: boolean;
   handleShowButtonClick(): void;
-  initialCardImage: [];
+  initialCardImage: NilCard[];
 }
 
 const EstateCard: React.FC<EstateCardPropsF> = ({
@@ -42,13 +44,13 @@ const EstateCard: React.FC<EstateCardPropsF> = ({
           <h2>{title}</h2>
           <p>{place}</p>
           <Grid container spacing={1}>
-            {pictures.map((card: never) => (
-              <Grid item key={card} xs={6} sm={6} md={4}>
+            {pictures.map((card: NilCard) => (
+              <Grid item key={card?.image ?? ''} xs={6} sm={6} md={4}>
                 <CardMedia
                   // image="https://source.unsplash.com/random"
-                  image={card.image}
+                  image={card?.image ?? ''}
                   className={classes.CardMedia}
-                  card={card}
+                  // card={card}
                   onClick={() => {
                     handleCardClick(card);
                     console.log(initialCardImage.indexOf(card));

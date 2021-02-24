@@ -4,16 +4,16 @@ import { useTheme } from '@material-ui/core/styles';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
-import { Card } from '../Card/Card';
+import type { NilCard } from '../Card/Card';
 
 import { cnImagePopup } from './cn-ImagePopup';
 
 import './index.css';
 
 interface ImagePopupProps {
-  next(card: Card): void;
-  previous(card: Card): void;
-  card: never;
+  next(card: NilCard): void;
+  previous(card: NilCard): void;
+  card: NilCard;
   isOpen: boolean;
   onClose(): void;
 }
@@ -22,14 +22,14 @@ const ImagePopup: React.FC<ImagePopupProps> = ({ isOpen, onClose, card, next, pr
   const theme = useTheme();
 
   React.useEffect(() => {
-    function handleEscClose(evt: React.KeyboardEvent) {
+    function handleEscClose(evt: KeyboardEvent) {
       if (evt.key === 'Escape') {
         onClose();
       }
     }
 
-    function closeByOverlayClick(evt: React.ChangeEvent) {
-      if (evt.target.classList.contains(cnImagePopup('popupImageOverlay'))) {
+    function closeByOverlayClick(evt: MouseEvent) {
+      if ((evt.target as Element).classList?.contains(cnImagePopup('popupImageOverlay'))) {
         onClose();
       }
     }
@@ -47,12 +47,9 @@ const ImagePopup: React.FC<ImagePopupProps> = ({ isOpen, onClose, card, next, pr
     // <div className={cnImagePopup() isOpen && 'popupImageOpened'}>
     <div className={`imagePopup ${isOpen && 'popupImageOpened'}`}>
       <div className={cnImagePopup('popupImageOverlay')} />
-      <button
-        type="button"
-        label="close"
-        onClick={onClose}
-        className={cnImagePopup('popupImageCloseButton')}
-      />
+      <button type="button" onClick={onClose} className={cnImagePopup('popupImageCloseButton')}>
+        &nbsp;
+      </button>
       <div className={cnImagePopup('popupImageConteiner')}>
         <Button
           size="large"
@@ -64,7 +61,7 @@ const ImagePopup: React.FC<ImagePopupProps> = ({ isOpen, onClose, card, next, pr
           {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
           Back
         </Button>
-        <img src={card.image} alt="фото" className={cnImagePopup('popupImageImage')} />
+        <img src={card?.image ?? ''} alt="фото" className={cnImagePopup('popupImageImage')} />
         <Button
           size="large"
           onClick={() => {

@@ -1,4 +1,6 @@
-export const initialCardImage = [
+import type { NilCard } from '../components/Card/Card';
+
+export const initialCardImage: NilCard[] = [
   {
     image: 'https://cdn.pixabay.com/photo/2021/02/10/10/11/church-6001550_960_720.jpg',
   },

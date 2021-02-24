@@ -2,7 +2,7 @@ import React from 'react';
 
 import '@fontsource/roboto';
 
-import { Card } from '../components/Card/Card';
+import type { NilCard } from '../components/Card/Card';
 import EstateCard from '../components/EstateCard/EstateCard';
 import Header from '../components/Header';
 import ImagePopup from '../components/ImagePopup/ImagePopup';
@@ -14,43 +14,45 @@ import './index.css';
 
 export const App: React.FC = () => {
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [pictures, setPictures] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState<NilCard>(null);
+  const [pictures, setPictures] = React.useState<NilCard[]>([]);
   const [showButton, setShowButton] = React.useState(true);
-  const [cards, setCards] = React.useState(initialCardImage);
+  const [cards] = React.useState<NilCard[]>(initialCardImage);
 
   React.useEffect(() => {
     setPictures(cards.slice(0, 6));
-  }, []);
+  }, [cards]);
 
   function handleShowButtonClick() {
     setPictures(cards.slice(0, pictures.length + cards.length));
-    if ((pictures.length = cards.length)) {
+    if (pictures.length === cards.length) {
       setShowButton(false);
     }
   }
 
   function closeImagePopup() {
     setIsImagePopupOpen(false);
-    setSelectedCard({});
+    setSelectedCard(null);
   }
 
-  const handleCardClick = (card: Record<string, unknown>) => {
+  const handleCardClick = (card: NilCard) => {
     setSelectedCard(card);
     setIsImagePopupOpen(true);
   };
 
-  function handleShowButtonNext(card: Card) {
-    const indexCard = initialCardImage.indexOf(card.image);
+  function handleShowButtonNext(card: NilCard) {
+    const indexCard = initialCardImage.indexOf(card);
     console.log(indexCard);
-    setSelectedCard(card[indexCard]);
+    const nextCardIndex = indexCard + 1;
+    const nextCard = initialCardImage[nextCardIndex];
+    setSelectedCard(nextCard);
   }
 
-  function handleShowButtonPrevious(card: Card) {
-    const indexCard = initialCardImage.indexOf(card.image);
-    console.log(initialCardImage.indexOf(image));
-    // setSelectedCard(selectedCard[initialCardImage.indexOf(card) - 1]);
-    setSelectedCard(card[indexCard]);
+  function handleShowButtonPrevious(card: NilCard) {
+    const indexCard = initialCardImage.indexOf(card);
+    const previousCardIndex = indexCard - 1;
+    const previousCard = initialCardImage[previousCardIndex];
+    setSelectedCard(previousCard);
   }
 
   return (
