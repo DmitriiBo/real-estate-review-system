@@ -79,7 +79,10 @@
     "bem-cn": "^3.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-motion": "^0.5.2",
     "react-router-dom": "^5.2.0",
-    "regenerator-runtime": "^0.13.7"
+    "react-swipeable-views": "^0.13.9",
+    "regenerator-runtime": "^0.13.7",
+    "swipeable-views-react": "^0.6.6"
   }
 }

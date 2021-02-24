@@ -1,0 +1,22 @@
+.EstateCard {
+  padding: 10px;
+  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+
+&__containerDescription {
+  justify-content: center;
+}
+
+&__HouseType {
+  color: red;
+  padding: 10px;
+}
+&__previous {
+  background-color: #f1f1f1;
+  color: black;
+}
+
+&__next {
+  background-color: #4CAF50;
+  color: white;
+}
+}

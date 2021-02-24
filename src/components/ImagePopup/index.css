@@ -1,0 +1,85 @@
+.ImagePopup {
+  margin: 0;
+  padding: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: weight;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	visibility: hidden;
+
+  &__popupImageOpened {
+	display: flex;
+	visibility: visible;
+	opacity: 1;
+}
+
+&__popupImageOverlay {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	cursor: pointer;
+}
+
+
+&__popupImageConteiner {
+	display: flex;
+}
+
+&__popupImageImage {
+	width: 700px;
+	height: 700px;
+	border-radius: 8px;
+  z-index: 2;
+}
+
+&__popupImageCloseButton {
+  position: absolute;
+	background: url('../../images/Close_Icon.svg') center no-repeat;
+	border: 0;
+	outline: none;
+	top: -60px;
+	right: -60px;
+	background-color: transparent;
+	cursor: pointer;
+	width: 70px;
+	height: 70px;
+	box-sizing: border-box;
+	padding: 0;
+}
+
+&__ButtonPrevious {
+  width: 300px;
+  color: red;
+}
+}
+
+.my-class-name {
+  color: red;
+}
+
+.imagePopup {
+  margin: 0;
+  padding: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: weight;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	visibility: hidden;
+}
+
+.popupImageOpened {
+	display: flex;
+	visibility: visible;
+	opacity: 1;
+}

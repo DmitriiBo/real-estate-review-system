@@ -1,13 +1,10 @@
 import React from 'react';
-import { Button, Card, CardMedia, Container, Grid, Paper, Typography } from '@material-ui/core';
+import { Button, CardMedia, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { cnEstateCard } from './cn-EstateCard';
 
-type EstateCardProps = {
-  title: string;
-  place: string;
-};
+import './index.css';
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturesPostContent: {
@@ -18,55 +15,65 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
+interface EstateCardPropsF {
+  handleCardClick(card: Record<string, unknown>): void;
+  title: string;
+  place: string;
+  pictures: [];
+  showButton: boolean;
+  handleShowButtonClick(): void;
+  initialCardImage: [];
+}
 
-const EstateCard: React.FC<EstateCardProps> = ({ title, place }) => {
+const EstateCard: React.FC<EstateCardPropsF> = ({
+  title,
+  place,
+  pictures,
+  handleCardClick,
+  showButton,
+  handleShowButtonClick,
+  initialCardImage,
+}) => {
   const classes = useStyles();
   return (
     <div className={cnEstateCard()}>
       <Paper>
-        {/* <h2>{title}</h2>
-      <p>{place}</p>
-      <Paper style={{ backgroundImage: `url(https://source.unsplash.com/random)` }}>
-        <Container maxWidth="md">
-          <Grid container>
-            <Grid item md={6}>
-              <div>
-                <Typography component="h2" gutterBottom color="inherit">
-                  Дом полностью в вашем распоряжении.
-                </Typography>
-                <Typography component="h2" gutterBottom color="inherit">
-                  Дом полностью в вашем распоряжении.
-                </Typography>
-                <Button>Показать все фото</Button>
-              </div>
-            </Grid>
-          </Grid>
-        </Container> */}
-
         <Container maxWidth="md">
           <h2>{title}</h2>
           <p>{place}</p>
-          <Grid container spacing={4}>
-            {cards.map((card) => (
+          <Grid container spacing={1}>
+            {pictures.map((card: never) => (
               <Grid item key={card} xs={6} sm={6} md={4}>
                 <CardMedia
-                  image="https://source.unsplash.com/random"
+                  // image="https://source.unsplash.com/random"
+                  image={card.image}
                   className={classes.CardMedia}
+                  card={card}
+                  onClick={() => {
+                    handleCardClick(card);
+                    console.log(initialCardImage.indexOf(card));
+                  }}
                 />
               </Grid>
             ))}
-            <Button>Показать все фото</Button>
+            {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
           </Grid>
-          <p>Тип дома: монолитный</p>
-          <p>Отделка: без отделки</p>
-          <p>Этаж: 13 из 13</p>
-          <p>Общая площадь: 415.8 м²</p>
-          <p>Жилая площадь: 155 м²</p>
-          <p>Площадь кухни: 35 м²</p>
-          <p>Вид из окна: на улицу, во двор</p>
-          <p>Балкон или лоджия: нет</p>
-          <p>Адрес: ул. Новый Арбат, д. 32</p>
+          <Container maxWidth="md" className={cnEstateCard('containerDescription')}>
+            <Grid className={cnEstateCard('containerDescription')} container spacing={10}>
+              <Grid item xs={6} sm={6} md={4}>
+                <p className={cnEstateCard('houseDescription')}>Тип дома: монолитный</p>
+                <p>Отделка: без отделки</p>
+                <p>Этаж: 13 из 13</p>
+                <p>Общая площадь: 415.8 м²</p>
+              </Grid>
+              <Grid item xs={6} sm={6} md={4}>
+                <p>Жилая площадь: 155 м²</p>
+                <p>Площадь кухни: 35 м²</p>
+                <p>Вид из окна: на улицу, во двор</p>
+                <p>Балкон или лоджия: нет</p>
+              </Grid>
+            </Grid>
+          </Container>
         </Container>
       </Paper>
     </div>
