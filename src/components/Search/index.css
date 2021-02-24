@@ -1,18 +1,17 @@
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
 .Search {
   margin: 10px;
-  max-width: 620px;
+  padding: 10px;
+
   display: flex;
   flex-direction: row;
-  flex-basis: 200px;
   justify-content: center;
+
+  max-width: 620px;
+
   background: #deddf126;
   border-radius: 18px;
-  padding: 10px;
   box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+  flex-basis: 200px;
 
   &__formBlock {
     padding: 10px;
@@ -20,6 +19,7 @@
 
   &__formBlockError {
     padding: 10px;
+
     border-bottom: 2px solid #f50057;
   }
 

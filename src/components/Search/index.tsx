@@ -16,13 +16,15 @@ import { cnSearch } from './cn-Search';
 
 import './index.css';
 
+const VALIDATE_INPUT_DEBOUNCE_TIME = 800;
+const PLACEHOLDER = 'метро Гостиный двор';
+
 const Search: React.FC = () => {
   const [validationError, setValidationError] = useState(false);
 
   const [FormState, setFormState] = useState({
     input: '',
-    buildingType: 'forLiving',
-    error: false,
+    buildingType: 'Residental',
   });
 
   const validate = (inputValue: string) => {
@@ -30,49 +32,39 @@ const Search: React.FC = () => {
 
     if (isValid === false) {
       setValidationError(true);
-      setFormState({ ...FormState, input: inputValue, error: true });
     } else {
       setValidationError(false);
-      setFormState({ ...FormState, input: inputValue, error: false });
     }
   };
 
   // функция debounce, задержка перед проверкой данных
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedInput = useCallback(
-    debounce((inputValue) => validate(inputValue), 800),
+  const debouncedValidation = useCallback(
+    debounce((inputValue) => validate(inputValue), VALIDATE_INPUT_DEBOUNCE_TIME),
     [],
   );
 
-  const handleInputChange = (inputValue: string) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValidationError(false);
-    setFormState({ ...FormState, input: inputValue });
-    debouncedInput(inputValue);
+    setFormState({ ...FormState, input: event.target.value });
+    debouncedValidation(event.target.value);
   };
 
-  const handleOtherFields = (inputValue: string, formField: string) => {
-    setFormState({ ...FormState, buildingType: inputValue });
-    console.log(inputValue, formField);
+  const handleBuildingTypeChange = (event: React.ChangeEvent<{ value: string | unknown }>) => {
+    setFormState({ ...FormState, buildingType: event.target.value as string });
+    console.log(event);
   };
 
-  const handleSubmit = (inputValue: FormEvent) => {
-    inputValue.preventDefault();
-    if (FormState.error) {
-      return console.log(`обнаружена ошибка ввода`);
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+
+    if (validationError) {
+      console.log(`обнаружена ошибка ввода`);
     }
     setFormState({ ...FormState, input: '' });
-    return console.log(`Данные успешно отправлены ${JSON.stringify(FormState)}`);
+    console.log(`Данные успешно отправлены ${JSON.stringify(FormState)}`);
   };
 
-  const getPlaceholder = () => {
-    if (validationError) {
-      return 'введите корректные данные';
-    }
-
-    return 'метро Гостиный двор';
-  };
-
-  // если ошибка в input
   return (
     <Container>
       <h1>Узнайте больше об арендодателе</h1>
@@ -84,8 +76,8 @@ const Search: React.FC = () => {
               type="text"
               error={validationError}
               value={FormState.input}
-              onChange={(event) => handleInputChange(event.target.value)}
-              placeholder={getPlaceholder()}
+              onChange={handleInputChange}
+              placeholder={PLACEHOLDER}
               style={{ minWidth: '300px' }}
             />
           </FormControl>
@@ -97,10 +89,10 @@ const Search: React.FC = () => {
             labelId="select-house"
             name="buildingType"
             value={FormState.buildingType}
-            onChange={(event) => handleOtherFields(event.target.value as string, 'buildingType')}
+            onChange={handleBuildingTypeChange}
           >
-            <MenuItem value="forLiving">Жилая</MenuItem>
-            <MenuItem value="forWork">Коммерческая</MenuItem>
+            <MenuItem value="Residental">Жилая</MenuItem>
+            <MenuItem value="Commercial">Коммерческая</MenuItem>
           </Select>
         </div>
         <div style={{ marginTop: '22px' }}>
