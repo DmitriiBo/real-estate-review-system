@@ -14,7 +14,7 @@ export const App: React.FC = () => {
     <div className={cnApp()}>
       <p className={cnApp('Title')}>Real Estate Review System</p>
       <Header title="Main" />
-      <Review title="ул.Стахановская, 54 лит 3" />
+      <Review adress="ул.Стахановская, 54 лит 3" />
     </div>
   );
 };

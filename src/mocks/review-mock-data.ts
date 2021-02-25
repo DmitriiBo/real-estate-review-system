@@ -1,10 +1,10 @@
-export const initialData = [
+export const mockReviews = [
   {
     id: 15645646541,
     author: 'Alex Yurkov',
-    photo:
+    authorAvatar:
       'https://images.unsplash.com/photo-1567784177951-6fa58317e16b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    count: 31,
+    countReview: 31,
     data: '25/01/2021',
     stars: 5,
     text:
@@ -20,10 +20,8 @@ export const initialData = [
   {
     id: 15645646542,
     author: 'Den Malfoy',
-    photo:
-      'https://images.unsplash.com/photo-1613869810108-70f9fe0cdef5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=701&q=80',
     property: 'ул.Стахановская, 54 лит 4',
-    count: 2,
+    countReview: 2,
     data: '25/03/2020',
     stars: 4.5,
     text: '',
@@ -31,10 +29,10 @@ export const initialData = [
   {
     id: 15645646543,
     author: 'Tashy Oakly',
-    photo:
+    authorAvatar:
       'https://images.unsplash.com/photo-1577880216142-8549e9488dad?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzN8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     property: 'ул.Стахановская, 54 лит 4',
-    count: 11,
+    countReview: 11,
     data: '01/05/2018',
     stars: 2,
     text:
