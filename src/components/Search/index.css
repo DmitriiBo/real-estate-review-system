@@ -1,5 +1,5 @@
 :root {
-  --searchWidth-width: 100%;
+  --search-width: 100%;
 }
 
 .Search {
@@ -10,7 +10,7 @@
   flex-direction: row;
   justify-content: center;
 
-  width: var(--searchWidth);
+  width: var(--search);
   min-height: 72px;
 
   background: #deddf126;
