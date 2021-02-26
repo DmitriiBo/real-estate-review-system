@@ -1,5 +1,9 @@
 .ImagePopup {
-  margin: 0;
+  visibility: hidden;
+
+  &__popupImageOpened {
+	display: flex;
+	margin: 0;
   padding: 0;
 	position: fixed;
 	top: 0;
@@ -10,12 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	visibility: hidden;
-
-  &__popupImageOpened {
-	display: flex;
 	visibility: visible;
-	opacity: 1;
 }
 
 &__popupImageOverlay {
@@ -39,31 +38,59 @@
 }
 
 &__popupImageCloseButton {
-  position: absolute;
-	background: url('../../images/Close_Icon.svg') center no-repeat;
-	border: 0;
-	outline: none;
-	top: -60px;
-	right: -60px;
-	background-color: transparent;
-	cursor: pointer;
-	width: 70px;
-	height: 70px;
-	box-sizing: border-box;
-	padding: 0;
+    cursor: pointer;
+    justify-content: space-between;
+    display: flex;
+    margin: 0px !important;
+    position: absolute;
+    top: 30px;
+	  left: 30px;
+    text-align: center !important;
+    text-decoration: none !important;
+    width: auto !important;
+    touch-action: manipulation !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    outline: none !important;
+    padding: 8px 16px !important;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s !important;
+    background: rgba(34, 34, 34, 0.1) !important;
+    color: rgb(34, 34, 34) !important;
+    border: none !important;
+    font-size: 14px !important;
+    line-height: 18px !important;
+    font-weight: 500 !important;
+}
+
+&__popupImageCloseButton:active {
+  transform: scale(0.96) !important;
+  background: rgba(34, 34, 34, 0.16) !important;
 }
 
 &__ButtonPrevious {
   width: 300px;
   color: red;
 }
+
+&__popupImageCloseButtonSvg {
+  height: 12px;
+  width: 12px;
+  display: block;
+  fill: currentcolor;
+  margin-right: 8px;
+  margin-top:auto;
+  margin-bottom:auto;
+}
 }
 
-.my-class-name {
+/* .my-class-name {
   color: red;
-}
+} */
 
-.imagePopup {
+/* .imagePopup {
   margin: 0;
   padding: 0;
 	position: fixed;
@@ -76,10 +103,4 @@
 	align-items: center;
 	justify-content: center;
 	visibility: hidden;
-}
-
-.popupImageOpened {
-	display: flex;
-	visibility: visible;
-	opacity: 1;
-}
+} */

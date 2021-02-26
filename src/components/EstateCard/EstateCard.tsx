@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface EstateCardPropsF {
+interface EstateCardProps {
   handleCardClick(card: NilCard): void;
   title: string;
   place: string;
@@ -27,7 +27,7 @@ interface EstateCardPropsF {
   initialCardImage: NilCard[];
 }
 
-const EstateCard: React.FC<EstateCardPropsF> = ({
+const EstateCard: React.FC<EstateCardProps> = ({
   title,
   place,
   pictures,
@@ -45,12 +45,19 @@ const EstateCard: React.FC<EstateCardPropsF> = ({
           <p>{place}</p>
           <Grid container spacing={1}>
             {pictures.map((card: NilCard) => (
-              <Grid item key={card?.image ?? ''} xs={6} sm={6} md={4}>
+              <Grid
+                item
+                key={card?.image ?? ''}
+                xs={6}
+                sm={6}
+                md={4}
+                // classes={{ item: 'first-child' }}
+                // className={cnEstateCard('image')}
+              >
                 <CardMedia
-                  // image="https://source.unsplash.com/random"
                   image={card?.image ?? ''}
                   className={classes.CardMedia}
-                  // card={card}
+                  // className={cnEstateCard('image')}
                   onClick={() => {
                     handleCardClick(card);
                     console.log(initialCardImage.indexOf(card));
@@ -58,8 +65,8 @@ const EstateCard: React.FC<EstateCardPropsF> = ({
                 />
               </Grid>
             ))}
-            {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
           </Grid>
+          {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
           <Container maxWidth="md" className={cnEstateCard('containerDescription')}>
             <Grid className={cnEstateCard('containerDescription')} container spacing={10}>
               <Grid item xs={6} sm={6} md={4}>

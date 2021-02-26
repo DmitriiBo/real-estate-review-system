@@ -1,9 +1,13 @@
 .EstateCard {
   padding: 10px;
-  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
 
 &__containerDescription {
   justify-content: center;
+
+}
+
+&__houseDescription {
+  color: black;
 }
 
 &__HouseType {
@@ -19,4 +23,15 @@
   background-color: #4CAF50;
   color: white;
 }
+&__image {
+  width: 600px;
+  height: 100px;
+  background-color: #f1f1f1;
+}
+}
+
+.first-child {
+  width: 600px;
+  background: red;
+  color: red;
 }

@@ -17,15 +17,26 @@ export const App: React.FC = () => {
   const [selectedCard, setSelectedCard] = React.useState<NilCard>(null);
   const [pictures, setPictures] = React.useState<NilCard[]>([]);
   const [showButton, setShowButton] = React.useState(true);
+  const [nextButton, setNextButton] = React.useState(true);
+  const [backButton, setBackButton] = React.useState(true);
   const [cards] = React.useState<NilCard[]>(initialCardImage);
 
   React.useEffect(() => {
     setPictures(cards.slice(0, 6));
   }, [cards]);
 
-  function handleShowButtonClick() {
-    setPictures(cards.slice(0, pictures.length + cards.length));
+  React.useEffect(() => {
     if (pictures.length === cards.length) {
+      setShowButton(false);
+    }
+    // if (pictures.length === cards.length - 2) {
+    //   setNextButton(false);
+    // }
+  }, [pictures.length, cards.length]);
+
+  function handleShowButtonClick() {
+    if (pictures.length !== cards.length) {
+      setPictures(cards.slice(0, pictures.length + cards.length));
       setShowButton(false);
     }
   }
@@ -34,10 +45,21 @@ export const App: React.FC = () => {
     setIsImagePopupOpen(false);
     setSelectedCard(null);
   }
-
   const handleCardClick = (card: NilCard) => {
+    const indexCard = initialCardImage.indexOf(card);
     setSelectedCard(card);
     setIsImagePopupOpen(true);
+    console.log(indexCard);
+    if (indexCard === 0) {
+      setBackButton(false);
+    } else {
+      setBackButton(true);
+    }
+    if (indexCard === cards.length - 2) {
+      setNextButton(false);
+    } else {
+      setNextButton(true);
+    }
   };
 
   function handleShowButtonNext(card: NilCard) {
@@ -46,13 +68,38 @@ export const App: React.FC = () => {
     const nextCardIndex = indexCard + 1;
     const nextCard = initialCardImage[nextCardIndex];
     setSelectedCard(nextCard);
+    // console.log(cards.length);
+    if (indexCard === cards.length - 2) {
+      setNextButton(false);
+    } else {
+      setNextButton(true);
+    }
+    if (indexCard === 0) {
+      setBackButton(false);
+    } else {
+      setBackButton(true);
+    }
   }
 
   function handleShowButtonPrevious(card: NilCard) {
     const indexCard = initialCardImage.indexOf(card);
     const previousCardIndex = indexCard - 1;
+    console.log(indexCard);
     const previousCard = initialCardImage[previousCardIndex];
     setSelectedCard(previousCard);
+    if (indexCard === 0) {
+      setBackButton(false);
+    } else {
+      setBackButton(true);
+    }
+    // if (indexCard > cards.length - 1) {
+    //   setNextButton(true);
+    // }
+    if (indexCard === cards.length - 2) {
+      setNextButton(false);
+    } else {
+      setNextButton(true);
+    }
   }
 
   return (
@@ -74,6 +121,8 @@ export const App: React.FC = () => {
         onClose={closeImagePopup}
         next={handleShowButtonNext}
         previous={handleShowButtonPrevious}
+        nextButton={nextButton}
+        backButton={backButton}
       />
     </div>
   );
