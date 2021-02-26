@@ -45,19 +45,10 @@ const EstateCard: React.FC<EstateCardProps> = ({
           <p>{place}</p>
           <Grid container spacing={1}>
             {pictures.map((card: NilCard) => (
-              <Grid
-                item
-                key={card?.image ?? ''}
-                xs={6}
-                sm={6}
-                md={4}
-                // classes={{ item: 'first-child' }}
-                // className={cnEstateCard('image')}
-              >
+              <Grid item key={card?.image ?? ''} xs={6} sm={6} md={4}>
                 <CardMedia
                   image={card?.image ?? ''}
                   className={classes.CardMedia}
-                  // className={cnEstateCard('image')}
                   onClick={() => {
                     handleCardClick(card);
                     console.log(initialCardImage.indexOf(card));
@@ -67,10 +58,10 @@ const EstateCard: React.FC<EstateCardProps> = ({
             ))}
           </Grid>
           {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
-          <Container maxWidth="md" className={cnEstateCard('containerDescription')}>
-            <Grid className={cnEstateCard('containerDescription')} container spacing={10}>
+          <Container maxWidth="md">
+            <Grid container spacing={10}>
               <Grid item xs={6} sm={6} md={4}>
-                <p className={cnEstateCard('houseDescription')}>Тип дома: монолитный</p>
+                <p>Тип дома: монолитный</p>
                 <p>Отделка: без отделки</p>
                 <p>Этаж: 13 из 13</p>
                 <p>Общая площадь: 415.8 м²</p>

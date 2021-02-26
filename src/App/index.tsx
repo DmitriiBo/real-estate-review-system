@@ -29,9 +29,6 @@ export const App: React.FC = () => {
     if (pictures.length === cards.length) {
       setShowButton(false);
     }
-    // if (pictures.length === cards.length - 2) {
-    //   setNextButton(false);
-    // }
   }, [pictures.length, cards.length]);
 
   function handleShowButtonClick() {
@@ -49,13 +46,12 @@ export const App: React.FC = () => {
     const indexCard = initialCardImage.indexOf(card);
     setSelectedCard(card);
     setIsImagePopupOpen(true);
-    console.log(indexCard);
     if (indexCard === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
     }
-    if (indexCard === cards.length - 2) {
+    if (indexCard === cards.length - 1) {
       setNextButton(false);
     } else {
       setNextButton(true);
@@ -64,17 +60,15 @@ export const App: React.FC = () => {
 
   function handleShowButtonNext(card: NilCard) {
     const indexCard = initialCardImage.indexOf(card);
-    console.log(indexCard);
     const nextCardIndex = indexCard + 1;
     const nextCard = initialCardImage[nextCardIndex];
     setSelectedCard(nextCard);
-    // console.log(cards.length);
     if (indexCard === cards.length - 2) {
       setNextButton(false);
     } else {
       setNextButton(true);
     }
-    if (indexCard === 0) {
+    if (initialCardImage.indexOf(nextCard) === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
@@ -84,18 +78,14 @@ export const App: React.FC = () => {
   function handleShowButtonPrevious(card: NilCard) {
     const indexCard = initialCardImage.indexOf(card);
     const previousCardIndex = indexCard - 1;
-    console.log(indexCard);
     const previousCard = initialCardImage[previousCardIndex];
     setSelectedCard(previousCard);
-    if (indexCard === 0) {
+    if (previousCardIndex === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
     }
-    // if (indexCard > cards.length - 1) {
-    //   setNextButton(true);
-    // }
-    if (indexCard === cards.length - 2) {
+    if (initialCardImage.indexOf(previousCard) === cards.length - 1) {
       setNextButton(false);
     } else {
       setNextButton(true);

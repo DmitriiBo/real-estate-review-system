@@ -1,37 +1,4 @@
 .EstateCard {
   padding: 10px;
-
-&__containerDescription {
-  justify-content: center;
-
 }
 
-&__houseDescription {
-  color: black;
-}
-
-&__HouseType {
-  color: red;
-  padding: 10px;
-}
-&__previous {
-  background-color: #f1f1f1;
-  color: black;
-}
-
-&__next {
-  background-color: #4CAF50;
-  color: white;
-}
-&__image {
-  width: 600px;
-  height: 100px;
-  background-color: #f1f1f1;
-}
-}
-
-.first-child {
-  width: 600px;
-  background: red;
-  color: red;
-}
