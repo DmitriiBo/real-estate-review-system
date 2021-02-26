@@ -13,7 +13,7 @@
     "lint-fix:css": "stylelint \"src/**/*.css\" --fix"
   },
   "engines": {
-    "node": "^v12.19.0",
+    "node": ">=v12.19.0",
     "yarn": "^1.22.10"
   },
   "config": {

@@ -1,28 +1,50 @@
 class RealEstateApi {
   readonly baseUrl: string;
 
-  readonly headers: HeadersInit;
+  readonly defaultHeaders: HeadersInit;
 
-  public fullUrl: string;
-
-  constructor(object: { theBaseUrl: string; theHeaders: HeadersInit }) {
-    this.baseUrl = object.theBaseUrl;
-    this.headers = object.theHeaders;
-    this.fullUrl = '';
+  constructor(options: { baseUrl: string }) {
+    this.baseUrl = options.baseUrl;
+    this.defaultHeaders = {
+      'Content-Type': 'application/json; charset=utf-8',
+    };
   }
 
-  async getData(url: string) {
-    this.fullUrl = this.baseUrl + url;
-    return fetch(this.fullUrl, { headers: this.headers }).then((response) => response.json());
+  private getHeaders(): HeadersInit {
+    const token = localStorage.getItem('token');
+
+    return {
+      ...this.defaultHeaders,
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  private async get(url: string, options?: { headers?: HeadersInit }) {
+    return fetch(`${this.baseUrl}/${url}`, {
+      headers: options?.headers || this.defaultHeaders,
+      method: 'GET',
+    });
+  }
+
+  private async post(url: string, options: { headers?: HeadersInit; body?: string }) {
+    return fetch(`${this.baseUrl}/${url}`, {
+      headers: options.headers || this.getHeaders(),
+      method: 'POST',
+      body: options.body,
+    });
+  }
+
+  public async getData(url: string, options?: { headers?: HeadersInit }): Promise<void> {
+    return this.get(url, options).then((response) => response.json());
+  }
+
+  public async postData(url: string, options: { headers?: HeadersInit; body?: string }) {
+    return this.post(url, options);
   }
 }
-const realEstateApi = new RealEstateApi({
-  theBaseUrl: 'https://jsonplaceholder.typicode.com',
-  theHeaders: {
-    'Content-Type': 'application/json',
-  },
-});
 
-realEstateApi.getData('/posts').then((data) => console.log({ data }));
+const realEstateApi = new RealEstateApi({
+  baseUrl: 'https://jsonplaceholder.typicode.com',
+});
 
 export default realEstateApi;
