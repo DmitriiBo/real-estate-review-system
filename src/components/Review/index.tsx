@@ -24,9 +24,9 @@ type ReviewProps = {
 };
 
 const Review: React.FC<ReviewProps> = ({ adress }) => {
-  const getResultRequestString = (res: number) => {
+  const getResultRequestString = () => {
     if (cards.length) {
-      return `${getResultWord(res, [
+      return `${getResultWord(cards.length, [
         'результат',
         'результата',
         'результатов',
@@ -37,12 +37,13 @@ const Review: React.FC<ReviewProps> = ({ adress }) => {
   };
 
   const classes = useStyles();
+
   return (
     <div className={cnReview()}>
       <Container className={classes.cardGrid}>
         <Grid container className={classes.header}>
-          <Grid spacing={4} className={classes.header__text}>
-            <Typography variant="h5">{getResultRequestString(cards.length)}</Typography>
+          <Grid container spacing={4} className={classes.header__text}>
+            <Typography variant="h5">{getResultRequestString()}</Typography>
           </Grid>
           <Grid item>
             <IconButton aria-label="Сохранить этот поиск">
@@ -56,22 +57,22 @@ const Review: React.FC<ReviewProps> = ({ adress }) => {
             <Grid item key={card.id} xs={12}>
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
-                  <Grid container spacing={2}>
+                  <Grid className={classes.cardContent__grid} container spacing={2}>
                     <Grid item>
                       <Avatar
+                        className={classes.largeavatar}
                         alt={card.author}
                         src={card.authorAvatar}
-                        className={classes.largeavatar}
                       />
                     </Grid>
-                    <Grid item xs container direction="column" spacing={0}>
+                    <Grid item xs container spacing={0} direction="column">
                       <Typography variant="h6">{card.author}</Typography>
                       <Typography gutterBottom variant="caption" display="block">
                         {getResultWord(card.countReview, ['отзыв', 'отзыва', 'отзывов'])}
                       </Typography>
                     </Grid>
                     <Grid item>
-                      <Typography variant="subtitle1">{card.data}</Typography>
+                      <Typography variant="caption">{card.data}</Typography>
                     </Grid>
                   </Grid>
                   <Rating
@@ -93,7 +94,7 @@ const Review: React.FC<ReviewProps> = ({ adress }) => {
                   {card.photos && (
                     <AvatarGroup max={3}>
                       {card.photos.map((i) => (
-                        <Avatar alt="" src={i} />
+                        <Avatar alt="" src={i} key={i} />
                       ))}
                     </AvatarGroup>
                   )}

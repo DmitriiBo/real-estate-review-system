@@ -33,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '90%',
     wordWrap: 'break-word',
   },
+  cardContent__grid: {
+    paddingBottom: theme.spacing(1),
+  },
+  cardActions: {
+    color: '#f9fcff',
+  },
 }));
 
 export default useStyles;
