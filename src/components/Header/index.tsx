@@ -1,20 +1,38 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import { AppBar } from '@material-ui/core';
 
 import { cnHeader } from './cn-header';
 
-type HeaderProps = {
-  title: string;
-};
+import './index.css';
 
-const Header: React.FC<HeaderProps> = ({ title }) => {
+const TITLE = 'Real Estate Review System';
+
+const Header: React.FC = () => {
   return (
-    <div className={cnHeader()}>
-      <p>{title}</p>
-      <Button variant="outlined" color="primary" onClick={() => alert('Test')}>
-        Click me
-      </Button>
-    </div>
+    <AppBar position="static">
+      <div className={cnHeader()}>
+        <img alt="react logo" src="./react.svg" />
+        <h1>{TITLE}</h1>
+        <ul>
+          <li>
+            <NavLink exact to="/" className="nav-link">
+              Главная
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/register" className="nav-link">
+              Регистрация
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/login" className="nav-link">
+              Вход
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    </AppBar>
   );
 };
 
