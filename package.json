@@ -13,7 +13,7 @@
     "lint-fix:css": "stylelint \"src/**/*.css\" --fix"
   },
   "engines": {
-    "node": "^v12.19.0",
+    "node": ">=12.19.0",
     "yarn": "^1.22.10"
   },
   "config": {
@@ -73,8 +73,8 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "@fontsource/roboto": "^4.2.1",
     "@material-ui/core": "^4.11.3",
+    "@fontsource/roboto": "^4.2.1",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "bem-cn": "^3.0.1",
