@@ -26,11 +26,11 @@ class RealEstateApi {
     });
   }
 
-  private async post(url: string, options: { headers?: HeadersInit; body?: string }) {
+  private async post(url: string, options: { headers?: HeadersInit; body: unknown }) {
     return fetch(`${this.baseUrl}/${url}`, {
       headers: options.headers || this.getHeaders(),
       method: 'POST',
-      body: options.body,
+      body: JSON.stringify(options.body),
     });
   }
 
@@ -38,7 +38,7 @@ class RealEstateApi {
     return this.get(url, options).then((response) => response.json());
   }
 
-  public async postData(url: string, options: { headers?: HeadersInit; body?: string }) {
+  public async postData(url: string, options: { headers?: HeadersInit; body: unknown }) {
     return this.post(url, options);
   }
 }
