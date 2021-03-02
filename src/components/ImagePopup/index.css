@@ -14,7 +14,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	visibility: visible;
+  visibility: visible;
 }
 
 &__popupImageOverlay {
@@ -26,13 +26,12 @@
 }
 
 
-&__popupImageConteiner {
-	display: flex;
+&__popupImageContainer {
+  display: flex;
 }
 
 &__popupImageImage {
-	width: 700px;
-	height: 700px;
+	max-width: 70vw;
 	border-radius: 8px;
   z-index: 2;
 }
@@ -41,66 +40,121 @@
     cursor: pointer;
     justify-content: space-between;
     display: flex;
-    margin: 0px !important;
+    margin: 0px;
     position: absolute;
     top: 30px;
 	  left: 30px;
-    text-align: center !important;
-    text-decoration: none !important;
-    width: auto !important;
-    touch-action: manipulation !important;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-    font-size: 14px !important;
-    line-height: 18px !important;
-    font-weight: 600 !important;
-    border-radius: 8px !important;
-    outline: none !important;
-    padding: 8px 16px !important;
-    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s !important;
-    background: rgba(34, 34, 34, 0.1) !important;
-    color: rgb(34, 34, 34) !important;
-    border: none !important;
-    font-size: 14px !important;
-    line-height: 18px !important;
-    font-weight: 500 !important;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    touch-action: manipulation;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    outline: none;
+    padding: 8px 16px;
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+    background: rgba(34, 34, 34, 0.1);
+    color: rgb(34, 34, 34);
+    border: none;
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: 500;
 }
 
 &__popupImageCloseButton:active {
-  transform: scale(0.96) !important;
-  background: rgba(34, 34, 34, 0.16) !important;
+  transform: scale(0.96);
+  background: rgba(34, 34, 34, 0.16);
 }
 
-&__ButtonPrevious {
-  width: 300px;
-  color: red;
+&__popupImageNextButton {
+  position: absolute;
+  appearance: none;
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  margin: 0px;
+  right: 5%;
+  top: 50%;
+  padding: 0px;
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  touch-action: manipulation;
+  background: transparent;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
 }
 
-&__popupImageCloseButtonSvg {
-  height: 12px;
-  width: 12px;
+&__popupImageBackButton {
+  position: absolute;
+  appearance: none;
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  margin: 0px;
+  top: 50%;
+  left: 5%;
+  padding: 0px;
+  color: rgb(34, 34, 34);
+  cursor: pointer;
+  touch-action: manipulation;
+  background: transparent;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+}
+
+&__popupImageBackButton:active {
+  transform: scale(0.96);
+  background: rgba(34, 34, 34, 0.16);
+}
+
+&__popupImageNextButton:active {
+  transform: scale(0.96);
+  background: rgba(34, 34, 34, 0.16);
+}
+
+&__popupImageNextButton::before {
+  content: "";
   display: block;
-  fill: currentcolor;
-  margin-right: 8px;
-  margin-top:auto;
-  margin-bottom:auto;
-}
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(176, 176, 176);
 }
 
-/* .my-class-name {
-  color: red;
-} */
+&__popupImageBackButton::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+  border: 1px solid rgb(176, 176, 176);
+}
 
-/* .imagePopup {
-  margin: 0;
-  padding: 0;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: weight;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	visibility: hidden;
-} */
+@media screen and (max-width: 500px) {
+  &__popupImageNextButton::before {
+    width: 28px;
+    height: 28px;
+  }
+  &__popupImageBackButton::before {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+&__popupImageNextAndBackButtonSpan {
+  position: relative;
+}
+}

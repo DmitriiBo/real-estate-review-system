@@ -1,4 +1,18 @@
 .EstateCard {
   padding: 10px;
-}
 
+  /* &__EstateCardGrid {
+    display: grid;
+    gap: 10px;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  &__EstateCardGrid:nth-child(1) {
+    background: #666;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 6;
+    } */
+  }

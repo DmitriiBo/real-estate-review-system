@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, CardMedia, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+import { mockCardData } from '../../mocks/mock-properties-data';
 import type { NilCard } from '../Card/Card';
 
 import { cnEstateCard } from './cn-EstateCard';
@@ -13,68 +14,81 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
   },
   CardMedia: {
-    paddingTop: '56%',
+    paddingTop: '100%',
+    cursor: 'pointer',
   },
 }));
 
 interface EstateCardProps {
   handleCardClick(card: NilCard): void;
-  title: string;
-  place: string;
   pictures: NilCard[];
   showButton: boolean;
   handleShowButtonClick(): void;
-  initialCardImage: NilCard[];
+  cardImages: NilCard[];
 }
 
 const EstateCard: React.FC<EstateCardProps> = ({
-  title,
-  place,
   pictures,
   handleCardClick,
   showButton,
   handleShowButtonClick,
-  initialCardImage,
+  cardImages,
 }) => {
   const classes = useStyles();
   return (
     <div className={cnEstateCard()}>
       <Paper>
-        <Container maxWidth="md">
-          <h2>{title}</h2>
-          <p>{place}</p>
-          <Grid container spacing={1}>
-            {pictures.map((card: NilCard) => (
-              <Grid item key={card?.image ?? ''} xs={6} sm={6} md={4}>
-                <CardMedia
-                  image={card?.image ?? ''}
-                  className={classes.CardMedia}
-                  onClick={() => {
-                    handleCardClick(card);
-                    console.log(initialCardImage.indexOf(card));
-                  }}
-                />
-              </Grid>
-            ))}
-          </Grid>
-          {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
-          <Container maxWidth="md">
-            <Grid container spacing={10}>
-              <Grid item xs={6} sm={6} md={4}>
-                <p>Тип дома: монолитный</p>
-                <p>Отделка: без отделки</p>
-                <p>Этаж: 13 из 13</p>
-                <p>Общая площадь: 415.8 м²</p>
-              </Grid>
-              <Grid item xs={6} sm={6} md={4}>
-                <p>Жилая площадь: 155 м²</p>
-                <p>Площадь кухни: 35 м²</p>
-                <p>Вид из окна: на улицу, во двор</p>
-                <p>Балкон или лоджия: нет</p>
-              </Grid>
+        {mockCardData.map((card: NilCard) => (
+          <Container maxWidth="md" key={card?.title ?? ''}>
+            <h2>{card?.title ?? ''}</h2>
+            <p>{card?.place ?? ''}</p>
+            <Grid container spacing={1}>
+              {/* <div className={cnEstateCard('EstateCardGrid')}> */}
+              {pictures.map((cardImg: NilCard) => (
+                <Grid
+                  item
+                  // key={cardImg?.images ?? ''}
+                  // key={cardImg ?? ''}
+                  xs={6}
+                  sm={6}
+                  md={4}
+                  spacing={1}
+                  // classes={{ item: 'EstateCardGridImages' }}
+                  // className={cnEstateCard('EstateCardGridImages')}
+                >
+                  <CardMedia
+                    image={cardImg ?? ''}
+                    // image={card?.images[0] ?? ''}
+                    className={classes.CardMedia}
+                    onClick={() => {
+                      handleCardClick(cardImg);
+                      console.log(cardImages.indexOf(card));
+                    }}
+                  />
+                </Grid>
+              ))}
             </Grid>
+
+            {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
+
+            <Container maxWidth="md">
+              <Grid container spacing={10}>
+                <Grid item xs={6} sm={6} md={4}>
+                  <p>Тип дома: {card?.typeHouse ?? ''}</p>
+                  <p>Отделка: {card?.houseRepairs ?? ''}</p>
+                  <p>Этаж: {card?.floor ?? ''}</p>
+                  <p>Общая площадь: {card?.totalArea ?? ''}</p>
+                </Grid>
+                <Grid item xs={6} sm={6} md={4}>
+                  <p>Жилая площадь: {card?.livingSpace ?? ''}</p>
+                  <p>Площадь кухни: {card?.kitchenArea ?? ''}</p>
+                  <p>Вид из окна: {card?.view ?? ''}</p>
+                  <p>Балкон или лоджия: {card?.balconyOrLoggia ?? ''}</p>
+                </Grid>
+              </Grid>
+            </Container>
           </Container>
-        </Container>
+        ))}
       </Paper>
     </div>
   );

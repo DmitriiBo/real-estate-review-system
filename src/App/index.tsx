@@ -6,7 +6,8 @@ import type { NilCard } from '../components/Card/Card';
 import EstateCard from '../components/EstateCard/EstateCard';
 import Header from '../components/Header';
 import ImagePopup from '../components/ImagePopup/ImagePopup';
-import { initialCardImage } from '../utils/utils';
+// import { mockCardImages } from '../mocks/mock-properties-data';
+import { mockCardData } from '../mocks/mock-properties-data';
 
 import { cnApp } from './cn-app';
 
@@ -19,21 +20,23 @@ export const App: React.FC = () => {
   const [showButton, setShowButton] = React.useState(true);
   const [nextButton, setNextButton] = React.useState(true);
   const [backButton, setBackButton] = React.useState(true);
-  const [cards] = React.useState<NilCard[]>(initialCardImage);
+
+  const cardImages = mockCardData[0]?.images;
+  console.log(cardImages);
 
   React.useEffect(() => {
-    setPictures(cards.slice(0, 6));
-  }, [cards]);
+    setPictures(cardImages.slice(0, 6));
+  }, [cardImages]);
 
   React.useEffect(() => {
-    if (pictures.length === cards.length) {
+    if (pictures.length === cardImages?.length) {
       setShowButton(false);
     }
-  }, [pictures.length, cards.length]);
+  }, [pictures.length, cardImages?.length]);
 
   function handleShowButtonClick() {
-    if (pictures.length !== cards.length) {
-      setPictures(cards.slice(0, pictures.length + cards.length));
+    if (pictures.length !== cardImages?.length) {
+      setPictures(cardImages?.slice(0, pictures.length + cardImages?.length));
       setShowButton(false);
     }
   }
@@ -43,7 +46,7 @@ export const App: React.FC = () => {
     setSelectedCard(null);
   }
   const handleCardClick = (card: NilCard) => {
-    const indexCard = initialCardImage.indexOf(card);
+    const indexCard = cardImages?.indexOf(card);
     setSelectedCard(card);
     setIsImagePopupOpen(true);
     if (indexCard === 0) {
@@ -51,7 +54,7 @@ export const App: React.FC = () => {
     } else {
       setBackButton(true);
     }
-    if (indexCard === cards.length - 1) {
+    if (indexCard === cardImages.length - 1) {
       setNextButton(false);
     } else {
       setNextButton(true);
@@ -59,16 +62,16 @@ export const App: React.FC = () => {
   };
 
   function handleShowButtonNext(card: NilCard) {
-    const indexCard = initialCardImage.indexOf(card);
+    const indexCard = cardImages.indexOf(card);
     const nextCardIndex = indexCard + 1;
-    const nextCard = initialCardImage[nextCardIndex];
+    const nextCard = cardImages[nextCardIndex];
     setSelectedCard(nextCard);
-    if (indexCard === cards.length - 2) {
+    if (indexCard === cardImages.length - 2) {
       setNextButton(false);
     } else {
       setNextButton(true);
     }
-    if (initialCardImage.indexOf(nextCard) === 0) {
+    if (cardImages.indexOf(nextCard) === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
@@ -76,16 +79,16 @@ export const App: React.FC = () => {
   }
 
   function handleShowButtonPrevious(card: NilCard) {
-    const indexCard = initialCardImage.indexOf(card);
+    const indexCard = cardImages.indexOf(card);
     const previousCardIndex = indexCard - 1;
-    const previousCard = initialCardImage[previousCardIndex];
+    const previousCard = cardImages[previousCardIndex];
     setSelectedCard(previousCard);
     if (previousCardIndex === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
     }
-    if (initialCardImage.indexOf(previousCard) === cards.length - 1) {
+    if (cardImages.indexOf(previousCard) === cardImages.length - 1) {
       setNextButton(false);
     } else {
       setNextButton(true);
@@ -98,12 +101,10 @@ export const App: React.FC = () => {
       <Header title="Main" />
       <EstateCard
         handleCardClick={handleCardClick}
-        title="4-к. апартаменты, 415,8 м², 13/13 эт."
-        place="Moscow, Россия, ул. Новый Арбат, д. 32"
         pictures={pictures}
         showButton={showButton}
         handleShowButtonClick={handleShowButtonClick}
-        initialCardImage={initialCardImage}
+        cardImages={cardImages}
       />
       <ImagePopup
         card={selectedCard}
