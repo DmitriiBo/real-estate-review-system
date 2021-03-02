@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import {
   Button,
   Container,
@@ -31,8 +31,6 @@ const Search: React.FC = () => {
     inputValue: '',
     buildingType: 'Residental',
   });
-
-  const [query, setQuery] = useState(false);
 
   const validate = (inputValue: string) => {
     if (!inputValue) {
@@ -82,9 +80,6 @@ const Search: React.FC = () => {
 
     console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
     setFormState({ ...formState, inputValue: '' });
-
-    setQuery(true);
-    console.log(getData);
   };
 
   return (
