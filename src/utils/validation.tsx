@@ -10,4 +10,15 @@ const validateSearch = (inputValue: string): boolean => {
   return true;
 };
 
+export const validateEmail = (inputValue: string): boolean => {
+  const regMatch = inputValue.match(
+    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i,
+  );
+  if (regMatch === null) {
+    return false;
+  }
+
+  return true;
+};
+
 export default validateSearch;
