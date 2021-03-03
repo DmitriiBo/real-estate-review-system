@@ -27,8 +27,7 @@ const Reviews: React.FC = () => {
         <Grid item xs={12} className={classes.header}>
           <Typography variant="h5">{getResultRequestString()}</Typography>
         </Grid>
-
-        {cards.length && cards.map((card) => <Review key={card.id} reviewCard={card} />)}
+        {cards.length && cards.map((card) => <Review key={card.id} {...card} />)}
       </Container>
     </div>
   );
