@@ -2,8 +2,8 @@ import React from 'react';
 import { Button, CardMedia, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { mockCardData } from '../../mocks/mock-properties-data';
-import type { NilCard } from '../Card/Card';
+import { mockHomesData } from '../../mocks/mock-properties-data';
+import type { NilHouseData } from '../HouseData/HouseData';
 
 import { cnEstateCard } from './cn-EstateCard';
 
@@ -19,71 +19,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface EstateCardProps {
-  handleCardClick(card: NilCard): void;
-  pictures: NilCard[];
+interface EstatehouseProps {
+  handleImageClick(image: string): void;
+  // pictures: NilHouseData[];
   showButton: boolean;
   handleShowButtonClick(): void;
-  cardImages: NilCard[];
+  // houseImages: NilHouseData[];
 }
 
-const EstateCard: React.FC<EstateCardProps> = ({
-  pictures,
-  handleCardClick,
+const Estatehouse: React.FC<EstatehouseProps> = ({
+  // pictures,
+  handleImageClick,
   showButton,
   handleShowButtonClick,
-  cardImages,
+  // houseImages,
 }) => {
   const classes = useStyles();
   return (
     <div className={cnEstateCard()}>
       <Paper>
-        {mockCardData.map((card: NilCard) => (
-          <Container maxWidth="md" key={card?.title ?? ''}>
-            <h2>{card?.title ?? ''}</h2>
-            <p>{card?.place ?? ''}</p>
+        {mockHomesData.map((house: NilHouseData) => (
+          <Container maxWidth="md" key={house?.title ?? ''}>
+            <h2>{house?.title ?? ''}</h2>
+            <p>{house?.place ?? ''}</p>
+
             <Grid container spacing={1}>
-              {/* <div className={cnEstateCard('EstateCardGrid')}> */}
-              {pictures.map((cardImg: NilCard) => (
-                <Grid
-                  item
-                  // key={cardImg?.images ?? ''}
-                  // key={cardImg ?? ''}
-                  xs={6}
-                  sm={6}
-                  md={4}
-                  spacing={1}
-                  // classes={{ item: 'EstateCardGridImages' }}
-                  // className={cnEstateCard('EstateCardGridImages')}
-                >
+              {house?.images.map((image: string) => (
+                <Grid item xs={6} sm={6} md={4} spacing={1}>
                   <CardMedia
-                    image={cardImg ?? ''}
-                    // image={card?.images[0] ?? ''}
+                    image={image}
                     className={classes.CardMedia}
                     onClick={() => {
-                      handleCardClick(cardImg);
-                      console.log(cardImages.indexOf(card));
+                      handleImageClick(image);
+                      // console.log(houseImages.indexOf(house));
                     }}
                   />
                 </Grid>
               ))}
             </Grid>
-
             {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
 
             <Container maxWidth="md">
               <Grid container spacing={10}>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Тип дома: {card?.typeHouse ?? ''}</p>
-                  <p>Отделка: {card?.houseRepairs ?? ''}</p>
-                  <p>Этаж: {card?.floor ?? ''}</p>
-                  <p>Общая площадь: {card?.totalArea ?? ''}</p>
+                  <p>Тип дома: {house?.typeHouse ?? ''}</p>
+                  <p>Отделка: {house?.houseRepairs ?? ''}</p>
+                  <p>Этаж: {house?.floor ?? ''}</p>
+                  <p>Общая площадь: {house?.totalArea ?? ''}</p>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Жилая площадь: {card?.livingSpace ?? ''}</p>
-                  <p>Площадь кухни: {card?.kitchenArea ?? ''}</p>
-                  <p>Вид из окна: {card?.view ?? ''}</p>
-                  <p>Балкон или лоджия: {card?.balconyOrLoggia ?? ''}</p>
+                  <p>Жилая площадь: {house?.livingSpace ?? ''}</p>
+                  <p>Площадь кухни: {house?.kitchenArea ?? ''}</p>
+                  <p>Вид из окна: {house?.view ?? ''}</p>
+                  <p>Балкон или лоджия: {house?.balconyOrLoggia ?? ''}</p>
                 </Grid>
               </Grid>
             </Container>
@@ -94,4 +82,4 @@ const EstateCard: React.FC<EstateCardProps> = ({
   );
 };
 
-export default EstateCard;
+export default Estatehouse;

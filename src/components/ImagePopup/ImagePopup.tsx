@@ -3,16 +3,17 @@ import React from 'react';
 import { BackIcon } from '../../assets/icons/BackIcon';
 import { CloseIcon } from '../../assets/icons/CloseIcon';
 import { NextIcon } from '../../assets/icons/NextIcon';
-import type { NilCard } from '../Card/Card';
 
+// import type { NilHouseData } from '../HouseData/HouseData';
 import { cnImagePopup } from './cn-ImagePopup';
 
 import './index.css';
 
 interface ImagePopupProps {
-  next(card: NilCard): void;
-  previous(card: NilCard): void;
-  card: NilCard;
+  next(image: string): void;
+  previous(image: string): void;
+  // image: NilHouseData;
+  image: string;
   isOpen: boolean;
   onClose(): void;
   nextButton: boolean;
@@ -22,7 +23,7 @@ interface ImagePopupProps {
 const ImagePopup: React.FC<ImagePopupProps> = ({
   isOpen,
   onClose,
-  card,
+  image,
   next,
   previous,
   backButton,
@@ -65,7 +66,7 @@ const ImagePopup: React.FC<ImagePopupProps> = ({
       {backButton && (
         <button
           onClick={() => {
-            previous(card);
+            previous(image);
           }}
           aria-label="Далее"
           type="button"
@@ -81,13 +82,13 @@ const ImagePopup: React.FC<ImagePopupProps> = ({
         {/* classes={{ label: 'my-class-name' }} */}
 
         {/* <img src={card?.image ?? ''} alt="фото" className={cnImagePopup('popupImageImage')} /> */}
-        <img src={card ?? ''} alt="фото" className={cnImagePopup('popupImageImage')} />
+        <img src={image ?? ''} alt="фото" className={cnImagePopup('popupImageImage')} />
       </div>
 
       {nextButton && (
         <button
           onClick={() => {
-            next(card);
+            next(image);
           }}
           aria-label="Далее"
           type="button"
