@@ -17,7 +17,7 @@ import getResultWord from '../../utils/getResultWord';
 import { cnReview } from './cn-review';
 import useStyles from './use-styles';
 
-type ReviewCardProps = {
+type ReviewProps = {
   id?: number;
   author?: string;
   authorAvatar?: string;
@@ -29,7 +29,7 @@ type ReviewCardProps = {
   photos?: string[];
 };
 
-const Review: React.FunctionComponent<ReviewCardProps> = (props) => {
+const Review: React.FunctionComponent<ReviewProps> = (props) => {
   const classes = useStyles();
 
   return (
