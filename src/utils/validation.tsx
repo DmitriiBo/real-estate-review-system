@@ -21,4 +21,13 @@ export const validateEmail = (inputValue: string): boolean => {
   return true;
 };
 
+export const validatePhone = (inputValue: string): boolean => {
+  const regMatch = inputValue.match(/^((\+7|7|8)+([0-9]){10})$/i);
+  if (regMatch === null) {
+    return false;
+  }
+
+  return true;
+};
+
 export default validateSearch;

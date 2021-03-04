@@ -1,67 +1,97 @@
-import React, { FormEvent, ReactNode, useState } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
-import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
+import React, { FormEvent, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import {
+  Button,
+  Container,
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+} from '@material-ui/core';
 
-import { validateEmail } from '../../utils/validation';
+import { validateEmail, validatePhone } from '../../utils/validation';
 
 import { cnRegister } from './cn-register';
 
 import './index.css';
 
 const RegisterForm: React.FC = () => {
-  const [regState, setRegState] = useState({ login: '', password: '', email: '' });
+  const [regState, setRegState] = useState({
+    login: '',
+    name: '',
+    password: '',
+    email: '',
+    phone: '',
+  });
   const [inputState, setInputState] = useState({
     login: '',
+    name: '',
     password: '',
     password2: '',
     email: '',
+    phone: '',
   });
   const [validationError, setValidationError] = useState({
     email: false,
     password: false,
     passwordConfirm: false,
+    phone: false,
   });
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    // const data = (event.target as HTMLInputElement).value;
-    if (validationError.email || validationError.password || validationError.passwordConfirm) {
-      return console.error(`errorFound: ${JSON.stringify(validationError)}`);
+
+    if (
+      validationError.email ||
+      validationError.password ||
+      validationError.passwordConfirm ||
+      validationError.phone
+    ) {
+      console.error(`errorFound: ${JSON.stringify(validationError)}`);
+      return;
     }
 
+    if (inputState.password !== inputState.password2) {
+      setValidationError({
+        ...validationError,
+        password: true,
+      });
+      console.error(`errorFound: ${JSON.stringify(validationError)}`);
+      return;
+    }
     console.log(regState);
-
-    setInputState({ login: '', password: '', password2: '', email: '' });
-
-    return <Redirect from="/register" to="/new-path" />;
+    setInputState({ login: '', name: '', password: '', password2: '', email: '', phone: '' });
   };
 
-  const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): ReactNode => {
+  const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
 
     setInputState({ ...inputState, login: data });
     setRegState({ ...regState, login: data });
-
-    return <h2>Вы успешно вошли</h2>;
   };
 
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): ReactNode => {
+  const handleName = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const data = event.target.value;
+
+    setInputState({ ...inputState, name: data });
+    setRegState({ ...regState, name: data });
+  };
+
+  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
 
     setInputState({ ...inputState, password: data });
     setRegState({ ...regState, password: data });
-    setValidationError({ ...validationError, password: false });
-    return <h2>Вы успешно вошли</h2>;
   };
 
   const handlePassword2 = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
     if (data === inputState.password) {
       setInputState({ ...inputState, password2: data });
-      setValidationError({ ...validationError, passwordConfirm: false });
+      setValidationError({ ...validationError, password: false, passwordConfirm: false });
     } else {
       setInputState({ ...inputState, password2: data });
-      setValidationError({ ...validationError, passwordConfirm: true });
+      setValidationError({ ...validationError, password: true, passwordConfirm: true });
     }
   };
 
@@ -74,62 +104,103 @@ const RegisterForm: React.FC = () => {
     const result = validateEmail(data);
     setValidationError({ ...validationError, email: !result });
   };
+  const handlePhone = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const data = event.target.value;
+
+    setInputState({ ...inputState, phone: data });
+    setRegState({ ...regState, phone: data });
+
+    const result = validatePhone(data);
+    setValidationError({ ...validationError, phone: !result });
+  };
 
   return (
     <Container maxWidth="md">
       <h1>Форма регистрации</h1>
       <form className={cnRegister()} onSubmit={handleSubmit}>
-        <FormGroup>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Имя пользователя (логин)</InputLabel>
-            <Input
-              id="login"
-              type="text"
-              onChange={handleLogin}
-              value={inputState.login}
-              required
-              aria-describedby="my-helper-text"
-            />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Пароль</InputLabel>
-            <Input
-              id="password"
-              onChange={handlePassword}
-              type="text"
-              value={inputState.password}
-              required
-              aria-describedby="my-helper-text"
-            />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Повторите пароль</InputLabel>
-            <Input
-              id="password2"
-              type="text"
-              required
-              aria-describedby="my-helper-text"
-              onChange={handlePassword2}
-              value={inputState.password2}
-              error={validationError.passwordConfirm}
-            />
-          </FormControl>
-          <FormControl>
-            <InputLabel htmlFor="my-input">Email адрес</InputLabel>
-            <Input
-              id="my-input"
-              onChange={handleEmail}
-              value={inputState.email}
-              error={validationError.email}
-              type="text"
-              required
-              aria-describedby="my-helper-text"
-            />
-          </FormControl>
-          <Button variant="outlined" size="medium" color="primary" type="submit">
-            Зарегистрироваться
-          </Button>
-        </FormGroup>
+        <FormControl>
+          <InputLabel htmlFor="Login">Имя пользователя (логин)</InputLabel>
+          <Input
+            id="Login"
+            type="text"
+            onChange={handleLogin}
+            value={inputState.login}
+            required
+            aria-describedby="my-helper-text"
+          />
+          <FormHelperText id="my-helper-text">
+            Имя пользователя от 8 символов, буквы только латиница
+          </FormHelperText>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="Name">Фамилия Имя Отчество</InputLabel>
+          <Input
+            id="Name"
+            type="text"
+            onChange={handleName}
+            value={inputState.name}
+            required
+            aria-describedby="my-helper-text"
+          />
+          <FormHelperText id="my-helper-text">Ваше ФИО</FormHelperText>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="Password">Пароль</InputLabel>
+          <Input
+            id="Password"
+            onChange={handlePassword}
+            type="text"
+            value={inputState.password}
+            error={validationError.password}
+            required
+            aria-describedby="my-helper-text"
+          />
+          <FormHelperText id="my-helper-text">
+            От 8 символов, может содержать буквы и цифры символы !)(|
+          </FormHelperText>
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="Password2">Повторите пароль</InputLabel>
+          <Input
+            id="Password2"
+            type="text"
+            required
+            aria-describedby="my-helper-text"
+            onChange={handlePassword2}
+            value={inputState.password2}
+            error={validationError.passwordConfirm}
+          />
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="Email">Email адрес</InputLabel>
+          <Input
+            id="Email"
+            onChange={handleEmail}
+            value={inputState.email}
+            error={validationError.email}
+            type="text"
+            required
+            aria-describedby="my-helper-text"
+          />
+        </FormControl>
+        <FormControl>
+          <InputLabel htmlFor="Phone">Телефон</InputLabel>
+          <Input
+            id="Phone"
+            type="text"
+            onChange={handlePhone}
+            value={inputState.phone}
+            error={validationError.phone}
+            required
+            aria-describedby="my-helper-text"
+          />
+          <FormHelperText id="my-helper-text">
+            Телефон начинается с 7 или 8, пример 89454560055
+          </FormHelperText>
+        </FormControl>
+        <Button variant="outlined" size="medium" color="primary" type="submit">
+          Зарегистрироваться
+        </Button>
       </form>
     </Container>
   );
