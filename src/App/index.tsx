@@ -4,7 +4,6 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
@@ -27,7 +26,6 @@ export const App: React.FC = () => {
               <Route path="/login" component={LoginForm} />
             </Switch>
           </main>
-          <Footer />
         </Container>
       </HashRouter>
     </div>
