@@ -4,6 +4,7 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
@@ -17,13 +18,16 @@ export const App: React.FC = () => {
   return (
     <div className={cnApp()}>
       <HashRouter>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" disableGutters>
           <Header />
-          <Switch>
-            <Route path="/" exact component={Search} />
-            <Route path="/register" component={RegisterForm} />
-            <Route path="/login" component={LoginForm} />
-          </Switch>
+          <main className={cnApp('main')}>
+            <Switch>
+              <Route path="/" exact component={Search} />
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+            </Switch>
+          </main>
+          <Footer />
         </Container>
       </HashRouter>
     </div>

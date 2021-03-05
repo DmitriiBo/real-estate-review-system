@@ -2,6 +2,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
+body {
+  margin: 0;
+}
+
 .App {
   margin: 0;
   padding: 0;
@@ -12,5 +16,11 @@
     text-align: center;
 
     color: #000;
+  }
+
+  &__main {
+    padding: 40px 40px 0 40px;
+
+    min-height: calc(100vh - 191px);
   }
 }
