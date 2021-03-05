@@ -1,18 +1,202 @@
 .EstateCard {
   padding: 10px;
 
-  /* &__EstateCardGrid {
-    display: grid;
-    gap: 10px;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
+  &__ImagePopup {
+    visibility: hidden;
   }
 
-  &__EstateCardGrid:nth-child(1) {
-    background: #666;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 6;
-    } */
+  &__popupImageOpened {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    visibility: visible;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: weight;
   }
+
+  &__popupImageOverlay {
+    position: fixed;
+
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+
+    background-color: #fff;
+  }
+
+  &__popupImageContainer {
+    display: flex;
+  }
+
+  &__popupImageImage {
+    z-index: 2;
+
+    max-width: 70vw;
+
+    border-radius: 8px;
+  }
+
+  &__popupImageCloseButton {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+
+    margin: 0;
+    padding: 8px 16px;
+
+    display: flex;
+    justify-content: space-between;
+
+    width: auto;
+
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    color: rgb(34, 34, 34);
+    background: rgba(34, 34, 34, 0.1);
+    border: none;
+    border-radius: 8px;
+    outline: none;
+
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s,
+      transform 0.1s ease 0s;
+    touch-action: manipulation;
+  }
+
+  &__popupImageCloseButton:active {
+    background: rgba(34, 34, 34, 0.16);
+
+    transform: scale(0.96);
+  }
+
+  &__popupImageNextButton {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+
+    margin: 0;
+    padding: 0;
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    color: rgb(34, 34, 34);
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s,
+      transform 0.1s ease 0s;
+    appearance: none;
+    touch-action: manipulation;
+  }
+
+  &__popupImageBackButton {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+
+    margin: 0;
+    padding: 0;
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    color: rgb(34, 34, 34);
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    outline: none;
+
+    transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s,
+      transform 0.1s ease 0s;
+    appearance: none;
+    touch-action: manipulation;
+  }
+
+  &__popupImageBackButton:active {
+    background: rgba(34, 34, 34, 0.16);
+
+    transform: scale(0.96);
+  }
+
+  &__popupImageNextButton:active {
+    background: rgba(34, 34, 34, 0.16);
+
+    transform: scale(0.96);
+  }
+
+  &__popupImageNextButton::before {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: block;
+
+    width: 48px;
+    height: 48px;
+
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(176, 176, 176);
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+
+  &__popupImageBackButton::before {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: block;
+
+    width: 48px;
+    height: 48px;
+
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(176, 176, 176);
+    border-radius: 50%;
+
+    transform: translate(-50%, -50%);
+  }
+
+  @media screen and (max-width: 500px) {
+    &__popupImageNextButton::before {
+      width: 28px;
+      height: 28px;
+    }
+
+    &__popupImageBackButton::before {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  &__popupImageNextAndBackButtonSpan {
+    position: relative;
+  }
+}

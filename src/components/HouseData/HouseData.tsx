@@ -1,7 +1,3 @@
-// export interface Card {
-//   image: string;
-// }
-
 export interface HouseData {
   title: string;
   place: string;
@@ -17,5 +13,3 @@ export interface HouseData {
 }
 
 export type NilHouseData = HouseData | null;
-
-// export type NilHouseData = Card | null;
