@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
+import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 
 import { cnApp } from './cn-app';
@@ -26,6 +27,7 @@ export const App: React.FC = () => {
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
             </Switch>
+            <Reviews />
           </main>
           <Footer />
         </Container>

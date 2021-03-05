@@ -12,14 +12,21 @@ body {
 
   &__Title {
     font-size: 20px;
-
     text-align: center;
 
     color: #000;
   }
 
   &__main {
+    padding: 40px 40px;
+
+    display: flex;
+    flex-direction: column;
+
     min-height: calc(100vh - 191px);
-    padding: 40px 40px 0 40px;
+
+    .box {
+      flex: 1 1 auto;
+    }
   }
 }
