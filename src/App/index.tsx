@@ -3,6 +3,7 @@ import React from 'react';
 import '@fontsource/roboto';
 
 import Header from '../components/Header';
+import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 
 import { cnApp } from './cn-app';
@@ -15,6 +16,7 @@ export const App: React.FC = () => {
       <p className={cnApp('Title')}>Real Estate Review System</p>
       <Header title="Main" />
       <Search />
+      <Reviews />
     </div>
   );
 };
