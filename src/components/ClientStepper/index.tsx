@@ -1,7 +1,5 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
 import Step from '@material-ui/core/Step';
 import StepContent from '@material-ui/core/StepContent';
 import StepLabel from '@material-ui/core/StepLabel';
@@ -16,81 +14,72 @@ type ClientStepperProps = {
 };
 
 function getSteps() {
-  return ['Шаг 1', 'Шаг 2', 'Шаг 3'];
+  return [
+    'Воспользуйтесь поиском',
+    'Получите все отзывы про арендодателя',
+    'Примите взвешенное решениие',
+  ];
 }
 
 const ClientStepper: React.FunctionComponent<ClientStepperProps> = (isLogged) => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
-
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   function getStepContent(step: number) {
     switch (step) {
       case 0:
-        return `Заинтересоваться объектом недвижимости или найти его на карте`;
+        return `Введите адрес в поисковую строку на нашем сайте или найдите подходящий объект на карте`;
       case 1:
-        return 'Ввести адрес в поисковую строку на нашем сайте Real Estate Review System';
+        return `В нашей базе собраны отзывы с нескольких источников`;
       case 2:
-        return `Узнать шокирующие подробности. Вы прекрасны!`;
+        return `Отзывы помогут вам принять правильное решение по размещению вашего бизнеса или аренде жилого помещения`;
       default:
-        return 'Unknown step';
+        return 'Real Estate Review System';
     }
   }
 
   return (
     isLogged && (
       <div className={cnClientStepper()}>
-        <Container className={classes.clientStepperContainer}>
-          <h2>Почему вам необходим наш ресурс? %)</h2>
-          <Stepper activeStep={activeStep} orientation="vertical">
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-                <StepContent>
-                  <Typography>{getStepContent(index)}</Typography>
-                  <div className={classes.actionsContainer}>
-                    <div>
-                      <Button
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                      >
-                        {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                      </Button>
-                    </div>
-                  </div>
-                </StepContent>
-              </Step>
-            ))}
+        <Container>
+          <h2>Ищете отзывы об арендодателе?</h2>
+          <Stepper orientation="vertical">
+            <Step active>
+              <StepLabel>{steps[0]}</StepLabel>
+              <StepContent>
+                <Typography>{getStepContent(0)}</Typography>
+                <img
+                  className={classes.img}
+                  src="https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
+                  alt=""
+                />
+              </StepContent>
+            </Step>
+            <Step active>
+              <StepLabel>{steps[1]}</StepLabel>
+              <StepContent>
+                <Typography>{getStepContent(1)}</Typography>
+                <img
+                  className={classes.imgWithStars}
+                  // src="https://images.unsplash.com/photo-1578176688096-16db2edc04e4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  src="https://images.unsplash.com/photo-1501812215031-48016ad31549?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+                  alt=""
+                />
+              </StepContent>
+            </Step>
+            <Step active>
+              <StepLabel>{steps[2]}</StepLabel>
+              <StepContent>
+                <Typography>{getStepContent(2)}</Typography>
+                <img
+                  className={classes.img}
+                  src="https://images.unsplash.com/photo-1508424757105-b6d5ad9329d0?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=675&q=80"
+                  alt=""
+                />
+              </StepContent>
+            </Step>
+            <Step />
           </Stepper>
-          {activeStep === steps.length && (
-            <Paper square elevation={0} className={classes.resetContainer}>
-              <Typography>All steps completed - you&apos;re finished</Typography>
-              <Button onClick={handleReset} className={classes.button}>
-                Reset
-              </Button>
-            </Paper>
-          )}
         </Container>
       </div>
     )
