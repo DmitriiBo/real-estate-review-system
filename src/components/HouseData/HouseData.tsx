@@ -1,4 +1,5 @@
 export interface HouseData {
+  id: string;
   title: string;
   place: string;
   typeHouse: string;

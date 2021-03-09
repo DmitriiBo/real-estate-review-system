@@ -1,11 +1,12 @@
 import React from 'react';
-// import { Link, Route, Switch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Button, CardMedia, Container, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { BackIcon } from '../../assets/icons/BackIcon';
 import { CloseIcon } from '../../assets/icons/CloseIcon';
 import { NextIcon } from '../../assets/icons/NextIcon';
+import { mockHomesData } from '../../mocks/mock-properties-data';
 
 import { cnEstateCard } from './cn-EstateCard';
 
@@ -16,38 +17,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
   },
   CardMedia: {
-    paddingTop: '100%',
+    paddingTop: '65%',
     cursor: 'pointer',
+    padding: 0,
+    margin: 0,
   },
 }));
 
-interface EstateHouseProps {
-  title?: string;
-  place?: string;
-  typeHouse?: string;
-  houseRepairs?: string;
-  floor?: string;
-  totalArea?: string;
-  livingSpace?: string;
-  kitchenArea?: string;
-  view?: string;
-  balconyOrLoggia?: string;
-  images: string[];
-}
-
-const EstateCard: React.FC<EstateHouseProps> = ({
-  title,
-  place,
-  typeHouse,
-  houseRepairs,
-  floor,
-  totalArea,
-  livingSpace,
-  kitchenArea,
-  view,
-  balconyOrLoggia,
-  images,
-}) => {
+const EstateCard: React.FC = () => {
   const classes = useStyles();
 
   const [showButton, setShowButton] = React.useState(true);
@@ -57,18 +34,28 @@ const EstateCard: React.FC<EstateHouseProps> = ({
   const [nextButton, setNextButton] = React.useState(true);
   const [backButton, setBackButton] = React.useState(true);
 
+  const { id } = useParams<never>();
+  const home = mockHomesData.find((h) => h?.id === id);
+  const images = home?.images;
+
   React.useEffect(() => {
-    setPictures(images.slice(0, 6));
+    if (images === undefined) {
+      return;
+    }
+    setPictures(images?.slice(0, 5));
   }, [images]);
 
   React.useEffect(() => {
-    if (pictures.length === images.length) {
+    if (pictures.length === images?.length) {
       setShowButton(false);
     }
-  }, [pictures.length, images.length]);
+  }, [pictures.length, images?.length]);
 
   function handleShowButtonClick() {
-    if (pictures.length !== images.length) {
+    if (images === undefined) {
+      return;
+    }
+    if (pictures.length !== images?.length) {
       setPictures(images.slice(0, pictures.length + images.length));
       setShowButton(false);
     }
@@ -99,6 +86,9 @@ const EstateCard: React.FC<EstateHouseProps> = ({
   };
 
   function handleShowButtonNext(image: string) {
+    if (images === undefined) {
+      return;
+    }
     const indexCard = images.indexOf(image);
     if (indexCard === undefined) {
       return;
@@ -125,6 +115,9 @@ const EstateCard: React.FC<EstateHouseProps> = ({
   }
 
   function handleShowButtonPrevious(image: string) {
+    if (images === undefined) {
+      return;
+    }
     const indexCard = images.indexOf(image);
     if (indexCard === undefined) {
       return;
@@ -177,12 +170,12 @@ const EstateCard: React.FC<EstateHouseProps> = ({
       <div className={cnEstateCard()}>
         <Paper>
           <Container maxWidth="md">
-            <h2>{title}</h2>
-            <p>{place}</p>
+            <h2>{home?.title}</h2>
+            <p>{home?.place}</p>
 
-            <Grid container spacing={1}>
+            <div className={cnEstateCard('GridContainer')}>
               {pictures.map((image: string) => (
-                <Grid item xs={6} sm={6} md={4}>
+                <div className={cnEstateCard('GridItem')}>
                   <CardMedia
                     key={image ?? ''}
                     image={image}
@@ -191,24 +184,24 @@ const EstateCard: React.FC<EstateHouseProps> = ({
                       handleImageClick(image);
                     }}
                   />
-                </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
             {showButton && <Button onClick={handleShowButtonClick}>Показать все фото</Button>}
 
             <Container maxWidth="md">
               <Grid container spacing={10}>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Тип дома: {typeHouse}</p>
-                  <p>Отделка: {houseRepairs}</p>
-                  <p>Этаж: {floor}</p>
-                  <p>Общая площадь: {totalArea}</p>
+                  <p>Тип дома: {home?.typeHouse}</p>
+                  <p>Отделка: {home?.houseRepairs}</p>
+                  <p>Этаж: {home?.floor}</p>
+                  <p>Общая площадь: {home?.totalArea}</p>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Жилая площадь: {livingSpace}</p>
-                  <p>Площадь кухни: {kitchenArea}</p>
-                  <p>Вид из окна: {view}</p>
-                  <p>Балкон или лоджия: {balconyOrLoggia}</p>
+                  <p>Жилая площадь: {home?.livingSpace}</p>
+                  <p>Площадь кухни: {home?.kitchenArea}</p>
+                  <p>Вид из окна: {home?.view}</p>
+                  <p>Балкон или лоджия: {home?.balconyOrLoggia}</p>
                 </Grid>
               </Grid>
             </Container>

@@ -20,8 +20,6 @@
 
     width: 100%;
     height: 100%;
-
-    background-color: weight;
   }
 
   &__popupImageOverlay {
@@ -198,5 +196,17 @@
 
   &__popupImageNextAndBackButtonSpan {
     position: relative;
+  }
+
+  &__GridContainer {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 8px;
+  }
+
+  &__GridItem:nth-child(1) {
+    grid-column: 1/3;
+    grid-row: 1/3;
   }
 }

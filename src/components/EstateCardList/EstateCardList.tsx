@@ -1,13 +1,39 @@
 import React from 'react';
-// import { Route } from 'react-router-dom';
-// import { Link, Route, Switch } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Link, useRouteMatch } from 'react-router-dom';
+import { Button, CardMedia, Container, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { mockHomesData } from '../../mocks/mock-properties-data';
-import EstateCard from '../EstateCard/EstateCard';
 import type { NilHouseData } from '../HouseData/HouseData';
 
+import { cnEstateCardList } from './cn-EstateCardList';
+
+import './index.css';
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(45deg, #333, #999)',
+    border: 0,
+    borderRadius: 15,
+    color: 'white',
+    display: 'flex',
+    margin: 'auto',
+    padding: '10px 40px',
+    marginTop: 40,
+    marginBottom: 40,
+  },
+  CardMedia: {
+    paddingTop: '120%',
+    width: '200%',
+    cursor: 'pointer',
+    padding: 0,
+    margin: 0,
+  },
+});
+
 const EstateCardList: React.FC = () => {
+  const { path } = useRouteMatch();
+  const classes = useStyles();
   const [houseCards, setHouseCards] = React.useState<NilHouseData[]>([]);
   const [house, setHouse] = React.useState<NilHouseData[]>([]);
   const [showCardButton, setShowCardButton] = React.useState(false);
@@ -20,8 +46,8 @@ const EstateCardList: React.FC = () => {
     if (house === null) {
       return;
     }
-    setHouseCards(house.slice(0, 3));
-    if (house.length <= 3) {
+    setHouseCards(house.slice(0, 4));
+    if (house.length <= 4) {
       setShowCardButton(false);
     } else {
       setShowCardButton(true);
@@ -40,25 +66,43 @@ const EstateCardList: React.FC = () => {
 
   return (
     <div>
-      <h1>Результаты поиска</h1>
-      {houseCards.map((home: NilHouseData) => (
-        <EstateCard
-          key={home?.title ?? ''}
-          title={home?.title}
-          place={home?.place}
-          typeHouse={home?.typeHouse}
-          houseRepairs={home?.houseRepairs}
-          floor={home?.floor}
-          totalArea={home?.totalArea}
-          livingSpace={home?.livingSpace}
-          kitchenArea={home?.kitchenArea}
-          view={home?.view}
-          balconyOrLoggia={home?.balconyOrLoggia}
-          images={home?.images ?? []}
-        />
-      ))}
+      <h1 className={cnEstateCardList('Title')}>Результаты поиска</h1>
+      <Container maxWidth="lg" style={{ display: 'grid', gap: 15, gridTemplateColumns: '1fr 1fr' }}>
+        {houseCards.map((home: NilHouseData) => (
+          <>
+            <Container maxWidth="xs" key={home?.id}>
+              <Link to={`${path}/${home?.id}`} style={{ textDecoration: 'none' }}>
+                <Paper>
+                  <Container maxWidth="xs" style={{ padding: 15, justifyContent: 'center' }}>
+                    <h2 style={{ fontSize: 18 }}>{home?.title}</h2>
+                    <p style={{ fontSize: 14 }}>{home?.place}</p>
+
+                    <div className={cnEstateCardList('GridContainer')}>
+                      {home?.images.slice(0, 1).map((image: string) => (
+                        <div className={cnEstateCardList('GridItem')}>
+                          <CardMedia
+                            key={image ?? ''}
+                            image={image}
+                            className={classes.CardMedia}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </Container>
+                </Paper>
+              </Link>
+            </Container>
+          </>
+        ))}
+      </Container>
       {showCardButton && (
-        <Button type="button" onClick={handleShowCardClick}>
+        <Button
+          variant="contained"
+          style={{ fontSize: 18 }}
+          size="large"
+          onClick={handleShowCardClick}
+          className={classes.root}
+        >
           Показать еще
         </Button>
       )}
