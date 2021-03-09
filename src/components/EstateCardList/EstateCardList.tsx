@@ -35,33 +35,18 @@ const EstateCardList: React.FC = () => {
   const { path } = useRouteMatch();
   const classes = useStyles();
   const [houseCards, setHouseCards] = React.useState<NilHouseData[]>([]);
-  const [house, setHouse] = React.useState<NilHouseData[]>([]);
-  const [showCardButton, setShowCardButton] = React.useState(false);
 
   React.useEffect(() => {
-    setHouse(mockHomesData);
+    setHouseCards(mockHomesData.slice(0, 4));
   }, []);
 
-  React.useEffect(() => {
-    if (house === null) {
-      return;
-    }
-    setHouseCards(house.slice(0, 4));
-    if (house.length <= 4) {
-      setShowCardButton(false);
-    } else {
-      setShowCardButton(true);
-    }
-  }, [house]);
-
   function handleShowCardClick() {
-    if (house === null) {
-      return;
-    }
-    setHouseCards(house.slice(0, houseCards.length + 3));
-    if (houseCards.length >= house.length - 3) {
-      setShowCardButton(false);
-    }
+    const newHouseCards =
+      mockHomesData.length - houseCards.length < 3
+        ? mockHomesData
+        : mockHomesData.slice(0, houseCards.length + 3);
+
+    setHouseCards(newHouseCards);
   }
 
   return (
@@ -69,33 +54,28 @@ const EstateCardList: React.FC = () => {
       <h1 className={cnEstateCardList('Title')}>Результаты поиска</h1>
       <Container maxWidth="lg" style={{ display: 'grid', gap: 15, gridTemplateColumns: '1fr 1fr' }}>
         {houseCards.map((home: NilHouseData) => (
-          <>
-            <Container maxWidth="xs" key={home?.id}>
-              <Link to={`${path}/${home?.id}`} style={{ textDecoration: 'none' }}>
-                <Paper>
-                  <Container maxWidth="xs" style={{ padding: 15, justifyContent: 'center' }}>
-                    <h2 style={{ fontSize: 18 }}>{home?.title}</h2>
-                    <p style={{ fontSize: 14 }}>{home?.place}</p>
+          <Container maxWidth="xs" key={home?.id}>
+            <Link to={`${path}/${home?.id}`} style={{ textDecoration: 'none' }}>
+              <Paper>
+                <Container maxWidth="xs" style={{ padding: 15, justifyContent: 'center' }}>
+                  <h2 style={{ fontSize: 18 }}>{home?.title}</h2>
+                  <p style={{ fontSize: 14 }}>{home?.place}</p>
 
-                    <div className={cnEstateCardList('GridContainer')}>
-                      {home?.images.slice(0, 1).map((image: string) => (
-                        <div className={cnEstateCardList('GridItem')}>
-                          <CardMedia
-                            key={image ?? ''}
-                            image={image}
-                            className={classes.CardMedia}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </Container>
-                </Paper>
-              </Link>
-            </Container>
-          </>
+                  <div className={cnEstateCardList('GridContainer')}>
+                    {home?.images.slice(0, 1).map((image: string) => (
+                      <div className={cnEstateCardList('GridItem')}>
+                        <CardMedia key={image ?? ''} image={image} className={classes.CardMedia} />
+                      </div>
+                    ))}
+                  </div>
+                </Container>
+              </Paper>
+            </Link>
+          </Container>
         ))}
       </Container>
-      {showCardButton && (
+
+      {mockHomesData.length > houseCards.length && (
         <Button
           variant="contained"
           style={{ fontSize: 18 }}
