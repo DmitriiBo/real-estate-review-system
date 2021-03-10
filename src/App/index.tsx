@@ -6,6 +6,8 @@ import '@fontsource/roboto';
 import EstateCard from '../components/EstateCard/EstateCard';
 import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Header from '../components/Header';
+import Reviews from '../components/Reviews';
+import Search from '../components/Search';
 
 import { cnApp } from './cn-app';
 
@@ -16,7 +18,7 @@ export const App: React.FC = () => {
     <div className={cnApp()}>
       <p className={cnApp('Title')}>Real Estate Review System</p>
       <Header title="Main" />
-
+      <Search />
       <Switch>
         <Route exact path="/cards">
           <EstateCardList />
@@ -25,6 +27,8 @@ export const App: React.FC = () => {
           <EstateCard />
         </Route>
       </Switch>
+
+      <Reviews />
     </div>
   );
 };
