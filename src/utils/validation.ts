@@ -12,7 +12,7 @@ const validateSearch = (inputValue: string): boolean => {
 
 export const validateEmail = (inputValue: string): boolean => {
   const regMatch = inputValue.match(
-    /^(([^<>()[\]\\.,;:\s@\\"]+(\.[^<>()[\]\\.,;:\s@\\"]+)*)|(\\".+\\"))@(([^<>()[\]\\.,;:\s@\\"]+\.)+[^<>()[\]\\.,;:\s@\\"]{2,})$/i,
+    /[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?/i,
   );
   if (regMatch === null) {
     return false;
@@ -27,6 +27,16 @@ export const validatePhone = (inputValue: string): boolean => {
     return false;
   }
 
+  return true;
+};
+
+export const validatePassword = (inputValue: string): boolean => {
+  const regMatch = inputValue.match(
+    /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/i,
+  );
+  if (regMatch === null || inputValue.length < 8) {
+    return false;
+  }
   return true;
 };
 

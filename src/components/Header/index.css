@@ -4,6 +4,14 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
+
+  &__LogoBlock {
+    display: flex;
+
+    a {
+      margin-right: 15px;
+    }
+  }
 }
 
 ul {

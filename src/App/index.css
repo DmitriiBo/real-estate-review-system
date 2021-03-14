@@ -1,3 +1,7 @@
+:root {
+  --app-height: 191px;
+}
+
 * {
   font-family: 'Roboto', sans-serif;
 }
@@ -17,13 +21,13 @@ body {
     color: #000;
   }
 
-  &__main {
+  &__MainContent {
     padding: 40px 40px;
 
     display: flex;
     flex-direction: column;
 
-    min-height: calc(100vh - 191px);
+    min-height: calc(100vh - var(--app-height));
 
     .box {
       flex: 1 1 auto;
