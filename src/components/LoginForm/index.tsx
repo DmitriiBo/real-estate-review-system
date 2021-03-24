@@ -15,28 +15,26 @@ type LoginProps = {
 
 export const LoginForm: React.FC<LoginProps> = (props) => {
   const [inputState, setInputState] = useState({ login: '', password: '' });
-  const [toggleLogIn, setToggleLogIn] = useState(false);
-  const [loader, setLoader] = useState(false);
+  // const [toggleLogIn, setToggleLogIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { isloggedIn, showLogin, changeLoggedIn } = props;
 
-  const re = /"/gi;
-  const LoginFromStorage = localStorage.getItem('LoggedIn')?.replace(re, '');
+  const showLoginStorage = JSON.parse(localStorage.getItem('LoginName') || '{}');
 
   useEffect(() => {
     setTimeout(() => {
-      setLoader(false);
+      setIsLoading(false);
     }, 2000);
-  }, [toggleLogIn]);
+  }, [isloggedIn]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    setLoader(true);
+    setIsLoading(true);
 
-    localStorage.setItem(`LoggedIn`, JSON.stringify(inputState.login));
+    localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
 
     changeLoggedIn(true);
-    showLogin(inputState.login.toString().replace(re, ''));
-
+    showLogin(inputState.login);
     setInputState({ login: '', password: '' });
   };
 
@@ -55,7 +53,7 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
       <form className={cnLogin()} onSubmit={handleSubmit}>
         <FormGroup>
           <FormControl>
-            <InputLabel htmlFor="my-input">Имя пользователя (логин)</InputLabel>
+            <InputLabel htmlFor="login">Имя пользователя (логин)</InputLabel>
             <Input
               id="login"
               onChange={handleLogin}
@@ -67,7 +65,7 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
           </FormControl>
 
           <FormControl>
-            <InputLabel htmlFor="my-input">Пароль</InputLabel>
+            <InputLabel htmlFor="password">Пароль</InputLabel>
             <Input
               id="password"
               onChange={handlePassword}
@@ -78,13 +76,7 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
             />
           </FormControl>
           <br />
-          <Button
-            onClick={() => setToggleLogIn(true)}
-            variant="outlined"
-            size="medium"
-            color="primary"
-            type="submit"
-          >
+          <Button variant="outlined" size="medium" color="primary" type="submit">
             Войти
           </Button>
         </FormGroup>
@@ -92,38 +84,34 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
     );
   }
 
-  if (loader) {
-    return (
-      <Container maxWidth="md">
-        <h1>Форма входа</h1>
-        <Loader />
-      </Container>
-    );
-  }
-
   return (
     <Container maxWidth="md">
-      <h1>Форма входа</h1>
-      {isloggedIn ? (
-        <div className={cnLogin()}>
-          <h3>Вы успешно вошли под именем {LoginFromStorage}</h3>
-
-          <Button
-            type="button"
-            variant="outlined"
-            size="medium"
-            color="primary"
-            onClick={() => {
-              changeLoggedIn(false);
-              setToggleLogIn(false);
-              localStorage.clear();
-            }}
-          >
-            Выйти
-          </Button>
-        </div>
+      {isLoading ? (
+        <Loader />
       ) : (
-        renderForm()
+        <>
+          <h1>Форма входа</h1>
+          {isloggedIn ? (
+            <div className={cnLogin()}>
+              <h3>Вы успешно вошли под именем {showLoginStorage}</h3>
+
+              <Button
+                type="button"
+                variant="outlined"
+                size="medium"
+                color="primary"
+                onClick={() => {
+                  changeLoggedIn(false);
+                  localStorage.removeItem('LoginName');
+                }}
+              >
+                Выйти
+              </Button>
+            </div>
+          ) : (
+            renderForm()
+          )}
+        </>
       )}
     </Container>
   );

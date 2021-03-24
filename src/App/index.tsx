@@ -42,17 +42,18 @@ export const App: React.FC = () => {
   const [isloggedIn, setIsloggedIn] = useState<boolean>(false);
   const [login, setLogin] = useState<string | null>('');
 
-  const changeLoggedIn = (toggleState: boolean) => {
-    setIsloggedIn(toggleState);
+  const changeLoggedIn = (loginState: boolean) => {
+    setIsloggedIn(loginState);
   };
+
   const showLogin = (loginName: string) => {
     setLogin(loginName);
   };
 
   useLayoutEffect(() => {
-    if (localStorage.getItem('LoggedIn')) {
+    if (localStorage.getItem('LoginName')) {
       setIsloggedIn(true);
-      setLogin(localStorage.getItem('LoggedIn'));
+      setLogin(localStorage.getItem('LoginName'));
     }
   }, []);
 

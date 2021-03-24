@@ -107,8 +107,8 @@ export const RegisterForm: React.FC = () => {
 
     setInputState({ ...inputState, email: data });
 
-    const result = validateEmail(data);
-    setValidationError({ ...validationError, email: !result });
+    const isValidEmail = validateEmail(data);
+    setValidationError({ ...validationError, email: !isValidEmail });
   };
 
   const handlePhone = (event: React.ChangeEvent<HTMLInputElement>): void => {

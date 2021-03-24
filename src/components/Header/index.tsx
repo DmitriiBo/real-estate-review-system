@@ -14,11 +14,9 @@ type States = {
   changeLoggedIn: (value: boolean) => void;
 };
 
-const TITLE = 'Real Estate Review System';
-
 const Header: React.FC<States> = (props) => {
-  const { isloggedIn, Login, changeLoggedIn } = props;
-
+  const { isloggedIn, changeLoggedIn } = props;
+  const showLogin = JSON.parse(localStorage.getItem('LoginName') || '{}');
   return (
     <AppBar position="static">
       <section className={cnHeader()}>
@@ -26,14 +24,14 @@ const Header: React.FC<States> = (props) => {
           <Link to="/">
             <Logo width={70} height={70} />
           </Link>
-          <h1>{TITLE}</h1>
+          <h1>Real Estate Review System</h1>
         </div>
 
         {isloggedIn ? (
           <div style={{ display: 'flex', alignItems: 'center', margin: '0 -5px' }}>
             <Avatar width={25} height={25} />
 
-            <h4 style={{ marginLeft: '5px' }}>{localStorage.getItem('LoggedIn')}</h4>
+            <h4 style={{ marginLeft: '5px' }}>{showLogin}</h4>
 
             <Button
               style={{ marginLeft: '20px' }}
@@ -42,7 +40,7 @@ const Header: React.FC<States> = (props) => {
               color="inherit"
               onClick={() => {
                 changeLoggedIn(false);
-                localStorage.clear();
+                localStorage.removeItem('LoginName');
               }}
             >
               Выйти
