@@ -14,7 +14,7 @@ import Rating from '@material-ui/lab/Rating';
 
 import getResultWord from '../../utils/getResultWord';
 
-import { cnReview } from './cn-review';
+import { cnReview } from './cn-Review';
 import useStyles from './use-styles';
 
 type ReviewProps = {

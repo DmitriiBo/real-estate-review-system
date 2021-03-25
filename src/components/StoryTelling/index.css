@@ -1,0 +1,23 @@
+:root {
+  --search-width: 100%;
+}
+
+.StoryTelling {
+  margin: auto;
+
+  &__title {
+    color: #6c63ff;
+    line-height: 1.1;
+    font-size: 52px;
+  }
+
+  &__headers {
+    line-height: 1.1;
+    font-size: 32px;
+  }
+
+  &__paragraph {
+    line-height: 1.1;
+    font-size: 22px;
+  }
+}
