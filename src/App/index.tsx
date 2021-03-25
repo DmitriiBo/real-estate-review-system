@@ -51,7 +51,7 @@ export const App: React.FC = () => {
   };
 
   useLayoutEffect(() => {
-    if (localStorage.getItem('LoginName')) {
+    if (localStorage.getItem('LoginName') != null) {
       setIsloggedIn(true);
       setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
     }

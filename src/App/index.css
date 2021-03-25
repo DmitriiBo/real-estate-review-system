@@ -1,5 +1,5 @@
 :root {
-  --app-minHeight: 191px;
+  --app-min-height: 191px;
 }
 
 * {
@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
 
-    min-height: calc(100vh - var(--app-minHeight));
+    min-height: calc(100vh - var(--app-min-height));
 
     .box {
       flex: 1 1 auto;
