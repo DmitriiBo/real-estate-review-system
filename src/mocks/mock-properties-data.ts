@@ -42,9 +42,9 @@ export const mockHomesData: NilHouseData[] = [
     view: 'на улицу, во двор',
     balconyOrLoggia: 'нет',
     images: [
-      'https://cdn.pixabay.com/photo/2020/03/27/19/27/road-4974678_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2021/02/11/02/07/coral-reefs-6004041_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/01/10/04/37/salad-5904093_960_720.jpg',
-      'https://cdn.pixabay.com/photo/2015/04/16/15/21/gunkanjima-725792_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2021/03/01/18/57/mountains-6060582_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/03/01/12/42/children-6059615_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/01/28/03/13/person-5956897_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/02/06/17/43/squirrel-5988825_960_720.jpg',
@@ -71,7 +71,7 @@ export const mockHomesData: NilHouseData[] = [
     balconyOrLoggia: 'нет',
     images: [
       'https://cdn.pixabay.com/photo/2021/02/18/21/05/woman-6028423_960_720.jpg',
-      'https://cdn.pixabay.com/photo/2020/06/03/14/53/girl-5255195_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2020/12/15/13/44/portrait-5833683_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/02/13/10/26/snow-6011069_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/02/12/02/01/rosebud-6006985_960_720.jpg',
       'https://s1.1zoom.ru/b5050/35/340610-sepik_3840x2400.jpg',
@@ -126,7 +126,7 @@ export const mockHomesData: NilHouseData[] = [
     view: 'на улицу, во двор',
     balconyOrLoggia: 'нет',
     images: [
-      'https://cdn.pixabay.com/photo/2021/02/17/12/04/winter-6024017_960_720.jpg',
+      'https://cdn.pixabay.com/photo/2021/01/29/06/28/marguerite-5959944_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/01/18/12/49/ice-cream-5928048_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/02/13/10/26/snow-6011069_960_720.jpg',
       'https://cdn.pixabay.com/photo/2021/02/12/02/01/rosebud-6006985_960_720.jpg',

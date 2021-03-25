@@ -5,7 +5,7 @@
     visibility: hidden;
   }
 
-  &__popupImageOpened {
+  &__ImagePopup_opened {
     position: fixed;
     top: 0;
     left: 0;
@@ -194,7 +194,7 @@
     }
   }
 
-  &__popupImageNextAndBackButtonSpan {
+  &__popupControllBtnImage {
     position: relative;
   }
 

@@ -35,28 +35,28 @@ const EstateCard: React.FC = () => {
   const [backButton, setBackButton] = React.useState(true);
 
   const { id } = useParams<never>();
-  const home = mockHomesData.find((h) => h?.id === id);
-  const images = home?.images;
+  const homeItem = mockHomesData.find((h) => h?.id === id);
+  const allImages = homeItem?.images;
 
   React.useEffect(() => {
-    if (images === undefined) {
+    if (allImages === undefined) {
       return;
     }
-    setPictures(images?.slice(0, 5));
-  }, [images]);
+    setPictures(allImages?.slice(0, 5));
+  }, [allImages]);
 
   React.useEffect(() => {
-    if (pictures.length === images?.length) {
+    if (pictures.length === allImages?.length) {
       setShowButton(false);
     }
-  }, [pictures.length, images?.length]);
+  }, [pictures.length, allImages?.length]);
 
   function handleShowButtonClick() {
-    if (images === undefined) {
+    if (allImages === undefined) {
       return;
     }
-    if (pictures.length !== images?.length) {
-      setPictures(images.slice(0, pictures.length + images.length));
+    if (pictures.length !== allImages?.length) {
+      setPictures(allImages);
       setShowButton(false);
     }
   }
@@ -86,28 +86,28 @@ const EstateCard: React.FC = () => {
   };
 
   function handleShowButtonNext(image: string) {
-    if (images === undefined) {
+    if (allImages === undefined) {
       return;
     }
-    const indexCard = images.indexOf(image);
+    const indexCard = allImages.indexOf(image);
     if (indexCard === undefined) {
       return;
     }
     const nextCardIndex = indexCard + 1;
-    const nextCard = images[nextCardIndex];
+    const nextCard = allImages[nextCardIndex];
     if (nextCard === undefined) {
       return;
     }
     setSelectedImage(nextCard);
-    if (images.length === undefined) {
+    if (allImages.length === undefined) {
       return;
     }
-    if (indexCard === images.length - 2) {
+    if (indexCard === allImages.length - 2) {
       setNextButton(false);
     } else {
       setNextButton(true);
     }
-    if (images.indexOf(nextCard) === 0) {
+    if (allImages.indexOf(nextCard) === 0) {
       setBackButton(false);
     } else {
       setBackButton(true);
@@ -115,15 +115,15 @@ const EstateCard: React.FC = () => {
   }
 
   function handleShowButtonPrevious(image: string) {
-    if (images === undefined) {
+    if (allImages === undefined) {
       return;
     }
-    const indexCard = images.indexOf(image);
+    const indexCard = allImages.indexOf(image);
     if (indexCard === undefined) {
       return;
     }
     const previousCardIndex = indexCard - 1;
-    const previousCard = images[previousCardIndex];
+    const previousCard = allImages[previousCardIndex];
     if (previousCard === undefined) {
       return;
     }
@@ -133,10 +133,10 @@ const EstateCard: React.FC = () => {
     } else {
       setBackButton(true);
     }
-    if (images === undefined) {
+    if (allImages === undefined) {
       return;
     }
-    if (images.indexOf(previousCard) === images.length - 1) {
+    if (allImages.indexOf(previousCard) === allImages.length - 1) {
       setNextButton(false);
     } else {
       setNextButton(true);
@@ -170,8 +170,8 @@ const EstateCard: React.FC = () => {
       <div className={cnEstateCard()}>
         <Paper>
           <Container maxWidth="md">
-            <h2>{home?.title}</h2>
-            <p>{home?.place}</p>
+            <h2>{homeItem?.title}</h2>
+            <p>{homeItem?.place}</p>
 
             <div className={cnEstateCard('GridContainer')}>
               {pictures.map((image: string) => (
@@ -192,16 +192,16 @@ const EstateCard: React.FC = () => {
             <Container maxWidth="md">
               <Grid container spacing={10}>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Тип дома: {home?.typeHouse}</p>
-                  <p>Отделка: {home?.houseRepairs}</p>
-                  <p>Этаж: {home?.floor}</p>
-                  <p>Общая площадь: {home?.totalArea}</p>
+                  <p>Тип дома: {homeItem?.typeHouse}</p>
+                  <p>Отделка: {homeItem?.houseRepairs}</p>
+                  <p>Этаж: {homeItem?.floor}</p>
+                  <p>Общая площадь: {homeItem?.totalArea}</p>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Жилая площадь: {home?.livingSpace}</p>
-                  <p>Площадь кухни: {home?.kitchenArea}</p>
-                  <p>Вид из окна: {home?.view}</p>
-                  <p>Балкон или лоджия: {home?.balconyOrLoggia}</p>
+                  <p>Жилая площадь: {homeItem?.livingSpace}</p>
+                  <p>Площадь кухни: {homeItem?.kitchenArea}</p>
+                  <p>Вид из окна: {homeItem?.view}</p>
+                  <p>Балкон или лоджия: {homeItem?.balconyOrLoggia}</p>
                 </Grid>
               </Grid>
             </Container>
@@ -209,9 +209,7 @@ const EstateCard: React.FC = () => {
         </Paper>
       </div>
 
-      <div
-        className={isImagePopupOpen ? cnEstateCard('popupImageOpened') : cnEstateCard('ImagePopup')}
-      >
+      <div className={cnEstateCard('ImagePopup', { opened: isImagePopupOpen })}>
         <div className={cnEstateCard('popupImageOverlay')} />
         <button
           type="button"
@@ -230,7 +228,7 @@ const EstateCard: React.FC = () => {
             type="button"
             className={cnEstateCard('popupImageBackButton')}
           >
-            <span className={cnEstateCard('popupImageNextAndBackButtonSpan')}>
+            <span className={cnEstateCard('popupControllBtnImage')}>
               <BackIcon />
             </span>
           </button>
@@ -249,7 +247,7 @@ const EstateCard: React.FC = () => {
             type="button"
             className={cnEstateCard('popupImageNextButton')}
           >
-            <span className={cnEstateCard('popupImageNextAndBackButtonSpan')}>
+            <span className={cnEstateCard('popupControllBtnImage')}>
               <NextIcon />
             </span>
           </button>
