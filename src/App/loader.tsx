@@ -1,11 +1,11 @@
 import React from 'react';
 
-type loaderProps = {
+type LoaderProps = {
   width?: number;
   height?: number;
 };
 
-const Loader: React.FC<loaderProps> = ({ width = 175, height = 175 }) => {
+const Loader: React.FC<LoaderProps> = ({ width = 175, height = 175 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

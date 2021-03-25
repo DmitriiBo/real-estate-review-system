@@ -1,4 +1,5 @@
 import React, { FormEvent, useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
 
 import Loader from '../../App/loader';
@@ -33,9 +34,14 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
 
     localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
 
-    changeLoggedIn(true);
+    setTimeout(() => {
+      changeLoggedIn(true);
+    }, 2000);
+
     showLogin(inputState.login);
     setInputState({ login: '', password: '' });
+
+    return <Redirect to="LogoutPage" />;
   };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,7 +66,6 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
               value={inputState.login}
               type="text"
               required
-              aria-describedby="my-helper-text"
             />
           </FormControl>
 
@@ -72,7 +77,6 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
               value={inputState.password}
               type="text"
               required
-              aria-describedby="my-helper-text"
             />
           </FormControl>
           <br />

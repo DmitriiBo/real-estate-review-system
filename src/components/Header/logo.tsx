@@ -1,11 +1,11 @@
 import React from 'react';
 
-type logoProps = {
+type LogoProps = {
   width?: number;
   height?: number;
 };
 
-const Logo: React.FC<logoProps> = ({ width = 175, height = 175 }) => {
+const Logo: React.FC<LogoProps> = ({ width = 175, height = 175 }) => {
   return (
     <svg
       version="1.1"

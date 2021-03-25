@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
@@ -40,20 +40,20 @@ export const App: React.FC = () => {
   ];
 
   const [isloggedIn, setIsloggedIn] = useState<boolean>(false);
-  const [login, setLogin] = useState<string | null>('');
+  const [userName, setUserName] = useState<string | null>('');
 
   const changeLoggedIn = (loginState: boolean) => {
     setIsloggedIn(loginState);
   };
 
   const showLogin = (loginName: string) => {
-    setLogin(loginName);
+    setUserName(loginName);
   };
 
   useLayoutEffect(() => {
     if (localStorage.getItem('LoginName')) {
       setIsloggedIn(true);
-      setLogin(localStorage.getItem('LoginName'));
+      setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
     }
   }, []);
 
@@ -61,18 +61,26 @@ export const App: React.FC = () => {
     <div className={cnApp()}>
       <HashRouter>
         <Container maxWidth="lg" disableGutters>
-          <Header isloggedIn={isloggedIn} Login={login} changeLoggedIn={changeLoggedIn} />
+          <Header isloggedIn={isloggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login">
-                <LoginForm
-                  isloggedIn={isloggedIn}
-                  changeLoggedIn={changeLoggedIn}
-                  showLogin={showLogin}
-                />
-              </Route>
+              {!isloggedIn ? (
+                <Route path="/register" component={RegisterForm} />
+              ) : (
+                <Redirect to="/" exact />
+              )}
+              {!isloggedIn ? (
+                <Route path="/login">
+                  <LoginForm
+                    isloggedIn={isloggedIn}
+                    changeLoggedIn={changeLoggedIn}
+                    showLogin={showLogin}
+                  />
+                </Route>
+              ) : (
+                <Redirect to="/" exact />
+              )}
             </Switch>
           </main>
           <Footer sitemapItems={sitemapItems} />
