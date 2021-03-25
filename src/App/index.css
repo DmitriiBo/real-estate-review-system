@@ -1,5 +1,13 @@
+:root {
+  --app-min-height: 191px;
+}
+
 * {
   font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
 }
 
 .App {
@@ -8,9 +16,21 @@
 
   &__Title {
     font-size: 20px;
-
     text-align: center;
 
     color: #000;
+  }
+
+  &__MainContent {
+    padding: 40px 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: calc(100vh - var(--app-min-height));
+
+    .box {
+      flex: 1 1 auto;
+    }
   }
 }

@@ -79,6 +79,7 @@ const Search: React.FC = () => {
     }
 
     console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
+
     setFormState({ ...formState, inputValue: '' });
   };
 

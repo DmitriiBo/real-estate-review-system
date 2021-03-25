@@ -1,0 +1,10 @@
+.LoginForm {
+  margin: 10px;
+  padding: 10px;
+  display: block;
+  width: auto;
+  min-height: 72px;
+  background: #deddf126;
+  border-radius: 18px;
+  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+}

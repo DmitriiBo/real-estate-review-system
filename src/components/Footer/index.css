@@ -1,0 +1,34 @@
+.Footer {
+  position: relative;
+
+  padding: 20px 20px;
+
+  clear: both;
+
+  height: auto;
+
+  color: #fff;
+  background-color: #3f51b5;
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+    0 1px 10px 0 rgb(0 0 0 / 12%);
+
+  &__Sitemap {
+    max-width: 130px;
+  }
+
+  &__SitemapItem {
+    display: block;
+    float: none;
+
+    a {
+      padding: 5px 5px;
+
+      display: block;
+
+      text-align: left;
+      text-transform: lowercase;
+
+      color: #fff;
+    }
+  }
+}
