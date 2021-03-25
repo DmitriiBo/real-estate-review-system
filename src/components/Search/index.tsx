@@ -97,7 +97,6 @@ const Search: React.FC = () => {
               value={formState.inputValue}
               onChange={handleInputChange}
               placeholder={PLACEHOLDER}
-              style={{ minWidth: '300px' }}
             />
 
             {validationError && 'обнаружена ошибка ввода'}
