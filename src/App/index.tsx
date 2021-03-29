@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
@@ -9,6 +9,8 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
+import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
+import { selectIsLoggedIn, setLogIn } from '../redux-store/reducer';
 import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
@@ -39,44 +41,31 @@ export const App: React.FC = () => {
     },
   ];
 
-  const [isloggedIn, setIsloggedIn] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string | null>('');
-
-  const changeLoggedIn = (loginState: boolean) => {
-    setIsloggedIn(loginState);
-  };
-
-  const showLogin = (loginName: string) => {
-    setUserName(loginName);
-  };
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
     if (localStorage.getItem('LoginName') != null) {
-      setIsloggedIn(true);
-      setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
+      dispatch(setLogIn());
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={cnApp()}>
       <HashRouter>
         <Container maxWidth="lg" disableGutters>
-          <Header isloggedIn={isloggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
+          <Header />
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-              {!isloggedIn ? (
+              {!isLoggedIn ? (
                 <Route path="/register" component={RegisterForm} />
               ) : (
                 <Redirect to="/" exact />
               )}
-              {!isloggedIn ? (
+              {!isLoggedIn ? (
                 <Route path="/login">
-                  <LoginForm
-                    isloggedIn={isloggedIn}
-                    changeLoggedIn={changeLoggedIn}
-                    showLogin={showLogin}
-                  />
+                  <LoginForm />
                 </Route>
               ) : (
                 <Redirect to="/" exact />
