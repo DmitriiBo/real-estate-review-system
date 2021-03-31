@@ -27,20 +27,18 @@ export const LoginForm: React.FC = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
+    }, 1000);
   }, [isLoggedIn]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-
     localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
+    dispatch(setLoginName(inputState.login));
 
     setTimeout(() => {
       dispatch(setLogIn());
     }, 2000);
-
-    dispatch(setLoginName(inputState.login));
     setInputState({ login: '', password: '' });
 
     return <Redirect to="LogoutPage" />;

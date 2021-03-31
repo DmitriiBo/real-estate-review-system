@@ -1,9 +1,10 @@
 .Header {
+  padding: 10px 20px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
 
   &__LogoBlock {
     display: flex;
@@ -15,10 +16,12 @@
 }
 
 ul {
-  list-style-type: none;
   margin: 0;
   padding: 0;
+
   overflow: hidden;
+
+  list-style-type: none;
 }
 
 li {
@@ -26,11 +29,14 @@ li {
 }
 
 li a {
-  display: block;
-  color: #fff;
-  text-align: center;
   padding: 14px 16px;
+
+  display: block;
+
+  text-align: center;
   text-decoration: none;
+
+  color: #fff;
 }
 
 li a:hover {
