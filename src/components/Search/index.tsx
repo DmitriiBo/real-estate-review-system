@@ -79,6 +79,7 @@ const Search: React.FC = () => {
     }
 
     console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
+
     setFormState({ ...formState, inputValue: '' });
   };
 
@@ -97,7 +98,6 @@ const Search: React.FC = () => {
               value={formState.inputValue}
               onChange={handleInputChange}
               placeholder={PLACEHOLDER}
-              style={{ minWidth: '300px' }}
             />
 
             {validationError && 'обнаружена ошибка ввода'}

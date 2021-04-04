@@ -34,7 +34,7 @@ class RealEstateApi {
     });
   }
 
-  public async getData(url: string, options?: { headers?: HeadersInit }): Promise<void> {
+  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }): Promise<JSON> {
     return this.get(url, options).then((response) => response.json());
   }
 
@@ -44,7 +44,7 @@ class RealEstateApi {
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'https://jsonplaceholder.typicode.com',
+  baseUrl: 'http://localhost:3000',
 });
 
 export default realEstateApi;

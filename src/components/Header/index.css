@@ -1,0 +1,44 @@
+.Header {
+  padding: 10px 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  &__LogoBlock {
+    display: flex;
+
+    a {
+      margin-right: 15px;
+    }
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+
+  overflow: hidden;
+
+  list-style-type: none;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  padding: 14px 16px;
+
+  display: block;
+
+  text-align: center;
+  text-decoration: none;
+
+  color: #fff;
+}
+
+li a:hover {
+  background-color: #111;
+}
