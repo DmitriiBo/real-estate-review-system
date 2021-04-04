@@ -4,6 +4,8 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
+import EstateCard from '../components/EstateCard/EstateCard';
+import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
@@ -39,11 +41,11 @@ export const App: React.FC = () => {
     },
   ];
 
-  const [isloggedIn, setIsloggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userName, setUserName] = useState<string | null>('');
 
   const changeLoggedIn = (loginState: boolean) => {
-    setIsloggedIn(loginState);
+    setIsLoggedIn(loginState);
   };
 
   const showLogin = (loginName: string) => {
@@ -52,7 +54,7 @@ export const App: React.FC = () => {
 
   useLayoutEffect(() => {
     if (localStorage.getItem('LoginName') != null) {
-      setIsloggedIn(true);
+      setIsLoggedIn(true);
       setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
     }
   }, []);
@@ -61,19 +63,22 @@ export const App: React.FC = () => {
     <div className={cnApp()}>
       <HashRouter>
         <Container maxWidth="lg" disableGutters>
-          <Header isloggedIn={isloggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
+          <Header isloggedIn={isLoggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
+
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-              {!isloggedIn ? (
+
+              {!isLoggedIn ? (
                 <Route path="/register" component={RegisterForm} />
               ) : (
                 <Redirect to="/" exact />
               )}
-              {!isloggedIn ? (
+
+              {!isLoggedIn ? (
                 <Route path="/login">
                   <LoginForm
-                    isloggedIn={isloggedIn}
+                    isloggedIn={isLoggedIn}
                     changeLoggedIn={changeLoggedIn}
                     showLogin={showLogin}
                   />
@@ -81,8 +86,17 @@ export const App: React.FC = () => {
               ) : (
                 <Redirect to="/" exact />
               )}
+
+              <Route exact path="/cards">
+                <EstateCardList />
+              </Route>
+
+              <Route path="/cards/:id">
+                <EstateCard />
+              </Route>
             </Switch>
           </main>
+
           <Footer sitemapItems={sitemapItems} />
         </Container>
       </HashRouter>
