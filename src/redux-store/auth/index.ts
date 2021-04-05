@@ -11,7 +11,7 @@ export const loginSlice = createSlice({
   initialState: { isLoggedIn: false, loginName: null } as LoginState,
   name: 'loginState',
   reducers: {
-    setIsLoggedIn: (state) => {
+    logIn: (state) => {
       // eslint-disable-next-line no-param-reassign
       state.isLoggedIn = true;
     },
@@ -26,7 +26,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setIsLoggedIn, logOut, setLoginName } = loginSlice.actions;
+export const { logIn, logOut, setLoginName } = loginSlice.actions;
 
 export const selectIsLoggedIn = (state: RootState) => state.loginState.isLoggedIn;
 export const selectLoginName = (state: RootState) => state.loginState.loginName;

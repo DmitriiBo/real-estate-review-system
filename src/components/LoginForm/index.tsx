@@ -3,10 +3,10 @@ import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@m
 
 import Loader from '../../App/loader';
 import {
+  logIn,
   logOut,
   selectIsLoggedIn,
   selectLoginName,
-  setIsLoggedIn,
   setLoginName,
 } from '../../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
@@ -18,10 +18,17 @@ import './index.css';
 export const LoginForm: React.FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const loginName = useAppSelector(selectLoginName);
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
   const [inputState, setInputState] = useState({ login: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+
+  // to do: memory leak
+  // useEffect(() => {
+  //   return () => {
+  //     store.subscribe(isLoggedIn);
+  //   };
+  // }, [isLoggedIn]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -34,7 +41,7 @@ export const LoginForm: React.FC = () => {
     setInputState({ login: '', password: '' });
 
     setTimeout(() => {
-      dispatch(setIsLoggedIn());
+      dispatch(logIn());
 
       setIsLoading(false);
     }, 1000);
