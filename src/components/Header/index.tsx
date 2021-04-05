@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AppBar, Button } from '@material-ui/core';
 
-import { selectIsLoggedIn, selectLoginName, setLogOut } from '../../redux-store/auth/index';
+import { logOut, selectIsLoggedIn, selectLoginName } from '../../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 
 import Avatar from './avatar';
@@ -38,7 +38,7 @@ const Header: React.FC = () => {
               size="small"
               color="inherit"
               onClick={() => {
-                dispatch(setLogOut());
+                dispatch(logOut());
                 localStorage.removeItem('LoginName');
               }}
             >

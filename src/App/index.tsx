@@ -11,7 +11,7 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { selectIsLoggedIn, setLogIn, setLoginName } from '../redux-store/auth/index';
+import { selectIsLoggedIn, setIsLoggedIn, setLoginName } from '../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 
@@ -45,14 +45,14 @@ export const App: React.FC = () => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-  const LoginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
+  const loginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
-    if (LoginNameFromStorage != null) {
-      dispatch(setLogIn());
-      dispatch(setLoginName(LoginNameFromStorage));
+    if (loginNameFromStorage != null) {
+      dispatch(setIsLoggedIn());
+      dispatch(setLoginName(loginNameFromStorage));
     }
-  }, [dispatch, LoginNameFromStorage]);
+  }, [dispatch, loginNameFromStorage]);
 
   return (
     <div className={cnApp()}>

@@ -1,14 +1,13 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import React, { FormEvent, useState } from 'react';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
 
 import Loader from '../../App/loader';
 import {
+  logOut,
   selectIsLoggedIn,
   selectLoginName,
-  setLogIn,
+  setIsLoggedIn,
   setLoginName,
-  setLogOut,
 } from '../../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 
@@ -24,24 +23,21 @@ export const LoginForm: React.FC = () => {
   const [inputState, setInputState] = useState({ login: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, [isLoggedIn]);
-
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
+
     localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
+
     dispatch(setLoginName(inputState.login));
 
-    setTimeout(() => {
-      dispatch(setLogIn());
-    }, 2000);
     setInputState({ login: '', password: '' });
 
-    return <Redirect to="LogoutPage" />;
+    setTimeout(() => {
+      dispatch(setIsLoggedIn());
+
+      setIsLoading(false);
+    }, 1000);
   };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -105,7 +101,7 @@ export const LoginForm: React.FC = () => {
                 size="medium"
                 color="primary"
                 onClick={() => {
-                  dispatch(setLogOut());
+                  dispatch(logOut());
                   localStorage.removeItem('LoginName');
                 }}
               >
