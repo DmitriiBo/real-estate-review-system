@@ -4,6 +4,8 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
+import EstateCard from '../components/EstateCard/EstateCard';
+import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
@@ -72,8 +74,16 @@ export const App: React.FC = () => {
               ) : (
                 <Redirect to="/" exact />
               )}
+              <Route exact path="/cards">
+                <EstateCardList />
+              </Route>
+
+              <Route path="/cards/:id">
+                <EstateCard />
+              </Route>
             </Switch>
           </main>
+
           <Footer sitemapItems={sitemapItems} />
         </Container>
       </HashRouter>
