@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AppBar, Button } from '@material-ui/core';
 
+import { selectIsLoggedIn, selectLoginName, setLogOut } from '../../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
-import { selectIsLoggedIn, selectLoginName, setLogOut } from '../../redux-store/reducer';
 
 import Avatar from './avatar';
 import { cnHeader } from './cn-header';

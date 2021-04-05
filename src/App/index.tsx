@@ -11,8 +11,8 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
+import { selectIsLoggedIn, setLogIn, setLoginName } from '../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
-import { selectIsLoggedIn, setLogIn, setLoginName } from '../redux-store/reducer';
 import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
@@ -33,8 +33,8 @@ export const App: React.FC = () => {
     },
     {
       id: 3,
-      name: 'Карта объектов',
-      link: '/',
+      name: 'Объекты',
+      link: '/cards',
     },
     {
       id: 4,
@@ -45,14 +45,14 @@ export const App: React.FC = () => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-  const getStorageLogin = JSON.parse(localStorage.getItem('LoginName') as string);
+  const LoginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
-    if (getStorageLogin != null) {
+    if (LoginNameFromStorage != null) {
       dispatch(setLogIn());
-      dispatch(setLoginName(getStorageLogin));
+      dispatch(setLoginName(LoginNameFromStorage));
     }
-  }, [dispatch, getStorageLogin]);
+  }, [dispatch, LoginNameFromStorage]);
 
   return (
     <div className={cnApp()}>

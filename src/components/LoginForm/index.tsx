@@ -3,14 +3,14 @@ import { Redirect } from 'react-router';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
 
 import Loader from '../../App/loader';
-import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 import {
   selectIsLoggedIn,
   selectLoginName,
   setLogIn,
   setLoginName,
   setLogOut,
-} from '../../redux-store/reducer';
+} from '../../redux-store/auth/index';
+import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 
 import { cnLogin } from './cn-login';
 
