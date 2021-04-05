@@ -1,25 +1,109 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
 import AutoSlider from '../components/AutoSlider';
+import EstateCard from '../components/EstateCard/EstateCard';
+import EstateCardList from '../components/EstateCardList/EstateCardList';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
-import Reviews from '../components/Reviews';
+import { LoginForm } from '../components/LoginForm';
+import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
+import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
 
 import './index.css';
 
 export const App: React.FC = () => {
+  const sitemapItems: SitemapItem[] = [
+    {
+      id: 1,
+      name: 'Главная',
+      link: '/',
+    },
+    {
+      id: 2,
+      name: 'Отзывы',
+      link: '/',
+    },
+    {
+      id: 3,
+      name: 'Карта объектов',
+      link: '/',
+    },
+    {
+      id: 4,
+      name: 'Контакты',
+      link: '/',
+    },
+  ];
+
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userName, setUserName] = useState<string | null>('');
+
+  const changeLoggedIn = (loginState: boolean) => {
+    setIsLoggedIn(loginState);
+  };
+
+  const showLogin = (loginName: string) => {
+    setUserName(loginName);
+  };
+
+  useLayoutEffect(() => {
+    if (localStorage.getItem('LoginName') != null) {
+      setIsLoggedIn(true);
+      setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
+    }
+  }, []);
+
   return (
     <div className={cnApp()}>
-      <p className={cnApp('Title')}>Real Estate Review System</p>
-      <Header title="Main" />
-      <AutoSlider reviews={mockReviews} />
-      <Search />
-      <Reviews />
+      <HashRouter>
+        <Container maxWidth="lg" disableGutters>
+          <Header isloggedIn={isLoggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
+
+          <main className={cnApp('MainContent')}>
+            <Switch>
+              <Route path="/" exact component={Search} />
+
+              {!isLoggedIn ? (
+                <Route path="/register" component={RegisterForm} />
+              ) : (
+                <Redirect to="/" exact />
+              )}
+
+              {!isLoggedIn ? (
+                <Route path="/login">
+                  <LoginForm
+                    isloggedIn={isLoggedIn}
+                    changeLoggedIn={changeLoggedIn}
+                    showLogin={showLogin}
+                  />
+                </Route>
+              ) : (
+                <Redirect to="/" exact />
+              )}
+
+              <Route exact path="/cards">
+                <EstateCardList />
+              </Route>
+
+              <Route path="/cards/:id">
+                <EstateCard />
+              </Route>
+            </Switch>
+
+            <AutoSlider reviews={mockReviews} />
+          </main>
+
+          <Footer sitemapItems={sitemapItems} />
+        </Container>
+      </HashRouter>
     </div>
   );
 };
