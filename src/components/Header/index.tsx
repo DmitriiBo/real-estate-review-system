@@ -27,7 +27,7 @@ const Header: React.FC = () => {
         </div>
 
         {isLoggedIn ? (
-          <div style={{ display: 'flex', alignItems: 'center', margin: '0 -5px' }}>
+          <div className={cnHeader('UserBar')}>
             <Avatar width={25} height={25} />
 
             <h4 style={{ marginLeft: '5px' }}>{loginName}</h4>
@@ -46,20 +46,20 @@ const Header: React.FC = () => {
             </Button>
           </div>
         ) : (
-          <nav>
+          <nav className={cnHeader('TopMenu')}>
             <ul>
               <li>
-                <NavLink exact to="/" className="nav-link">
+                <NavLink activeClassName="selected" exact to="/" className="nav-link">
                   Главная
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/login" className="nav-link">
+                <NavLink activeClassName="selected" to="/login" className="nav-link">
                   Вход
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/register" className="nav-link">
+                <NavLink activeClassName="selected" to="/register" className="nav-link">
                   Регистрация
                 </NavLink>
               </li>

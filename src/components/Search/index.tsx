@@ -85,7 +85,7 @@ const Search: React.FC = () => {
   };
 
   return (
-    <Container>
+    <Container maxWidth="md">
       <h1>Узнайте больше об арендодателе</h1>
 
       <form onSubmit={handleSubmit} className={cnSearch()}>

@@ -57,23 +57,12 @@ export const App: React.FC = () => {
   return (
     <div className={cnApp()}>
       <HashRouter>
-        <Container maxWidth="lg" disableGutters>
+        <Container maxWidth={false} disableGutters>
           <Header />
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-              {!isLoggedIn ? (
-                <Route path="/register" component={RegisterForm} />
-              ) : (
-                <Redirect to="/" exact />
-              )}
-              {!isLoggedIn ? (
-                <Route path="/login">
-                  <LoginForm />
-                </Route>
-              ) : (
-                <Redirect to="/" exact />
-              )}
+
               <Route exact path="/cards">
                 <EstateCardList />
               </Route>
@@ -82,6 +71,16 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
+            {!isLoggedIn ? (
+              <Switch>
+                <Route path="/register" component={RegisterForm} />
+                <Route path="/login">
+                  <LoginForm />
+                </Route>
+              </Switch>
+            ) : (
+              <Redirect to="/" exact />
+            )}
           </main>
 
           <Footer sitemapItems={sitemapItems} />

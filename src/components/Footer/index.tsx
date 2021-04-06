@@ -29,17 +29,15 @@ const Footer: React.FC<FooterProps> = (props) => {
         <h4>RealEstate system 2021</h4>
 
         <List subheader={<h4>Карта сайта</h4>}>
-          <ul className={cnFooter('Sitemap')}>
-            {sitemapItems.map((item) => {
-              return (
-                <li key={Math.random()} className={cnFooter('SitemapItem')}>
-                  <NavLink exact to={item.link} className="nav-link">
-                    {item.name}
-                  </NavLink>
-                </li>
-              );
-            })}
-          </ul>
+          {sitemapItems.map((item) => {
+            return (
+              <li key={Math.random()} className={cnFooter('SitemapItem')}>
+                <NavLink exact to={item.link} className="nav-link">
+                  {item.name}
+                </NavLink>
+              </li>
+            );
+          })}
         </List>
       </Grid>
     </footer>
