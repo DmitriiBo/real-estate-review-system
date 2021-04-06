@@ -4,6 +4,7 @@
 
 .StoryTelling {
   margin: auto;
+  width: var(--search-width);
 
   &__title {
     color: #6c63ff;
@@ -12,6 +13,7 @@
   }
 
   &__headers {
+    color: #3f3d56;
     line-height: 1.1;
     font-size: 32px;
   }
@@ -19,5 +21,74 @@
   &__paragraph {
     line-height: 1.1;
     font-size: 22px;
+    animation: appear-from-right 2.5s;
+
+    &_right {
+      animation: appear-from-left 2.5s;
+    }
+  }
+
+  &__leftdiv {
+    width: calc(200vw / 3);
+    margin: 0;
+  }
+
+  &__rightdiv {
+    width: calc(var(--search-width) / 2);
+    margin: 0 0 0 auto;
+    text-align: right;
+  }
+}
+
+#SearchMap {
+  animation: appear-from-left 2.5s;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+#Star_17 {
+  animation: pulse infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes appear-from-right {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes appear-from-left {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: rotate(0.5turn);
+    background-color: #3f3d56;
+  }
+
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes magnifier {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
