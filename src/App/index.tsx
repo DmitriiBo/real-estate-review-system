@@ -45,7 +45,7 @@ export const App: React.FC = () => {
 
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-  const LoginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
+  const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
     if (LoginNameFromStorage != null) {

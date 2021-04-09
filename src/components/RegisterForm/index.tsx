@@ -8,6 +8,7 @@ import {
   InputLabel,
 } from '@material-ui/core';
 
+import realEstateApi from '../../utils/RealEstateApi';
 import { validateEmail, validatePassword, validatePhone } from '../../utils/validation';
 
 import { cnRegister } from './cn-register';
@@ -61,9 +62,20 @@ export const RegisterForm: React.FC = () => {
       console.error(`errorFound: ${JSON.stringify(validationError)}`);
       return;
     }
-
-    localStorage.setItem(`UserData`, JSON.stringify(inputState));
-
+    // sent register Data
+    realEstateApi
+      .postData('register', {
+        body: {
+          email: inputState.email,
+          password: inputState.password,
+          name: inputState.name,
+        },
+      })
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+        }
+      });
     setInputState({ login: '', name: '', password: '', password2: '', email: '', phone: '' });
     setFormSubmit(true);
   };
@@ -144,7 +156,7 @@ export const RegisterForm: React.FC = () => {
                 required
                 aria-describedby="my-helper-text"
               />
-              <FormHelperText id="my-helper-text">Имя пользователя от 3 букв</FormHelperText>
+              <FormHelperText id="my-helper-text">Имя от 3 букв</FormHelperText>
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="Name">Фамилия Имя Отчество</InputLabel>
@@ -156,7 +168,6 @@ export const RegisterForm: React.FC = () => {
                 required
                 aria-describedby="my-helper-text"
               />
-              <FormHelperText id="my-helper-text">Ваше ФИО</FormHelperText>
             </FormControl>
             <br />
             <FormControl>
@@ -164,21 +175,21 @@ export const RegisterForm: React.FC = () => {
               <Input
                 id="Password"
                 onChange={handlePassword}
-                type="text"
+                type="password"
                 value={inputState.password}
                 error={validationError.password}
                 required
                 aria-describedby="my-helper-text"
               />
               <FormHelperText id="my-helper-text">
-                От 8 символов, должны содержать латинские буквы и цифры, могут быть символы !#$%&
+                от 8 символов, латинские буквы и цифры, могут быть !#$%&
               </FormHelperText>
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="Password2">Повторите пароль</InputLabel>
               <Input
                 id="Password2"
-                type="text"
+                type="password"
                 required
                 aria-describedby="my-helper-text"
                 onChange={handlePassword2}
