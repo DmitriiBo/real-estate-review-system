@@ -3,7 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 
 import Review, { ReviewCardProps } from '../Review/index';
 
-import { cnAutoSlider } from './cn-auto-slider';
+import { cnLastReviewsCarousel } from './cn-auto-slider';
 
 import './index.css';
 
@@ -11,7 +11,7 @@ interface ReviewsList {
   reviews: ReviewCardProps[];
 }
 
-const AutoSlider = ({ reviews }: ReviewsList) => {
+const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
   const getLastReviews = (list: ReviewCardProps[]) => {
     if (list.length) {
       // Здесь необходимо вставить логику сортировки массива по дате, когда вместо вместо моковых данных будут данные с сервера
@@ -22,10 +22,10 @@ const AutoSlider = ({ reviews }: ReviewsList) => {
   const lastReviews = getLastReviews(reviews);
 
   return (
-    <Carousel autoPlay animation="slide" className={cnAutoSlider()}>
+    <Carousel autoPlay animation="slide" className={cnLastReviewsCarousel()}>
       {lastReviews &&
         lastReviews.map((card) => (
-          <div className={cnAutoSlider('item')}>
+          <div className={cnLastReviewsCarousel('item')}>
             <Review key={card.id} {...card} />
           </div>
         ))}
@@ -33,4 +33,4 @@ const AutoSlider = ({ reviews }: ReviewsList) => {
   );
 };
 
-export default AutoSlider;
+export default LastReviewsCarousel;

@@ -4,11 +4,11 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
-import AutoSlider from '../components/AutoSlider';
 import EstateCard from '../components/EstateCard/EstateCard';
 import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
@@ -73,7 +73,7 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
-            <AutoSlider reviews={mockReviews} />
+            <LastReviewsCarousel reviews={mockReviews} />
             {!isLoggedIn ? (
               <Switch>
                 <Route path="/register" component={RegisterForm} />
