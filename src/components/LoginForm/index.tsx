@@ -1,32 +1,34 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import React, { FormEvent, useState } from 'react';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
 
 import Loader from '../../App/loader';
+import {
+  logIn,
+  logOut,
+  selectIsLoggedIn,
+  selectLoginName,
+  setLoginName,
+} from '../../redux-store/auth/index';
+import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 
 import { cnLogin } from './cn-login';
 
 import './index.css';
 
-type LoginProps = {
-  isloggedIn: boolean;
-  changeLoggedIn: (value: boolean) => void;
-  showLogin: (value: string) => void;
-};
+export const LoginForm: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const loginName = useAppSelector(selectLoginName);
 
-export const LoginForm: React.FC<LoginProps> = (props) => {
+  const dispatch = useAppDispatch();
   const [inputState, setInputState] = useState({ login: '', password: '' });
-  // const [toggleLogIn, setToggleLogIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { isloggedIn, showLogin, changeLoggedIn } = props;
 
-  const showLoginStorage = JSON.parse(localStorage.getItem('LoginName') || '{}');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, [isloggedIn]);
+  // to do: memory leak
+  // useEffect(() => {
+  //   return () => {
+  //     store.subscribe(isLoggedIn);
+  //   };
+  // }, [isLoggedIn]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -34,14 +36,15 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
 
     localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
 
-    setTimeout(() => {
-      changeLoggedIn(true);
-    }, 2000);
+    dispatch(setLoginName(inputState.login));
 
-    showLogin(inputState.login);
     setInputState({ login: '', password: '' });
 
-    return <Redirect to="LogoutPage" />;
+    setTimeout(() => {
+      dispatch(logIn());
+
+      setIsLoading(false);
+    }, 1000);
   };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -95,9 +98,9 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
       ) : (
         <>
           <h1>Форма входа</h1>
-          {isloggedIn ? (
+          {isLoggedIn ? (
             <div className={cnLogin()}>
-              <h3>Вы успешно вошли под именем {showLoginStorage}</h3>
+              <h3>Вы успешно вошли под именем {loginName}</h3>
 
               <Button
                 type="button"
@@ -105,7 +108,7 @@ export const LoginForm: React.FC<LoginProps> = (props) => {
                 size="medium"
                 color="primary"
                 onClick={() => {
-                  changeLoggedIn(false);
+                  dispatch(logOut());
                   localStorage.removeItem('LoginName');
                 }}
               >

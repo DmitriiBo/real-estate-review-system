@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
@@ -13,6 +13,8 @@ import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
+import { logIn, selectIsLoggedIn, setLoginName } from '../redux-store/auth/index';
+import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
@@ -33,8 +35,8 @@ export const App: React.FC = () => {
     },
     {
       id: 3,
-      name: 'Карта объектов',
-      link: '/',
+      name: 'Объекты',
+      link: '/cards',
     },
     {
       id: 4,
@@ -43,51 +45,25 @@ export const App: React.FC = () => {
     },
   ];
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-  const [userName, setUserName] = useState<string | null>('');
-
-  const changeLoggedIn = (loginState: boolean) => {
-    setIsLoggedIn(loginState);
-  };
-
-  const showLogin = (loginName: string) => {
-    setUserName(loginName);
-  };
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const dispatch = useAppDispatch();
+  const LoginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
-    if (localStorage.getItem('LoginName') != null) {
-      setIsLoggedIn(true);
-      setUserName(JSON.parse(localStorage.getItem('LoginName') || '{}'));
+    if (LoginNameFromStorage != null) {
+      dispatch(logIn());
+      dispatch(setLoginName(LoginNameFromStorage));
     }
-  }, []);
+  }, [dispatch, LoginNameFromStorage]);
 
   return (
     <div className={cnApp()}>
       <HashRouter>
-        <Container maxWidth="lg" disableGutters>
-          <Header isloggedIn={isLoggedIn} userName={userName} changeLoggedIn={changeLoggedIn} />
-
+        <Container maxWidth={false} disableGutters>
+          <Header />
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-
-              {!isLoggedIn ? (
-                <Route path="/register" component={RegisterForm} />
-              ) : (
-                <Redirect to="/" exact />
-              )}
-
-              {!isLoggedIn ? (
-                <Route path="/login">
-                  <LoginForm
-                    isloggedIn={isLoggedIn}
-                    changeLoggedIn={changeLoggedIn}
-                    showLogin={showLogin}
-                  />
-                </Route>
-              ) : (
-                <Redirect to="/" exact />
-              )}
 
               <Route exact path="/cards">
                 <EstateCardList />
@@ -97,8 +73,17 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
-
             <AutoSlider reviews={mockReviews} />
+            {!isLoggedIn ? (
+              <Switch>
+                <Route path="/register" component={RegisterForm} />
+                <Route path="/login">
+                  <LoginForm />
+                </Route>
+              </Switch>
+            ) : (
+              <Redirect to="/" exact />
+            )}
           </main>
 
           <Footer sitemapItems={sitemapItems} />

@@ -2,20 +2,19 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { AppBar, Button } from '@material-ui/core';
 
+import { logOut, selectIsLoggedIn, selectLoginName } from '../../redux-store/auth/index';
+import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
+
 import Avatar from './avatar';
 import { cnHeader } from './cn-header';
 import Logo from './logo';
 
 import './index.css';
 
-type HeaderProps = {
-  isloggedIn: boolean;
-  userName: string | null;
-  changeLoggedIn: (value: boolean) => void;
-};
-
-const Header: React.FC<HeaderProps> = (props) => {
-  const { isloggedIn, changeLoggedIn, userName } = props;
+const Header: React.FC = () => {
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  const loginName = useAppSelector(selectLoginName);
+  const dispatch = useAppDispatch();
 
   return (
     <AppBar position="static">
@@ -27,11 +26,11 @@ const Header: React.FC<HeaderProps> = (props) => {
           <h1>Real Estate Review System</h1>
         </div>
 
-        {isloggedIn ? (
-          <div style={{ display: 'flex', alignItems: 'center', margin: '0 -5px' }}>
+        {isLoggedIn ? (
+          <div className={cnHeader('UserBar')}>
             <Avatar width={25} height={25} />
 
-            <h4 style={{ marginLeft: '5px' }}>{userName}</h4>
+            <h4 style={{ marginLeft: '5px' }}>{loginName}</h4>
 
             <Button
               style={{ marginLeft: '20px' }}
@@ -39,7 +38,7 @@ const Header: React.FC<HeaderProps> = (props) => {
               size="small"
               color="inherit"
               onClick={() => {
-                changeLoggedIn(false);
+                dispatch(logOut());
                 localStorage.removeItem('LoginName');
               }}
             >
@@ -47,20 +46,20 @@ const Header: React.FC<HeaderProps> = (props) => {
             </Button>
           </div>
         ) : (
-          <nav>
+          <nav className={cnHeader('TopMenu')}>
             <ul>
               <li>
-                <NavLink exact to="/" className="nav-link">
+                <NavLink activeClassName="selected" exact to="/" className="nav-link">
                   Главная
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/login" className="nav-link">
+                <NavLink activeClassName="selected" to="/login" className="nav-link">
                   Вход
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/register" className="nav-link">
+                <NavLink activeClassName="selected" to="/register" className="nav-link">
                   Регистрация
                 </NavLink>
               </li>

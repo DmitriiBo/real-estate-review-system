@@ -1,10 +1,29 @@
 .Header {
-  padding: 10px 20px;
+  padding: 10px 50px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  background: -webkit-linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
+  background: -moz-linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
+  background: linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
 
   &__LogoBlock {
     display: flex;
@@ -13,32 +32,64 @@
       margin-right: 15px;
     }
   }
-}
 
-ul {
-  margin: 0;
-  padding: 0;
+  &__TopMenu {
+    font-size: 14px;
+    text-transform: uppercase;
 
-  overflow: hidden;
+    ul {
+      margin: 0;
+      padding: 0;
 
-  list-style-type: none;
-}
+      display: flex;
+      overflow: hidden;
+      flex-direction: row;
 
-li {
-  float: left;
-}
+      list-style-type: none;
 
-li a {
-  padding: 14px 16px;
+      background: #1e5cf2;
+      border-radius: 16px;
+    }
 
-  display: block;
+    li a {
+      padding: 14px 16px;
 
-  text-align: center;
-  text-decoration: none;
+      display: block;
 
-  color: #fff;
-}
+      text-align: center;
+      text-decoration: none;
 
-li a:hover {
-  background-color: #111;
+      color: #fff;
+    }
+
+    li a:hover {
+      background-color: #0c2e7f;
+
+      transition: ease-out 1000ms;
+    }
+
+    li .selected {
+      background-color: #0c2e7f;
+      box-shadow: inset 0 -3px 0 -1px #fff;
+    }
+  }
+
+  &__UserBar {
+    margin: 0 -5px;
+    padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+
+    background: #1e5cf2;
+    border-radius: 16px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 10px 15px;
+
+    ul {
+      flex-direction: column;
+    }
+  }
 }
