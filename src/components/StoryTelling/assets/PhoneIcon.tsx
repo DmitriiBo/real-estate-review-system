@@ -3,8 +3,8 @@ import React from 'react';
 export const PhoneIcon: React.FC = () => {
   return (
     <svg
+      height="200"
       // width="704"
-      width="40vw"
       // height="742"
       viewBox="0 0 704 742"
       fill="none"

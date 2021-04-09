@@ -45,33 +45,36 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
       <div className={cnStoryTelling()}>
         <Container>
           <h2 className={cnStoryTelling('title')}>Ищете отзывы об арендодателе?</h2>
-          <div className={cnStoryTelling('leftdiv')}>
+          <div className={cnStoryTelling('div')}>
             <h3 className={cnStoryTelling('headers')}>{steps[0]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(0)}</p>
-            <HouseIcon />
+            <div className={cnStoryTelling('svg-container')}>
+              <HouseIcon />
+            </div>
           </div>
 
-          <div className={cnStoryTelling('rightdiv')}>
+          <div className={cnStoryTelling('div', { right: true })}>
             <h3 className={cnStoryTelling('headers')}>{steps[1]}</h3>
-            <p
-              className={cnStoryTelling('paragraph_right')}
-              // className={cnStoryTelling('paragraph')} как добавить мод к эл?
-            >
-              {getStepContent(1)}
-            </p>
-            <ManIcon />
+            <p className={cnStoryTelling('paragraph')}>{getStepContent(1)}</p>
+            <div className={cnStoryTelling('svg-container')}>
+              <ManIcon />
+            </div>
           </div>
 
-          <div className={cnStoryTelling('leftdiv')}>
+          <div className={cnStoryTelling('div', { left: true })}>
             <h3 className={cnStoryTelling('headers')}>{steps[2]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(2)}</p>
-            <WomanIcon />
+            <div className={cnStoryTelling('svg-container')}>
+              <WomanIcon />
+            </div>
           </div>
 
-          <div className={cnStoryTelling('rightdiv')}>
+          <div className={cnStoryTelling('div', { right: true })}>
             <h3 className={cnStoryTelling('headers')}>{steps[3]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(3)}</p>
-            <PhoneIcon />
+            <div className={cnStoryTelling('svg-container')}>
+              <PhoneIcon />
+            </div>
           </div>
         </Container>
       </div>

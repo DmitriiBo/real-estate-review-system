@@ -3,14 +3,14 @@ import React from 'react';
 export const ManIcon: React.FC = () => {
   return (
     <svg
-      width="100%"
-      // width="1171" не понимаю почему съедается часть
+      height="200"
+      // width="1171"
       // height="835"
       viewBox="0 0 1171 835"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g id="undraw_detailed_analysis_xn7y 1" clipPath="url(#clip0)">
+      <g id="undraw_detailed_analysis_xn7y 1" clipPath="url(#0)">
         <g id="Fiinansist">
           <path
             id="Vector"
@@ -179,11 +179,11 @@ export const ManIcon: React.FC = () => {
           fill="#3F3D56"
         />
       </g>
-      <defs>
+      {/* <defs>
         <clipPath id="clip0">
-          <rect width="1171" height="834.689" fill="white" />
+          <rect width="1171" height="834.689" fill="red" />
         </clipPath>
-      </defs>
+      </defs> */}
     </svg>
   );
 };

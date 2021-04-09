@@ -3,8 +3,8 @@ import React from 'react';
 export const HouseIcon: React.FC = () => {
   return (
     <svg
-      width="40vw"
-      // height="758"
+      // width="350"
+      height="200"
       viewBox="0 0 841 758"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
