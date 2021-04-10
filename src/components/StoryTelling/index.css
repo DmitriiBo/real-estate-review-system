@@ -11,7 +11,6 @@
 
   &__div {
     margin: 0;
-
     width: calc(200vw / 3);
     max-width: 350px;
     min-height: 300px;
@@ -24,9 +23,7 @@
     &_right {
       position: relative;
       top: 0;
-
       margin: 0 0 0 auto;
-
       text-align: right;
     }
   }
@@ -34,28 +31,34 @@
   &__title {
     font-size: 52px;
     line-height: 1.1;
-
     color: #6c63ff;
   }
 
   &__headers {
     font-size: 32px;
     line-height: 1.1;
-
     color: #3f3d56;
-
     animation: appear-from-right 1.5s;
   }
 
   &__paragraph {
     font-size: 22px;
     line-height: 1.1;
-
     animation: zoomInRight 3s;
     -webkit-animation-name: zoominright;
 
     &_right {
       animation: appear-from-left 2.5s;
+    }
+  }
+
+  @media (max-width: 700px) {
+    &__headers {
+      font-size: 22px;
+    }
+
+    &__paragraph {
+      font-size: 12px;
     }
   }
 }
@@ -67,7 +70,6 @@
 }
 
 #Star {
-  /* transition: all 1s ease 0.5s; */
   transform-origin: center;
   animation: turning 2.5s infinite;
   transform-box: fill-box;
@@ -96,31 +98,18 @@
 @keyframes turning {
   0% {
     background-color: #3f3d56;
-
     transform: rotate(0);
   }
 
   100% {
     background-color: #000;
-
     transform: rotate(90deg);
   }
 }
 
-/*
-@keyframes magnifier {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-} */
 @keyframes zoomInRight {
   from {
     opacity: 0;
-
     -webkit-transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
     transform: scale3d(0.1, 0.1, 0.1) translate3d(1000px, 0, 0);
     -webkit-animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
@@ -129,7 +118,6 @@
 
   60% {
     opacity: 1;
-
     -webkit-transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
     transform: scale3d(0.475, 0.475, 0.475) translate3d(-10px, 0, 0);
     -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
