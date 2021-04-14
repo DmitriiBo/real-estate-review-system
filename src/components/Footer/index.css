@@ -1,8 +1,12 @@
 .Footer {
   position: relative;
+
   padding: 10px 50px;
+
   clear: both;
+
   height: auto;
+
   color: #fff;
   background: -webkit-linear-gradient(225deg, rgb(75, 193, 227) 25%, rgb(30, 92, 242) 50%);
   background: -moz-linear-gradient(225deg, rgb(75, 193, 227) 25%, rgb(30, 92, 242) 50%);
@@ -24,15 +28,19 @@
 
     a {
       padding: 5px 5px;
+
       display: block;
+
       text-align: center;
-      text-transform: lowercase;
-      color: #fff;
       text-decoration: none;
+      text-transform: lowercase;
+
+      color: #fff;
     }
 
     a:hover {
       color: #000;
+
       transition: ease-out 1000ms;
     }
   }

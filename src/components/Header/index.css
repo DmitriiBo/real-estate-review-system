@@ -1,9 +1,11 @@
 .Header {
   padding: 10px 50px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   background: -webkit-linear-gradient(
     225deg,
     rgb(30, 194, 240) 25%,
@@ -36,26 +38,33 @@
     text-transform: uppercase;
 
     ul {
-      display: flex;
-      flex-direction: row;
       margin: 0;
       padding: 0;
+
+      display: flex;
+      overflow: hidden;
+      flex-direction: row;
+
+      list-style-type: none;
+
       background: #1e5cf2;
       border-radius: 16px;
-      overflow: hidden;
-      list-style-type: none;
     }
 
     li a {
       padding: 14px 16px;
+
       display: block;
+
       text-align: center;
       text-decoration: none;
+
       color: #fff;
     }
 
     li a:hover {
       background-color: #0c2e7f;
+
       transition: ease-out 1000ms;
     }
 
@@ -66,18 +75,21 @@
   }
 
   &__UserBar {
-    display: flex;
-    align-items: center;
     margin: 0 -5px;
     padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+
     background: #1e5cf2;
     border-radius: 16px;
   }
 
   @media (max-width: 767px) {
+    padding: 10px 15px;
+
     ul {
       flex-direction: column;
     }
-    padding: 10px 15px;
   }
 }

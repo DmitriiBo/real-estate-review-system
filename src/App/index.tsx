@@ -8,9 +8,11 @@ import EstateCard from '../components/EstateCard/EstateCard';
 import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
+import { mockReviews } from '../mocks/review-mock-data';
 import { logIn, selectIsLoggedIn, setLoginName } from '../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
@@ -71,6 +73,7 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
+            <LastReviewsCarousel reviews={mockReviews} />
             {!isLoggedIn ? (
               <Switch>
                 <Route path="/register" component={RegisterForm} />
