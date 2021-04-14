@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
@@ -11,8 +11,8 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { logIn, selectIsLoggedIn, setLoginName } from '../redux-store/auth/index';
-import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
+import { logIn, setLoginName } from '../redux-store/auth';
+import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
@@ -43,7 +43,7 @@ export const App: React.FC = () => {
     },
   ];
 
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
+  // const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
@@ -71,16 +71,14 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
-            {!isLoggedIn ? (
-              <Switch>
-                <Route path="/register" component={RegisterForm} />
-                <Route path="/login">
-                  <LoginForm />
-                </Route>
-              </Switch>
-            ) : (
-              <Redirect to="/" exact />
-            )}
+            {/* {!isLoggedIn ? ( */}
+            <Switch>
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+            </Switch>
+            {/* ) : ( */}
+            {/*  <Redirect to="/" exact /> */}
+            {/* )} */}
           </main>
 
           <Footer sitemapItems={sitemapItems} />

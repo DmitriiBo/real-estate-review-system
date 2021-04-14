@@ -23,7 +23,7 @@ const Header: React.FC = () => {
           <Link to="/">
             <Logo width={70} height={70} />
           </Link>
-          <h1>Real Estate Review System</h1>
+          <span className={cnHeader('LogoDescription')}>Real Estate Review System</span>
         </div>
 
         {isLoggedIn ? (
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
               color="inherit"
               onClick={() => {
                 dispatch(logOut());
-                localStorage.removeItem('LoginName');
+                sessionStorage.removeItem('LoginName');
               }}
             >
               Выйти

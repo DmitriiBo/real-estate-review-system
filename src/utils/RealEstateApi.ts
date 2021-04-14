@@ -34,12 +34,12 @@ class RealEstateApi {
     });
   }
 
-  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }): Promise<JSON> {
-    return this.get(url, options).then((response) => response.json());
-  }
-
   public async postData(url: string, options: { headers?: HeadersInit; body: unknown }) {
     return this.post(url, options);
+  }
+
+  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }): Promise<JSON> {
+    return this.get(url, options).then((response) => response.json());
   }
 }
 
