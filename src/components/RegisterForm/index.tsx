@@ -8,8 +8,8 @@ import {
   InputLabel,
 } from '@material-ui/core';
 
-import { selectIsLoggedIn } from '../../redux-store/auth';
-import { useAppSelector } from '../../redux-store/hooks';
+import { logIn, selectIsLoggedIn, setLoginName } from '../../redux-store/auth';
+import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 import realEstateApi from '../../utils/RealEstateApi';
 import { validateEmail, validatePassword, validatePhone } from '../../utils/validation';
 
@@ -36,6 +36,7 @@ export const RegisterForm: React.FC = () => {
 
   const [formSubmit, setFormSubmit] = useState(false);
 
+  const dispatch = useAppDispatch();
   const isloggedIn = useAppSelector(selectIsLoggedIn);
 
   useLayoutEffect(() => {
@@ -56,7 +57,6 @@ export const RegisterForm: React.FC = () => {
     ) {
       return;
     }
-
     if (inputState.password !== inputState.passwordConfirm) {
       setValidationError({
         ...validationError,
@@ -64,17 +64,24 @@ export const RegisterForm: React.FC = () => {
       });
       return;
     }
+
     // sent register Data
-    realEstateApi.postData('register', {
-      body: {
-        email: inputState.email,
-        password: inputState.password,
-        name: inputState.name,
-      },
-    });
-    sessionStorage.setItem(`Registered`, 'true');
+    realEstateApi
+      .postData('register', {
+        body: {
+          email: inputState.email,
+          password: inputState.password,
+          name: inputState.name,
+        },
+      })
+      .then(() => {
+        dispatch(logIn());
+        sessionStorage.setItem('LoginName', JSON.stringify(inputState.login));
+        dispatch(setLoginName(inputState.login));
+        setFormSubmit(true);
+      });
+
     setInputState({ login: '', name: '', password: '', passwordConfirm: '', email: '', phone: '' });
-    setFormSubmit(true);
   };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {

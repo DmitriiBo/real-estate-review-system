@@ -13,7 +13,6 @@ import './index.css';
 
 export const LoginForm: React.FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  // const loginName = useAppSelector(selectLoginName);
   const dispatch = useAppDispatch();
 
   const [inputState, setInputState] = useState({ email: '', login: '', password: '' });
@@ -33,54 +32,29 @@ export const LoginForm: React.FC = () => {
           dispatch(logIn());
           sessionStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
           setInputState({ email: '', login: '', password: '' });
-          // await realEstateApi.getUser();
         }
         setError(true);
       })
       .finally(() => setIsLoading(false));
-
-    // const abortController = new AbortController();
-    // const abortSignal = abortController.signal;
-
-    //
-    // // post Login data and unsubscribe
-    // realEstateApi
-    //   .postData('signin', {
-    //     body: { email: inputState.email, password: inputState.password },
-    //     signal: abortSignal,
-    //   })
-    //   .then(async (res) => {
-    //     await setTimeout(() => {
-    //       if (res.ok) {
-    //         dispatch(logIn());
-    //         dispatch(setLoginName(inputState.login));
-    //         sessionStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
-    //         setIsLoading(false);
-    //       }
-    //       setIsLoading(false);
-    //       setError(true);
-    //     }, 1000);
-    //   })
-    //   .then(() => abortController.abort());
   };
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const data = event.target.value;
-    setInputState({ ...inputState, email: data });
+    const { value: email } = event.target;
+    setInputState({ ...inputState, email });
   };
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const data = event.target.value;
-    setInputState({ ...inputState, login: data });
+    const { value: login } = event.target;
+    setInputState({ ...inputState, login });
   };
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const data = event.target.value;
-    setInputState({ ...inputState, password: data });
+    const { value: password } = event.target;
+    setInputState({ ...inputState, password });
   };
 
   function renderForm() {
     return (
       <form className={cnLogin()} onSubmit={handleSubmit}>
-        {hasError ? <h4 style={{ color: '#DC143C' }}>Неверный email или пароль </h4> : null}
+        {hasError && <h4 style={{ color: '#DC143C' }}>Неверный email или пароль </h4>}
         <FormGroup>
           <FormControl>
             <InputLabel htmlFor="email">Email</InputLabel>
@@ -128,33 +102,7 @@ export const LoginForm: React.FC = () => {
   return (
     <Container maxWidth="md">
       <h1>Форма входа</h1>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          {isLoggedIn ? (
-            <Redirect to="/" />
-          ) : (
-            // <div className={cnLogin()}>
-            //   <h3>Вы успешно вошли под именем {loginName}</h3>
-            //
-            //   <Button
-            //     type="button"
-            //     variant="outlined"
-            //     size="medium"
-            //     color="primary"
-            //     onClick={() => {
-            //       dispatch(logOut());
-            //       sessionStorage.removeItem('LoginName');
-            //     }}
-            //   >
-            //     Выйти
-            //   </Button>
-            // </div>
-            renderForm()
-          )}
-        </>
-      )}
+      {isLoading ? <Loader /> : <>{isLoggedIn ? <Redirect to="/" /> : renderForm()}</>}
     </Container>
   );
 };
