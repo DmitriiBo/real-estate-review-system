@@ -43,7 +43,6 @@ export const App: React.FC = () => {
     },
   ];
 
-  // const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
   const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
@@ -71,14 +70,11 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
-            {/* {!isLoggedIn ? ( */}
+
             <Switch>
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
             </Switch>
-            {/* ) : ( */}
-            {/*  <Redirect to="/" exact /> */}
-            {/* )} */}
           </main>
 
           <Footer sitemapItems={sitemapItems} />
