@@ -17,7 +17,7 @@ import getResultWord from '../../utils/getResultWord';
 import { cnReview } from './cn-review';
 import useStyles from './use-styles';
 
-type ReviewCardProps = {
+export type ReviewCardProps = {
   id?: number;
   author?: string;
   authorAvatar?: string;

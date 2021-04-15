@@ -8,9 +8,11 @@ import EstateCard from '../components/EstateCard/EstateCard';
 import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
+import { mockReviews } from '../mocks/review-mock-data';
 import { logIn, setLoginName } from '../redux-store/auth';
 import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
@@ -75,6 +77,8 @@ export const App: React.FC = () => {
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
             </Switch>
+
+            <LastReviewsCarousel reviews={mockReviews} />
           </main>
 
           <Footer sitemapItems={sitemapItems} />
