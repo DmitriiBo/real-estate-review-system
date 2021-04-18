@@ -91,9 +91,9 @@ const Search: React.FC = () => {
       <form onSubmit={handleSubmit} className={cnSearch()}>
         <div className={cnSearch('formElement')}>
           <FormControl>
-            <InputLabel id="input-adress">Адрес, район или метро</InputLabel>
-
+            <InputLabel htmlFor="search-input">Адрес, район или метро</InputLabel>
             <Input
+              id="search-input"
               type="text"
               error={validationError}
               value={formState.inputValue}

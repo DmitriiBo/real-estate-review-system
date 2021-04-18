@@ -1,15 +1,11 @@
 import React, { FormEvent, useState } from 'react';
+import { Redirect } from 'react-router';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
 
 import Loader from '../../App/loader';
-import {
-  logIn,
-  logOut,
-  selectIsLoggedIn,
-  selectLoginName,
-  setLoginName,
-} from '../../redux-store/auth/index';
+import { logIn, selectIsLoggedIn, setLoginName } from '../../redux-store/auth';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
+import realEstateApi from '../../utils/RealEstateApi';
 
 import { cnLogin } from './cn-login';
 
@@ -17,50 +13,60 @@ import './index.css';
 
 export const LoginForm: React.FC = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
-  const loginName = useAppSelector(selectLoginName);
-
   const dispatch = useAppDispatch();
-  const [inputState, setInputState] = useState({ login: '', password: '' });
+
+  const [inputState, setInputState] = useState({ email: '', login: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setError] = useState(false);
 
-  // to do: memory leak
-  // useEffect(() => {
-  //   return () => {
-  //     store.subscribe(isLoggedIn);
-  //   };
-  // }, [isLoggedIn]);
-
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-
-    localStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
-
-    dispatch(setLoginName(inputState.login));
-
-    setInputState({ login: '', password: '' });
-
-    setTimeout(() => {
-      dispatch(logIn());
-
-      setIsLoading(false);
-    }, 1000);
+    await realEstateApi
+      .postData('signin', {
+        body: { email: inputState.email, password: inputState.password },
+      })
+      .then((res) => {
+        if (res.ok) {
+          dispatch(setLoginName(inputState.login));
+          dispatch(logIn());
+          sessionStorage.setItem(`LoginName`, JSON.stringify(inputState.login));
+          setInputState({ email: '', login: '', password: '' });
+        }
+        setError(true);
+      })
+      .finally(() => setIsLoading(false));
   };
 
+  const handleEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value: email } = event.target;
+    setInputState({ ...inputState, email });
+  };
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const data = event.target.value;
-    setInputState({ ...inputState, login: data });
+    const { value: login } = event.target;
+    setInputState({ ...inputState, login });
   };
-
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const data = event.target.value;
-    setInputState({ ...inputState, password: data });
+    const { value: password } = event.target;
+    setInputState({ ...inputState, password });
   };
 
   function renderForm() {
     return (
       <form className={cnLogin()} onSubmit={handleSubmit}>
+        {hasError && <h4 style={{ color: '#DC143C' }}>Неверный email или пароль </h4>}
         <FormGroup>
+          <FormControl>
+            <InputLabel htmlFor="email">Email</InputLabel>
+            <Input
+              id="email"
+              onChange={handleEmail}
+              value={inputState.email}
+              type="email"
+              autoComplete="email"
+              required
+            />
+          </FormControl>
           <FormControl>
             <InputLabel htmlFor="login">Имя пользователя (логин)</InputLabel>
             <Input
@@ -68,6 +74,7 @@ export const LoginForm: React.FC = () => {
               onChange={handleLogin}
               value={inputState.login}
               type="text"
+              autoComplete="username"
               required
             />
           </FormControl>
@@ -78,7 +85,8 @@ export const LoginForm: React.FC = () => {
               id="password"
               onChange={handlePassword}
               value={inputState.password}
-              type="text"
+              type="password"
+              autoComplete="current-password"
               required
             />
           </FormControl>
@@ -93,33 +101,8 @@ export const LoginForm: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <h1>Форма входа</h1>
-          {isLoggedIn ? (
-            <div className={cnLogin()}>
-              <h3>Вы успешно вошли под именем {loginName}</h3>
-
-              <Button
-                type="button"
-                variant="outlined"
-                size="medium"
-                color="primary"
-                onClick={() => {
-                  dispatch(logOut());
-                  localStorage.removeItem('LoginName');
-                }}
-              >
-                Выйти
-              </Button>
-            </div>
-          ) : (
-            renderForm()
-          )}
-        </>
-      )}
+      <h1>Форма входа</h1>
+      {isLoading ? <Loader /> : <>{isLoggedIn ? <Redirect to="/" /> : renderForm()}</>}
     </Container>
   );
 };

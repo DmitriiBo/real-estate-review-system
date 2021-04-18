@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
@@ -13,8 +13,8 @@ import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
-import { logIn, selectIsLoggedIn, setLoginName } from '../redux-store/auth/index';
-import { useAppDispatch, useAppSelector } from '../redux-store/hooks';
+import { logIn, setLoginName } from '../redux-store/auth';
+import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 
 import { cnApp } from './cn-app';
@@ -45,9 +45,8 @@ export const App: React.FC = () => {
     },
   ];
 
-  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-  const LoginNameFromStorage = JSON.parse(localStorage.getItem('LoginName') as string);
+  const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
     if (LoginNameFromStorage != null) {
@@ -73,17 +72,13 @@ export const App: React.FC = () => {
                 <EstateCard />
               </Route>
             </Switch>
+
+            <Switch>
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+            </Switch>
+
             <LastReviewsCarousel reviews={mockReviews} />
-            {!isLoggedIn ? (
-              <Switch>
-                <Route path="/register" component={RegisterForm} />
-                <Route path="/login">
-                  <LoginForm />
-                </Route>
-              </Switch>
-            ) : (
-              <Redirect to="/" exact />
-            )}
           </main>
 
           <Footer sitemapItems={sitemapItems} />

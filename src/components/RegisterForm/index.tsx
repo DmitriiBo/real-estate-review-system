@@ -8,6 +8,9 @@ import {
   InputLabel,
 } from '@material-ui/core';
 
+import { logIn, selectIsLoggedIn, setLoginName } from '../../redux-store/auth';
+import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
+import realEstateApi from '../../utils/RealEstateApi';
 import { validateEmail, validatePassword, validatePhone } from '../../utils/validation';
 
 import { cnRegister } from './cn-register';
@@ -19,7 +22,7 @@ export const RegisterForm: React.FC = () => {
     login: '',
     name: '',
     password: '',
-    password2: '',
+    passwordConfirm: '',
     email: '',
     phone: '',
   });
@@ -33,12 +36,15 @@ export const RegisterForm: React.FC = () => {
 
   const [formSubmit, setFormSubmit] = useState(false);
 
+  const dispatch = useAppDispatch();
+  const isloggedIn = useAppSelector(selectIsLoggedIn);
+
   useLayoutEffect(() => {
-    const data = localStorage.getItem(`UserData`);
-    if (data) {
+    const isReg = sessionStorage.getItem(`Registered`);
+    if (isReg) {
       setFormSubmit(true);
     }
-  }, []);
+  }, [formSubmit]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -49,23 +55,33 @@ export const RegisterForm: React.FC = () => {
       validationError.passwordConfirm ||
       validationError.phone
     ) {
-      console.error(`errorFound: ${JSON.stringify(validationError)}`);
       return;
     }
-
-    if (inputState.password !== inputState.password2) {
+    if (inputState.password !== inputState.passwordConfirm) {
       setValidationError({
         ...validationError,
         password: true,
       });
-      console.error(`errorFound: ${JSON.stringify(validationError)}`);
       return;
     }
 
-    localStorage.setItem(`UserData`, JSON.stringify(inputState));
+    // sent register Data
+    realEstateApi
+      .postData('register', {
+        body: {
+          email: inputState.email,
+          password: inputState.password,
+          name: inputState.name,
+        },
+      })
+      .then(() => {
+        dispatch(logIn());
+        sessionStorage.setItem('LoginName', JSON.stringify(inputState.login));
+        dispatch(setLoginName(inputState.login));
+        setFormSubmit(true);
+      });
 
-    setInputState({ login: '', name: '', password: '', password2: '', email: '', phone: '' });
-    setFormSubmit(true);
+    setInputState({ login: '', name: '', password: '', passwordConfirm: '', email: '', phone: '' });
   };
 
   const handleLogin = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -94,35 +110,31 @@ export const RegisterForm: React.FC = () => {
   const handlePassword2 = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
     if (data === inputState.password) {
-      setInputState({ ...inputState, password2: data });
+      setInputState({ ...inputState, passwordConfirm: data });
       setValidationError({ ...validationError, password: false, passwordConfirm: false });
     } else {
-      setInputState({ ...inputState, password2: data });
+      setInputState({ ...inputState, passwordConfirm: data });
       setValidationError({ ...validationError, password: true, passwordConfirm: true });
     }
   };
 
   const handleEmail = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
-
     setInputState({ ...inputState, email: data });
-
     const isValidEmail = validateEmail(data);
     setValidationError({ ...validationError, email: !isValidEmail });
   };
 
   const handlePhone = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const data = event.target.value;
-
     setInputState({ ...inputState, phone: data });
-
     const result = validatePhone(data);
     setValidationError({ ...validationError, phone: !result });
   };
 
   return (
     <Container maxWidth="md">
-      {formSubmit ? (
+      {formSubmit || isloggedIn ? (
         <div>
           <h2>Спасибо за регистрацию!</h2>
           <a href="/">
@@ -141,10 +153,11 @@ export const RegisterForm: React.FC = () => {
                 onChange={handleLogin}
                 value={inputState.login}
                 error={validationError.login}
+                autoComplete="username"
                 required
                 aria-describedby="my-helper-text"
               />
-              <FormHelperText id="my-helper-text">Имя пользователя от 3 букв</FormHelperText>
+              <FormHelperText id="my-helper-text">Имя от 3 букв</FormHelperText>
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="Name">Фамилия Имя Отчество</InputLabel>
@@ -156,7 +169,6 @@ export const RegisterForm: React.FC = () => {
                 required
                 aria-describedby="my-helper-text"
               />
-              <FormHelperText id="my-helper-text">Ваше ФИО</FormHelperText>
             </FormControl>
             <br />
             <FormControl>
@@ -164,25 +176,27 @@ export const RegisterForm: React.FC = () => {
               <Input
                 id="Password"
                 onChange={handlePassword}
-                type="text"
+                type="password"
                 value={inputState.password}
                 error={validationError.password}
+                autoComplete="new-password"
                 required
                 aria-describedby="my-helper-text"
               />
               <FormHelperText id="my-helper-text">
-                От 8 символов, должны содержать латинские буквы и цифры, могут быть символы !#$%&
+                от 8 символов, латинские буквы и цифры, могут быть !#$%&
               </FormHelperText>
             </FormControl>
             <FormControl>
               <InputLabel htmlFor="Password2">Повторите пароль</InputLabel>
               <Input
                 id="Password2"
-                type="text"
+                type="password"
+                autoComplete="new-password"
                 required
                 aria-describedby="my-helper-text"
                 onChange={handlePassword2}
-                value={inputState.password2}
+                value={inputState.passwordConfirm}
                 error={validationError.passwordConfirm}
               />
             </FormControl>
@@ -195,6 +209,7 @@ export const RegisterForm: React.FC = () => {
                 value={inputState.email}
                 error={validationError.email}
                 type="text"
+                autoComplete="email"
                 required
                 aria-describedby="my-helper-text"
               />
