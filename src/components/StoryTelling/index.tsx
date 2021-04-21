@@ -1,4 +1,6 @@
 import React from 'react';
+// import React, { useCallback, useRef, useState } from 'react';
+// import { useChangeVisibility } from 'react-visibility-detector';
 import Container from '@material-ui/core/Container';
 
 import { HouseIcon } from './assets/HouseIcon';
@@ -24,7 +26,16 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
   }
 
   const steps = getSteps();
+  // const targetRef = useRef(null);
+  // const [visible, setVisible] = useState(false);
+  // const onVisibilityChange = useCallback(data => {
+  //   setVisible(data.visible);
+  // }, []);
 
+  // useChangeVisibility({
+  //   targetRef,
+  //   onVisibilityChange,
+  // });
   function getStepContent(step: number) {
     switch (step) {
       case 0:
