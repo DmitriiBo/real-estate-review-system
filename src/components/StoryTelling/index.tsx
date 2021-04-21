@@ -3,10 +3,11 @@ import React from 'react';
 // import { useChangeVisibility } from 'react-visibility-detector';
 import Container from '@material-ui/core/Container';
 
-import { HouseIcon } from './assets/HouseIcon';
-import { ManIcon } from './assets/ManIcon';
-import { PhoneIcon } from './assets/PhoneIcon';
-import { WomanIcon } from './assets/WomanIcon';
+import { HouseIcon } from '../../assets/story-telling-svg/HouseIcon';
+import { ManIcon } from '../../assets/story-telling-svg/ManIcon';
+import { PhoneIcon } from '../../assets/story-telling-svg/PhoneIcon';
+import { WomanIcon } from '../../assets/story-telling-svg/WomanIcon';
+
 import { cnStoryTelling } from './cn-StoryTelling';
 
 import './index.css';
