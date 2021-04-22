@@ -21,7 +21,7 @@ const PLACEHOLDER = 'метро Гостиный двор';
 
 type formState = {
   inputValue: string;
-  buildingType: 'Residental' | 'Commercial' | unknown;
+  buildingType: 'Residential' | 'Commercial' | unknown;
 };
 
 const Search: React.FC = () => {
@@ -29,7 +29,7 @@ const Search: React.FC = () => {
 
   const [formState, setFormState] = useState<formState>({
     inputValue: '',
-    buildingType: 'Residental',
+    buildingType: 'Residential',
   });
 
   const validate = (inputValue: string) => {
@@ -39,7 +39,7 @@ const Search: React.FC = () => {
 
     const isValid = validateSearch(inputValue);
 
-    if (isValid === false) {
+    if (!isValid) {
       setValidationError(true);
     } else {
       setValidationError(false);
@@ -57,11 +57,12 @@ const Search: React.FC = () => {
     const { value } = event.target;
     setValidationError(false);
     setFormState({ ...formState, inputValue: value });
+
     debouncedValidation(value);
   };
 
   const handleBuildingTypeChange = (
-    event: React.ChangeEvent<{ value: 'Residental' | 'Commercial' | unknown }>,
+    event: React.ChangeEvent<{ value: 'Residential' | 'Commercial' | unknown }>,
   ) => {
     setFormState({ ...formState, buildingType: event.target.value });
   };
@@ -79,25 +80,25 @@ const Search: React.FC = () => {
     }
 
     console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
+
     setFormState({ ...formState, inputValue: '' });
   };
 
   return (
-    <Container>
+    <Container maxWidth="md">
       <h1>Узнайте больше об арендодателе</h1>
 
       <form onSubmit={handleSubmit} className={cnSearch()}>
         <div className={cnSearch('formElement')}>
           <FormControl>
-            <InputLabel id="input-adress">Адрес, район или метро</InputLabel>
-
+            <InputLabel htmlFor="search-input">Адрес, район или метро</InputLabel>
             <Input
+              id="search-input"
               type="text"
               error={validationError}
               value={formState.inputValue}
               onChange={handleInputChange}
               placeholder={PLACEHOLDER}
-              style={{ minWidth: '300px' }}
             />
 
             {validationError && 'обнаружена ошибка ввода'}
@@ -113,7 +114,7 @@ const Search: React.FC = () => {
             value={formState.buildingType}
             onChange={handleBuildingTypeChange}
           >
-            <MenuItem value="Residental">Жилая</MenuItem>
+            <MenuItem value="Residential">Жилая</MenuItem>
             <MenuItem value="Commercial">Коммерческая</MenuItem>
           </Select>
         </div>

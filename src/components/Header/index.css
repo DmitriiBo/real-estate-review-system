@@ -1,0 +1,93 @@
+.Header {
+  padding: 10px 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background: -webkit-linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
+  background: -moz-linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
+  background: linear-gradient(
+    225deg,
+    rgb(30, 194, 240) 25%,
+    rgb(213, 201, 255) 50%,
+    rgb(30, 92, 242) 85%
+  );
+
+  &__LogoBlock {
+    display: flex;
+    align-items: center;
+
+    a {
+      margin-right: 15px;
+    }
+  }
+
+  &__LogoDescription {
+    font-size: 25px;
+  }
+
+  &__TopMenu {
+    font-size: 14px;
+    text-transform: uppercase;
+
+    ul {
+      display: flex;
+      flex-direction: row;
+      margin: 0;
+      padding: 0;
+      background: #1e5cf2;
+      border-radius: 16px;
+      overflow: hidden;
+      list-style-type: none;
+    }
+
+    li a {
+      padding: 14px 16px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    li a:hover {
+      background-color: #0c2e7f;
+      transition: ease-out 1000ms;
+    }
+
+    li .selected {
+      background-color: #0c2e7f;
+      box-shadow: inset 0 -3px 0 -1px #fff;
+    }
+  }
+
+  &__UserBar {
+    display: flex;
+    align-items: center;
+    margin: 0 -5px;
+    padding: 0 15px;
+    background: #1e5cf2;
+    border-radius: 16px;
+  }
+
+  @media (max-width: 767px) {
+    padding: 10px 15px;
+
+    ul {
+      flex-direction: column;
+    }
+
+    &__LogoDescription {
+      font-size: 18px;
+    }
+  }
+}

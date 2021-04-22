@@ -1,0 +1,51 @@
+.Footer {
+  position: relative;
+
+  padding: 10px 50px;
+
+  clear: both;
+
+  height: auto;
+
+  color: #fff;
+  background: -webkit-linear-gradient(225deg, rgb(75, 193, 227) 25%, rgb(30, 92, 242) 50%);
+  background: -moz-linear-gradient(225deg, rgb(75, 193, 227) 25%, rgb(30, 92, 242) 50%);
+  background: linear-gradient(225deg, rgb(75, 193, 227) 25%, rgb(30, 92, 242) 50%);
+  box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+    0 1px 10px 0 rgb(0 0 0 / 12%);
+
+  &__Sitemap {
+    max-width: 130px;
+
+    ul {
+      padding: 0;
+    }
+  }
+
+  &__SitemapItem {
+    display: block;
+    float: none;
+
+    a {
+      padding: 5px 5px;
+
+      display: block;
+
+      text-align: center;
+      text-decoration: none;
+      text-transform: lowercase;
+
+      color: #fff;
+    }
+
+    a:hover {
+      color: #000;
+
+      transition: ease-out 1000ms;
+    }
+  }
+
+  @media (max-width: 767px) {
+    padding: 10px 15px;
+  }
+}

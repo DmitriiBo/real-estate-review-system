@@ -14,10 +14,10 @@ import Rating from '@material-ui/lab/Rating';
 
 import getResultWord from '../../utils/getResultWord';
 
-import { cnReview } from './cn-Review';
+import { cnReview } from './cn-review';
 import useStyles from './use-styles';
 
-type ReviewProps = {
+export type ReviewCardProps = {
   id?: number;
   author?: string;
   authorAvatar?: string;
@@ -29,7 +29,7 @@ type ReviewProps = {
   photos?: string[];
 };
 
-const Review: React.FunctionComponent<ReviewProps> = (props) => {
+const Review: React.FunctionComponent<ReviewCardProps> = (props) => {
   const classes = useStyles();
 
   return (
