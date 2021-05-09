@@ -1,12 +1,11 @@
 import React from 'react';
-// import React, { useCallback, useRef, useState } from 'react';
-// import { useChangeVisibility } from 'react-visibility-detector';
 import Container from '@material-ui/core/Container';
 
 import { HouseIcon } from '../../assets/story-telling-svg/HouseIcon';
 import { ManIcon } from '../../assets/story-telling-svg/ManIcon';
 import { PhoneIcon } from '../../assets/story-telling-svg/PhoneIcon';
 import { WomanIcon } from '../../assets/story-telling-svg/WomanIcon';
+import StoryTellingItem from '../StoryTellingItem/index';
 
 import { cnStoryTelling } from './cn-StoryTelling';
 
@@ -25,18 +24,7 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
       'Выбирайте лучшее',
     ];
   }
-
   const steps = getSteps();
-  // const targetRef = useRef(null);
-  // const [visible, setVisible] = useState(false);
-  // const onVisibilityChange = useCallback(data => {
-  //   setVisible(data.visible);
-  // }, []);
-
-  // useChangeVisibility({
-  //   targetRef,
-  //   onVisibilityChange,
-  // });
   function getStepContent(step: number) {
     switch (step) {
       case 0:
@@ -57,15 +45,24 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
       <div className={cnStoryTelling()}>
         <Container>
           <h2 className={cnStoryTelling('title')}>Ищете отзывы об арендодателе?</h2>
-          <div className={cnStoryTelling('div')}>
-            <h3 className={cnStoryTelling('headers')}>{steps[0]}</h3>
-            <p className={cnStoryTelling('paragraph')}>{getStepContent(0)}</p>
-            <div className={cnStoryTelling('svg-container')}>
-              <HouseIcon />
-            </div>
-          </div>
 
-          <div className={cnStoryTelling('div', { right: true })}>
+          <StoryTellingItem paragraph={`${getStepContent(0)}`} header={steps[0]}>
+            <HouseIcon />
+          </StoryTellingItem>
+
+          <StoryTellingItem paragraph={`${getStepContent(1)}`} header={steps[1]}>
+            <ManIcon />
+          </StoryTellingItem>
+
+          <StoryTellingItem paragraph={`${getStepContent(2)}`} header={steps[2]}>
+            <WomanIcon />
+          </StoryTellingItem>
+
+          <StoryTellingItem paragraph={`${getStepContent(3)}`} header={steps[3]}>
+            <PhoneIcon />
+          </StoryTellingItem>
+
+          {/* <div className={divClassNameRight} ref={targetRef}>
             <h3 className={cnStoryTelling('headers')}>{steps[1]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(1)}</p>
             <div className={cnStoryTelling('svg-container')}>
@@ -73,7 +70,7 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
             </div>
           </div>
 
-          <div className={cnStoryTelling('div', { left: true })}>
+          <div className={divClassNameLeft} ref={targetRef}>
             <h3 className={cnStoryTelling('headers')}>{steps[2]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(2)}</p>
             <div className={cnStoryTelling('svg-container')}>
@@ -81,13 +78,13 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
             </div>
           </div>
 
-          <div className={cnStoryTelling('div', { right: true })}>
+          <div className={divClassNameRight} ref={targetRef}>
             <h3 className={cnStoryTelling('headers')}>{steps[3]}</h3>
             <p className={cnStoryTelling('paragraph')}>{getStepContent(3)}</p>
             <div className={cnStoryTelling('svg-container')}>
               <PhoneIcon />
             </div>
-          </div>
+          </div> */}
         </Container>
       </div>
     )

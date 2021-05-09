@@ -1,84 +1,13 @@
-:root {
-  --search-width: 100%;
-}
-
-.StoryTelling {
-  margin: 0 auto 70px;
-
-  &__svg-container {
-    position: absolute;
-  }
-
-  &__div {
-    margin: 0;
-
-    width: calc(200vw / 3);
-    max-width: 350px;
-    min-height: 300px;
-
-    &_left {
-      position: relative;
-      top: 0;
-    }
-
-    &_right {
-      position: relative;
-      top: 0;
-
-      margin: 0 0 0 auto;
-
-      text-align: right;
-    }
-  }
-
-  &__title {
-    font-size: 52px;
-    line-height: 1.1;
-
-    color: #6c63ff;
-  }
-
-  &__headers {
-    font-size: 32px;
-    line-height: 1.1;
-
-    color: #3f3d56;
-
-    animation: appear-from-right 1.5s;
-  }
-
-  &__paragraph {
-    font-size: 22px;
-    line-height: 1.1;
-
-    animation: zoomInRight 3s;
-    -webkit-animation-name: zoominright;
-
-    &_right {
-      animation: appear-from-left 2.5s;
-    }
-  }
-
-  @media (max-width: 700px) {
-    &__headers {
-      font-size: 22px;
-    }
-
-    &__paragraph {
-      font-size: 12px;
-    }
-  }
-}
-
-#SearchMap {
-  transform-origin: center;
-  animation: appear-from-left 2.5s;
-  transform-box: fill-box;
-}
-
 #House {
   transform-origin: center;
   animation: flipInX 2.5s;
+  transform-box: fill-box;
+}
+
+#SearchMap {
+  /* position: relative; */
+  transform-origin: center;
+  animation: appear-from-left 2.5s;
   transform-box: fill-box;
 }
 
@@ -86,6 +15,10 @@
   transform-origin: center;
   animation: bounce 2.5s infinite 2.5s;
   transform-box: fill-box;
+
+  /* position: absolute;
+  top: 10px;
+  left: 0; */
 }
 
 #Star {
@@ -265,6 +198,47 @@
     transform: scaleX(1);
   }
 }
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  to {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+}
+
+.animate__rubberBand {
+  -webkit-animation-name: rubberband;
+  animation-name: rubberBand;
+}
 
 @-webkit-keyframes bounce {
   0%,
@@ -309,7 +283,9 @@
   20%,
   53%,
   to {
-    -webkit-transform: translateZ(0);
+    left: 0;
+
+    -webkit-transform: translateY(0);
     transform: translateZ(0);
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -343,47 +319,6 @@
   }
 }
 
-@keyframes rubberBand {
-  0% {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-
-  30% {
-    -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
-  }
-
-  40% {
-    -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
-  }
-
-  50% {
-    -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
-  }
-
-  65% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
-  }
-
-  75% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
-  }
-
-  to {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-  }
-}
-
-.animate__rubberBand {
-  -webkit-animation-name: rubberband;
-  animation-name: rubberBand;
-}
 @-webkit-keyframes shakeX {
   0%,
   to {
