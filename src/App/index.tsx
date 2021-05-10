@@ -13,7 +13,7 @@ import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
-import { logIn, setLoginName } from '../redux-store/auth';
+import { logIn } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 
@@ -50,8 +50,7 @@ export const App: React.FC = () => {
 
   useLayoutEffect(() => {
     if (LoginNameFromStorage != null) {
-      dispatch(logIn());
-      dispatch(setLoginName(LoginNameFromStorage));
+      dispatch(logIn(LoginNameFromStorage));
     }
   }, [dispatch, LoginNameFromStorage]);
 

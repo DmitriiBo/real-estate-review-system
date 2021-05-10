@@ -7,6 +7,7 @@ class RealEstateApi {
     this.baseUrl = options.baseUrl;
     this.defaultHeaders = {
       'Content-Type': 'application/json; charset=utf-8',
+      'Cross-Origin-Opener-Policy': 'same-origin',
     };
   }
 
