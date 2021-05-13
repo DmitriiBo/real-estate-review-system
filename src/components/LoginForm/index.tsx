@@ -29,7 +29,6 @@ export const LoginForm: React.FC = () => {
   const isError = useAppSelector(selectError);
   const isNetworkError = useAppSelector(selectNetworkError);
   const login = useInput('');
-  const email = useInput('');
   const password = useInput('');
 
   const handleSubmit = async (event: FormEvent) => {
@@ -59,10 +58,6 @@ export const LoginForm: React.FC = () => {
         {isError && <h4 style={{ color: '#DC143C' }}>Неверный email или пароль </h4>}
         <FormGroup>
           <FormControl>
-            <InputLabel htmlFor="email">Email</InputLabel>
-            <Input id="email" {...email} type="email" autoComplete="email" required />
-          </FormControl>
-          <FormControl>
             <InputLabel htmlFor="login">Имя пользователя (логин)</InputLabel>
             <Input id="login" {...login} type="text" autoComplete="username" required />
           </FormControl>
@@ -89,7 +84,7 @@ export const LoginForm: React.FC = () => {
   return (
     <Container maxWidth="md">
       <h1>Форма входа</h1>
-      {isLoading ? <Loader /> : <>{isLoggedIn ? <Redirect to="/" /> : renderForm()}</>}
+      {isLoading ? <Loader /> : <>{isLoggedIn ? <Redirect to="/account" /> : renderForm()}</>}
     </Container>
   );
 };

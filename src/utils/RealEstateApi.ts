@@ -12,7 +12,7 @@ class RealEstateApi {
   }
 
   private getHeaders(): HeadersInit {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     return {
       ...this.defaultHeaders,
@@ -45,7 +45,7 @@ class RealEstateApi {
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:8000',
 });
 
 export default realEstateApi;

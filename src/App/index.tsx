@@ -1,21 +1,22 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
+import { Account } from '../components/Account';
+import { AddBuildingForm } from '../components/AddBuildingForm';
 import EstateCard from '../components/EstateCard/EstateCard';
 import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { mockReviews } from '../mocks/review-mock-data';
-import { logIn } from '../redux-store/AuthReducer';
+import { refresh } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
+import PrivateRoute from '../utils/PrivateRoute';
 
 import { cnApp } from './cn-app';
 
@@ -38,46 +39,47 @@ export const App: React.FC = () => {
       name: 'Объекты',
       link: '/cards',
     },
-    {
-      id: 4,
-      name: 'Контакты',
-      link: '/',
-    },
   ];
 
   const dispatch = useAppDispatch();
-  const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
-  useLayoutEffect(() => {
-    if (LoginNameFromStorage != null) {
-      dispatch(logIn(LoginNameFromStorage));
-    }
-  }, [dispatch, LoginNameFromStorage]);
+  const token = JSON.parse(sessionStorage.getItem('token') as string);
+
+  useCallback(() => {
+    console.log(token);
+    dispatch(refresh(token));
+  }, [dispatch, token]);
+
+  // useLayoutEffect(() => {
+  //   if (LoginNameFromStorage != null) {
+  //     console.log(LoginNameFromStorage);
+  //     dispatch(refresh(LoginNameFromStorage));
+  //   }
+  // }, [dispatch, useCallback, LoginNameFromStorage]);
 
   return (
     <div className={cnApp()}>
       <HashRouter>
         <Container maxWidth={false} disableGutters>
           <Header />
+
           <main className={cnApp('MainContent')}>
             <Switch>
               <Route path="/" exact component={Search} />
-
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterForm} />
               <Route exact path="/cards">
                 <EstateCardList />
               </Route>
-
               <Route path="/cards/:id">
                 <EstateCard />
               </Route>
             </Switch>
 
             <Switch>
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login" component={LoginForm} />
+              <PrivateRoute path="/account" component={Account} exact />
+              <PrivateRoute path="/add-object" component={AddBuildingForm} exact />
             </Switch>
-
-            <LastReviewsCarousel reviews={mockReviews} />
           </main>
 
           <Footer sitemapItems={sitemapItems} />

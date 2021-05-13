@@ -86,6 +86,7 @@
     "bem-cn": "^3.0.1",
     "json-server": "^0.16.3",
     "json-server-auth": "^2.0.2",
+    "material-ui-dropzone": "^3.5.0",
     "node-jose": "^2.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

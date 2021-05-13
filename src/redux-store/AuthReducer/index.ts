@@ -38,7 +38,7 @@ export const postLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = create
   'login',
   async ({ login, password }): Promise<PromisePayloadType> => {
     const response = await realEstateApi
-      .postData('login/', {
+      .postData('api/v1/login/', {
         body: { username: login, password },
       })
       .then(async (res) => {
@@ -60,6 +60,13 @@ export const loginSlice = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.isLoggedIn = true;
       sessionStorage.setItem(`LoginName`, state.loginName);
+    },
+
+    refresh: (state, { payload }: PayloadAction<{ login: string }>) => {
+      // eslint-disable-next-line no-param-reassign
+      state.loginName = payload.login;
+      // eslint-disable-next-line no-param-reassign
+      state.isLoggedIn = true;
     },
 
     logOut: (state) => {
@@ -102,7 +109,7 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { logIn, logOut } = loginSlice.actions;
+export const { logIn, logOut, refresh } = loginSlice.actions;
 
 export const selectIsLoggedIn = (state: RootState): boolean => state.loginState.isLoggedIn;
 export const selectLoginName = (state: RootState): string | null => state.loginState.loginName;

@@ -30,7 +30,7 @@ export const RegisterForm: React.FC = () => {
     middleName: '',
     lastName: '',
     password: '',
-    birthDate: '2014-11-11',
+    birthDate: '1990-11-11',
     isTenant: false,
     isLandlord: false,
     passwordConfirm: '',
@@ -99,10 +99,13 @@ export const RegisterForm: React.FC = () => {
           lastname: lastName.value,
         },
       })
-      .then(() => {
-        dispatch(logIn({ login: inputState.username }));
-        sessionStorage.setItem('LoginName', JSON.stringify(inputState.username));
-        setFormSubmit(true);
+      .then((response) => {
+        if (response.ok) {
+          dispatch(logIn({ login: inputState.username }));
+          sessionStorage.setItem('LoginName', JSON.stringify(inputState.username));
+          setFormSubmit(true);
+        }
+        setError(true);
       })
       .catch(() => {
         setError(true);
@@ -116,7 +119,7 @@ export const RegisterForm: React.FC = () => {
       passwordConfirm: '',
       email: '',
       phone: '',
-      birthDate: '2014-08-18',
+      birthDate: '1990-11-11',
       isTenant: false,
       isLandlord: false,
       lastName: '',
