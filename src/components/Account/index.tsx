@@ -8,7 +8,7 @@ import './index.css';
 
 export const Account: React.FC = () => {
   const history = useHistory();
-  const LoginName = sessionStorage.getItem('LoginName');
+  const LoginName = localStorage.getItem('LoginName');
 
   const routeChange = () => {
     const path = `/add-object`;
@@ -22,7 +22,9 @@ export const Account: React.FC = () => {
         <br />
 
         <Button
-          className={cnAccount('Buttons')}
+          classes={{
+            root: cnAccount(),
+          }}
           variant="outlined"
           size="small"
           color="inherit"
@@ -31,7 +33,14 @@ export const Account: React.FC = () => {
           Добавить недвижимость
         </Button>
 
-        <Button className={cnAccount('Buttons')} variant="outlined" size="small" color="inherit">
+        <Button
+          classes={{
+            root: cnAccount(),
+          }}
+          variant="outlined"
+          size="small"
+          color="inherit"
+        >
           Выйти
         </Button>
       </div>

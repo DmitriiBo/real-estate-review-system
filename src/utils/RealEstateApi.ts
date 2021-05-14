@@ -8,11 +8,12 @@ class RealEstateApi {
     this.defaultHeaders = {
       'Content-Type': 'application/json; charset=utf-8',
       'Cross-Origin-Opener-Policy': 'same-origin',
+      'Access-Control-Allow-Origin': '*',
     };
   }
 
   private getHeaders(): HeadersInit {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
     return {
       ...this.defaultHeaders,

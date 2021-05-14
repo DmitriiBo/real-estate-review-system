@@ -33,6 +33,7 @@ export type PromisePayloadType = {
   ok?: boolean;
   token?: string;
 };
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const postLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createAsyncThunk(
   'login',
@@ -40,6 +41,22 @@ export const postLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = create
     const response = await realEstateApi
       .postData('api/v1/login/', {
         body: { username: login, password },
+      })
+      .then(async (res) => {
+        return res.json();
+      });
+
+    return response;
+  },
+);
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+export const refreshToken: AsyncThunk<PromisePayloadType, string, {}> = createAsyncThunk(
+  'refresh',
+  async (token) => {
+    const response = await realEstateApi
+      .postData('api/v1/refresh', {
+        body: { token },
       })
       .then(async (res) => {
         return res.json();
@@ -59,19 +76,18 @@ export const loginSlice = createSlice({
       state.loginName = payload.login;
       // eslint-disable-next-line no-param-reassign
       state.isLoggedIn = true;
-      sessionStorage.setItem(`LoginName`, state.loginName);
-    },
-
-    refresh: (state, { payload }: PayloadAction<{ login: string }>) => {
-      // eslint-disable-next-line no-param-reassign
-      state.loginName = payload.login;
-      // eslint-disable-next-line no-param-reassign
-      state.isLoggedIn = true;
+      localStorage.setItem(`LoginName`, state.loginName);
     },
 
     logOut: (state) => {
       // eslint-disable-next-line no-param-reassign
       state.isLoggedIn = false;
+    },
+    refresh: (state, { payload }: PayloadAction<{ login: string }>) => {
+      // eslint-disable-next-line no-param-reassign
+      state.isLoggedIn = true;
+      // eslint-disable-next-line no-param-reassign
+      state.loginName = payload.login;
     },
   },
 
@@ -100,6 +116,15 @@ export const loginSlice = createSlice({
       state.loading = false;
       // eslint-disable-next-line no-param-reassign
       state.networkError = true;
+    });
+
+    builder.addCase(refreshToken.fulfilled, (state: LoginStateType) => {
+      // eslint-disable-next-line no-param-reassign
+      state.loading = false;
+      // eslint-disable-next-line no-param-reassign
+      state.isLoggedIn = true;
+      // eslint-disable-next-line no-param-reassign
+      state.error = false;
     });
 
     builder.addDefaultCase((state) => {

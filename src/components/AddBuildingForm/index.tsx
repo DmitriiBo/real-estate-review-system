@@ -54,7 +54,7 @@ export const AddBuildingForm: React.FC = () => {
   const [balcony, setBalcony] = useState(false);
 
   useLayoutEffect(() => {
-    const isAdded = sessionStorage.getItem(`BuildingAdded`);
+    const isAdded = localStorage.getItem(`BuildingAdded`);
     if (isAdded) {
       setFormSubmit(true);
     }
@@ -68,18 +68,17 @@ export const AddBuildingForm: React.FC = () => {
     realEstateApi
       .postData('api/v1/properties/', {
         body: {
-          name,
-          address,
-          building_type: buildingType,
-          overall_floors: overallFloors,
-          floor,
-          overall_square: overallSquare,
-          living_square: livingSquare,
-          kitchen_square: kitchenSquare,
-          view,
+          name: name.value,
+          address: address.value,
+          building_type: buildingType.value,
+          overall_floors: overallFloors.value,
+          floor: floor.value,
+          overall_square: overallSquare.value,
+          living_square: livingSquare.value,
+          kitchen_square: kitchenSquare.value,
+          view: view.value,
           decoration,
           balcony,
-          landlord: sessionStorage.getItem('LoginName'),
         },
       })
       .then((response) => {
@@ -257,7 +256,13 @@ export const AddBuildingForm: React.FC = () => {
                 />
               </FormControl>
               <br />
-              <Button variant="contained" size="medium" color="primary" type="submit">
+              <Button
+                style={{ width: 150 }}
+                variant="contained"
+                size="medium"
+                color="primary"
+                type="submit"
+              >
                 Разместить объект
               </Button>
             </form>

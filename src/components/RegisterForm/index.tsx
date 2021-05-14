@@ -56,13 +56,14 @@ export const RegisterForm: React.FC = () => {
   const middleName = useInput('');
 
   useLayoutEffect(() => {
-    const isReg = sessionStorage.getItem(`Registered`);
+    const isReg = localStorage.getItem(`Registered`);
     if (isReg) {
       setFormSubmit(true);
     }
   }, [formSubmit]);
 
   const handleSubmit = (event: FormEvent) => {
+    console.log(inputState.email);
     event.preventDefault();
     setLoading(true);
     setError(false);
@@ -82,7 +83,6 @@ export const RegisterForm: React.FC = () => {
       });
       return;
     }
-
     // sent register Data
     realEstateApi
       .postData('api/v1/register', {
@@ -102,7 +102,7 @@ export const RegisterForm: React.FC = () => {
       .then((response) => {
         if (response.ok) {
           dispatch(logIn({ login: inputState.username }));
-          sessionStorage.setItem('LoginName', JSON.stringify(inputState.username));
+          localStorage.setItem('LoginName', JSON.stringify(inputState.username));
           setFormSubmit(true);
         }
         setError(true);

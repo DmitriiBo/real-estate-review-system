@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 
@@ -13,7 +13,7 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { refresh } from '../redux-store/AuthReducer';
+import { refresh, refreshToken } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 import PrivateRoute from '../utils/PrivateRoute';
@@ -41,21 +41,16 @@ export const App: React.FC = () => {
     },
   ];
 
+  const token = localStorage.getItem('token') as string;
   const dispatch = useAppDispatch();
 
-  const token = JSON.parse(sessionStorage.getItem('token') as string);
-
-  useCallback(() => {
-    console.log(token);
-    dispatch(refresh(token));
+  useLayoutEffect(() => {
+    if (token) {
+      dispatch(refreshToken(token));
+      const login = localStorage.getItem('LoginName') as string;
+      dispatch(refresh({ login }));
+    }
   }, [dispatch, token]);
-
-  // useLayoutEffect(() => {
-  //   if (LoginNameFromStorage != null) {
-  //     console.log(LoginNameFromStorage);
-  //     dispatch(refresh(LoginNameFromStorage));
-  //   }
-  // }, [dispatch, useCallback, LoginNameFromStorage]);
 
   return (
     <div className={cnApp()}>

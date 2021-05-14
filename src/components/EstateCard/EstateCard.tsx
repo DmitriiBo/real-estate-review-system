@@ -175,9 +175,8 @@ const EstateCard: React.FC = () => {
 
             <div className={cnEstateCard('GridContainer')}>
               {pictures.map((image: string) => (
-                <div className={cnEstateCard('GridItem')}>
+                <div key={image ?? ''} className={cnEstateCard('GridItem')}>
                   <CardMedia
-                    key={image ?? ''}
                     image={image}
                     className={classes.CardMedia}
                     onClick={() => {

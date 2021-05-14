@@ -46,7 +46,7 @@ export const registerSlice = createSlice({
       state.isLoggedIn = true;
       // eslint-disable-next-line no-param-reassign
       state.name = action.payload;
-      sessionStorage.setItem(`LoginName`, JSON.stringify(action.payload));
+      localStorage.setItem(`LoginName`, JSON.stringify(action.payload));
     },
   },
 

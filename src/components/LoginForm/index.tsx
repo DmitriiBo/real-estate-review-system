@@ -18,9 +18,9 @@ import { cnLogin } from './cn-login';
 
 import './index.css';
 
-export type AccessTokenType = {
-  action: { payload: { token?: string | undefined } };
-};
+// export type AccessTokenType = {
+//   payload: { token?: string | undefined };
+// };
 
 export const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -45,7 +45,7 @@ export const LoginForm: React.FC = () => {
     const { token } = result.payload;
     if (token) {
       await dispatch(logIn({ login: login.value })); // pass LogIn
-      sessionStorage.setItem('token', token);
+      localStorage.setItem('token', token);
     }
   };
 

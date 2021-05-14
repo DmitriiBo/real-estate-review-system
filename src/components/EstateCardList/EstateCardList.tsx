@@ -63,8 +63,8 @@ const EstateCardList: React.FC = () => {
 
                   <div className={cnEstateCardList('GridContainer')}>
                     {home?.images.slice(0, 1).map((image: string) => (
-                      <div className={cnEstateCardList('GridItem')}>
-                        <CardMedia key={image ?? ''} image={image} className={classes.CardMedia} />
+                      <div key={image ?? ''} className={cnEstateCardList('GridItem')}>
+                        <CardMedia image={image} className={classes.CardMedia} />
                       </div>
                     ))}
                   </div>
