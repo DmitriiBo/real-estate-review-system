@@ -1,0 +1,40 @@
+.Search {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 72px;
+  background: #deddf126;
+  border-radius: 18px;
+  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+
+  &__formElement {
+    padding: 10px;
+
+    input {
+      min-width: 260px;
+    }
+  }
+
+  &__formElementError {
+    padding: 10px;
+    border-bottom: 2px solid #f50057;
+  }
+
+  &__selectEmpty {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    &__formElement {
+      padding: 10px;
+
+      input {
+        min-width: 185px;
+      }
+    }
+  }
+}

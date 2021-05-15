@@ -11,6 +11,8 @@ import Header from '../components/Header';
 import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
+import ReviewForm from '../components/ReviewForm';
+import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 import StoryTelling from '../components/StoryTelling/index';
 import { mockReviews } from '../mocks/review-mock-data';
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
     {
       id: 2,
       name: 'Отзывы',
-      link: '/',
+      link: '/rewiews',
     },
     {
       id: 3,
@@ -62,24 +64,29 @@ export const App: React.FC = () => {
         <Container maxWidth={false} disableGutters>
           <Header />
           <main className={cnApp('MainContent')}>
-            <StoryTelling isLogged />
+            <Switch>
+              <Route path="/register" component={RegisterForm} />
+              <Route path="/login" component={LoginForm} />
+              <Route exact path="/" component={StoryTelling} />
+            </Switch>
 
             <Switch>
-              <Route path="/" exact component={Search} />
+              <Route exact path="/" component={ReviewForm} />
+            </Switch>
 
+            <Switch>
+              <Route exact path="/" component={Search} />
+              <Route exact path="/rewiews">
+                <Reviews />
+              </Route>
               <Route exact path="/cards">
                 <EstateCardList />
               </Route>
-
               <Route path="/cards/:id">
                 <EstateCard />
               </Route>
             </Switch>
 
-            <Switch>
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login" component={LoginForm} />
-            </Switch>
             <LastReviewsCarousel reviews={mockReviews} />
           </main>
 
