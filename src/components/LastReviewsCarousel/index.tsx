@@ -25,8 +25,8 @@ const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
     <Carousel autoPlay animation="slide" className={cnLastReviewsCarousel()}>
       {lastReviews &&
         lastReviews.map((card) => (
-          <div className={cnLastReviewsCarousel('item')}>
-            <Review key={card.id} {...card} />
+          <div key={card.id} className={cnLastReviewsCarousel('item')}>
+            <Review {...card} />
           </div>
         ))}
     </Carousel>

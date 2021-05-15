@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { AppBar, Button } from '@material-ui/core';
+import { AppBar, Button, List, ListItem, ListItemText } from '@material-ui/core';
 
 import { logOut, selectIsLoggedIn, selectLoginName } from '../../redux-store/auth/index';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
@@ -16,6 +16,11 @@ const Header: React.FC = () => {
   const loginName = useAppSelector(selectLoginName);
   const dispatch = useAppDispatch();
 
+  const [isAccountBarClicked, setIsAccountBarClicked] = React.useState(false);
+  const handleAvatarClick = () => {
+    setIsAccountBarClicked(!isAccountBarClicked);
+  };
+
   return (
     <AppBar position="static">
       <section className={cnHeader()}>
@@ -28,7 +33,45 @@ const Header: React.FC = () => {
 
         {isLoggedIn ? (
           <div className={cnHeader('UserBar')}>
-            <Avatar width={25} height={25} />
+            <div>
+              <button
+                type="button"
+                className={cnHeader('avatar-button')}
+                onClick={handleAvatarClick}
+              >
+                <Avatar width={25} height={25} />
+              </button>
+              {isAccountBarClicked && (
+                <List
+                  style={{
+                    position: 'absolute',
+                    backgroundColor: '#fff',
+                    borderRadius: '4px',
+                  }}
+                >
+                  <ListItem button>
+                    <NavLink
+                      activeClassName={cnHeader('account-link_disabled')}
+                      className={cnHeader('account-link')}
+                      exact
+                      to="/my-reviews"
+                    >
+                      <ListItemText primary="Мои отзывы" />
+                    </NavLink>
+                  </ListItem>
+                  <ListItem button>
+                    <NavLink
+                      activeClassName={cnHeader('account-link_disabled')}
+                      className={cnHeader('account-link')}
+                      exact
+                      to="/my-objects"
+                    >
+                      Мои объекты
+                    </NavLink>
+                  </ListItem>
+                </List>
+              )}
+            </div>
 
             <h4 style={{ marginLeft: '5px' }}>{loginName}</h4>
 

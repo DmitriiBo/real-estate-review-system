@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
+import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
 import { logIn, setLoginName } from '../redux-store/auth';
@@ -62,7 +63,18 @@ export const App: React.FC = () => {
           <Header />
           <main className={cnApp('MainContent')}>
             <Switch>
-              <Route path="/" exact component={Search} />
+              <Route exact path="/">
+                <Search />
+                <LastReviewsCarousel reviews={mockReviews} />
+              </Route>
+
+              <Route exact path="/my-objects">
+                <EstateCardList />
+              </Route>
+
+              <Route exact path="/my-reviews">
+                <Reviews reviews={mockReviews} />
+              </Route>
 
               <Route exact path="/cards">
                 <EstateCardList />
@@ -77,8 +89,6 @@ export const App: React.FC = () => {
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
             </Switch>
-
-            <LastReviewsCarousel reviews={mockReviews} />
           </main>
 
           <Footer sitemapItems={sitemapItems} />

@@ -1,9 +1,11 @@
-.Header {
+.header {
   padding: 10px 50px;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
   background: -webkit-linear-gradient(
     225deg,
     rgb(30, 194, 240) 25%,
@@ -23,6 +25,26 @@
     rgb(30, 92, 242) 85%
   );
 
+  &__avatar-button {
+    padding: 0;
+
+    cursor: pointer;
+
+    color: #fff;
+    background: none;
+    border: none;
+  }
+
+  &__account-link {
+    text-decoration: none;
+
+    color: #000;
+  }
+
+  &__account-link_disabled {
+    opacity: 0.5;
+  }
+
   &__LogoBlock {
     display: flex;
     align-items: center;
@@ -41,26 +63,33 @@
     text-transform: uppercase;
 
     ul {
-      display: flex;
-      flex-direction: row;
       margin: 0;
       padding: 0;
+
+      display: flex;
+      overflow: hidden;
+      flex-direction: row;
+
+      list-style-type: none;
+
       background: #1e5cf2;
       border-radius: 16px;
-      overflow: hidden;
-      list-style-type: none;
     }
 
     li a {
       padding: 14px 16px;
+
       display: block;
+
       text-align: center;
       text-decoration: none;
+
       color: #fff;
     }
 
     li a:hover {
       background-color: #0c2e7f;
+
       transition: ease-out 1000ms;
     }
 
@@ -71,10 +100,12 @@
   }
 
   &__UserBar {
-    display: flex;
-    align-items: center;
     margin: 0 -5px;
     padding: 0 15px;
+
+    display: flex;
+    align-items: center;
+
     background: #1e5cf2;
     border-radius: 16px;
   }

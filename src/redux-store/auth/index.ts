@@ -8,7 +8,7 @@ type LoginState = {
 };
 
 export const loginSlice = createSlice({
-  initialState: { isLoggedIn: false, loginName: null } as LoginState,
+  initialState: { isLoggedIn: true, loginName: null } as LoginState,
   name: 'loginState',
   reducers: {
     logIn: (state) => {
