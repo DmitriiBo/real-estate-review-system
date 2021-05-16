@@ -44,7 +44,7 @@ export const LoginForm: React.FC = () => {
     // @ts-ignore
     const { token } = result.payload;
     if (token) {
-      await dispatch(logIn({ login: login.value })); // pass LogIn
+      await dispatch(logIn({ login: login.value as string })); // pass LogIn
       localStorage.setItem('token', token);
     }
   };

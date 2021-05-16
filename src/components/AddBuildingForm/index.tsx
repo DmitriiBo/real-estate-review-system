@@ -18,40 +18,29 @@ import { cnAddBuildingForm } from './cn-building';
 
 import './index.css';
 
-// type PhotoFiles = {
-//   File: {
-//     lastModified: number;
-//     lastModifiedDate: Date;
-//     name: string;
-//     path: string;
-//     size: number;
-//     type: string;
-//     webkitRelativePath: string;
-//   };
-// };
-
 export const AddBuildingForm: React.FC = () => {
-  const [inputState, setInputState] = useState({
-    buildingPhoto: '',
-    open: false,
-    files: [],
-  });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [errorOverallFloor, setErrorOverallFloor] = useState(false);
   const [formSubmit, setFormSubmit] = useState(false);
 
   const name = useInput('');
   const address = useInput('');
   const buildingType = useInput('');
-  const overallFloors = useInput(1);
-  const floor = useInput(2);
   const overallSquare = useInput(10.0);
   const livingSquare = useInput(10.0);
   const kitchenSquare = useInput(10.0);
   const view = useInput('');
   const [decoration, setDecoration] = useState(false);
   const [balcony, setBalcony] = useState(false);
+
+  const [inputState, setInputState] = useState({
+    overallFloors: 3,
+    floor: 2,
+    buildingPhoto: '',
+    open: false,
+    files: [],
+  });
 
   useLayoutEffect(() => {
     const isAdded = localStorage.getItem(`BuildingAdded`);
@@ -64,6 +53,7 @@ export const AddBuildingForm: React.FC = () => {
     event.preventDefault();
     setLoading(true);
     setError(false);
+    setErrorOverallFloor(false);
 
     realEstateApi
       .postData('api/v1/properties/', {
@@ -71,8 +61,8 @@ export const AddBuildingForm: React.FC = () => {
           name: name.value,
           address: address.value,
           building_type: buildingType.value,
-          overall_floors: overallFloors.value,
-          floor: floor.value,
+          overall_floors: inputState.overallFloors,
+          floor: inputState.floor,
           overall_square: overallSquare.value,
           living_square: livingSquare.value,
           kitchen_square: kitchenSquare.value,
@@ -95,6 +85,8 @@ export const AddBuildingForm: React.FC = () => {
       buildingPhoto: '',
       open: false,
       files: [],
+      overallFloors: 3,
+      floor: 2,
     });
   };
 
@@ -104,7 +96,20 @@ export const AddBuildingForm: React.FC = () => {
   const handleBalcony = () => {
     setBalcony((prevState) => !prevState);
   };
-
+  const handleOverallFloor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputState({ ...inputState, overallFloors: (event.target.value as unknown) as number });
+    if (+inputState.floor > +inputState.overallFloors) {
+      return setErrorOverallFloor(true);
+    }
+    return setErrorOverallFloor(false);
+  };
+  const handleFloor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputState({ ...inputState, floor: (event.target.value as unknown) as number });
+    if (+inputState.floor > +inputState.overallFloors) {
+      return setErrorOverallFloor(true);
+    }
+    return setErrorOverallFloor(false);
+  };
   const handleSavePhoto = (files: File[]): File[] => {
     return files;
   };
@@ -182,8 +187,10 @@ export const AddBuildingForm: React.FC = () => {
                 <InputLabel htmlFor="OverallFloors">Общее кол-во этажей</InputLabel>
                 <Input
                   id="OverallFloors"
-                  type="text"
-                  {...overallFloors}
+                  type="number"
+                  value={inputState.overallFloors}
+                  onChange={handleOverallFloor}
+                  error={errorOverallFloor}
                   aria-describedby="my-helper-text"
                 />
               </FormControl>
@@ -193,8 +200,9 @@ export const AddBuildingForm: React.FC = () => {
                 <InputLabel htmlFor="Floor">Этаж</InputLabel>
                 <Input
                   id="Floor"
-                  type="text"
-                  {...floor}
+                  type="number"
+                  value={inputState.floor}
+                  onChange={handleFloor}
                   required
                   aria-describedby="my-helper-text"
                 />
