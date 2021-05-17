@@ -12,19 +12,17 @@ import { cnStoryTelling } from './cn-StoryTelling';
 import './index.css';
 
 type StoryTellingProps = {
-  isLogged: boolean;
+  // isLogged: boolean;
 };
 
-const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
-  function getSteps() {
-    return [
-      'Воспользуйтесь нашим сайтом',
-      'Получите все отзывы об арендодателе',
-      'Примите взвешенное решение!',
-      'Выбирайте лучшее',
-    ];
-  }
-  const steps = getSteps();
+const StoryTelling: React.FunctionComponent<StoryTellingProps> = () => {
+  const steps = [
+    'Воспользуйтесь нашим сайтом',
+    'Получите все отзывы об арендодателе',
+    'Примите взвешенное решение!',
+    'Выбирайте лучшее',
+  ];
+
   function getStepContent(step: number) {
     switch (step) {
       case 0:
@@ -41,53 +39,27 @@ const StoryTelling: React.FunctionComponent<StoryTellingProps> = (isLogged) => {
   }
 
   return (
-    isLogged && (
-      <div className={cnStoryTelling()}>
-        <Container>
-          <h2 className={cnStoryTelling('title')}>Ищете отзывы об арендодателе?</h2>
+    <div className={cnStoryTelling()}>
+      <Container maxWidth="md">
+        <h2 className={cnStoryTelling('title')}>Ищете отзывы об арендодателе?</h2>
 
-          <StoryTellingItem paragraph={`${getStepContent(0)}`} header={steps[0]}>
-            <HouseIcon />
-          </StoryTellingItem>
+        <StoryTellingItem id={1} paragraph={`${getStepContent(0)}`} header={steps[0]}>
+          <HouseIcon />
+        </StoryTellingItem>
 
-          <StoryTellingItem paragraph={`${getStepContent(1)}`} header={steps[1]}>
-            <ManIcon />
-          </StoryTellingItem>
+        <StoryTellingItem id={2} paragraph={`${getStepContent(1)}`} header={steps[1]}>
+          <ManIcon />
+        </StoryTellingItem>
 
-          <StoryTellingItem paragraph={`${getStepContent(2)}`} header={steps[2]}>
-            <WomanIcon />
-          </StoryTellingItem>
+        <StoryTellingItem id={3} paragraph={`${getStepContent(2)}`} header={steps[2]}>
+          <WomanIcon />
+        </StoryTellingItem>
 
-          <StoryTellingItem paragraph={`${getStepContent(3)}`} header={steps[3]}>
-            <PhoneIcon />
-          </StoryTellingItem>
-
-          {/* <div className={divClassNameRight} ref={targetRef}>
-            <h3 className={cnStoryTelling('headers')}>{steps[1]}</h3>
-            <p className={cnStoryTelling('paragraph')}>{getStepContent(1)}</p>
-            <div className={cnStoryTelling('svg-container')}>
-              <ManIcon />
-            </div>
-          </div>
-
-          <div className={divClassNameLeft} ref={targetRef}>
-            <h3 className={cnStoryTelling('headers')}>{steps[2]}</h3>
-            <p className={cnStoryTelling('paragraph')}>{getStepContent(2)}</p>
-            <div className={cnStoryTelling('svg-container')}>
-              <WomanIcon />
-            </div>
-          </div>
-
-          <div className={divClassNameRight} ref={targetRef}>
-            <h3 className={cnStoryTelling('headers')}>{steps[3]}</h3>
-            <p className={cnStoryTelling('paragraph')}>{getStepContent(3)}</p>
-            <div className={cnStoryTelling('svg-container')}>
-              <PhoneIcon />
-            </div>
-          </div> */}
-        </Container>
-      </div>
-    )
+        <StoryTellingItem id={4} paragraph={`${getStepContent(3)}`} header={steps[3]}>
+          <PhoneIcon />
+        </StoryTellingItem>
+      </Container>
+    </div>
   );
 };
 

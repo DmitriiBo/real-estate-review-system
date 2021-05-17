@@ -12,6 +12,8 @@
   &__formElement {
     margin: 20px 0;
 
+    width: min-content;
+
     input {
       min-width: 260px;
     }

@@ -9,6 +9,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
+import Rating from '@material-ui/lab/Rating';
 
 import { cnReviewForm } from './cn-ReviewForm';
 
@@ -41,6 +42,7 @@ const Search: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     setFormState({ ...formState, inputValue: '' });
+    // props.onSave
   };
 
   return (
@@ -61,23 +63,30 @@ const Search: React.FC = () => {
           </FormControl>
         </div>
 
-        <InputLabel id="select-house">Тип недвижимости</InputLabel>
+        <div className={cnReviewForm('formElement')}>
+          <InputLabel style={{ minWidth: '300px' }} id="select-house">
+            Тип недвижимости
+          </InputLabel>
 
-        <Select
-          labelId="select-house"
-          name="buildingType"
-          value={formState.buildingType}
-          onChange={handleBuildingTypeChange}
-        >
-          <MenuItem value="Residential">Жилая</MenuItem>
-          <MenuItem value="Commercial">Коммерческая</MenuItem>
-        </Select>
+          <Select
+            autoWidth
+            labelId="select-house"
+            name="buildingType"
+            value={formState.buildingType}
+            onChange={handleBuildingTypeChange}
+          >
+            <MenuItem value="Residential">Жилая</MenuItem>
+            <MenuItem value="Commercial">Коммерческая</MenuItem>
+          </Select>
+        </div>
+
+        <Rating name="pristine" value={null} />
 
         <TextField
           style={{ marginTop: '22px' }}
           id="outlined-textarea"
           label="Текст отзыва"
-          placeholder="Текст"
+          placeholder=""
           multiline
           variant="outlined"
         />

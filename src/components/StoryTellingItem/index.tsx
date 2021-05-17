@@ -6,12 +6,14 @@ import { cnStoryTellingItem } from './cn-StoryTellingItem';
 import './index.css';
 
 type StoryTellingProps = {
+  id: number;
   header: string;
   paragraph: string;
   children: ReactNode;
 };
 
 const StoryTellingItem: React.FunctionComponent<StoryTellingProps> = ({
+  id,
   header,
   paragraph,
   children,
@@ -27,7 +29,11 @@ const StoryTellingItem: React.FunctionComponent<StoryTellingProps> = ({
     onVisibilityChange,
   });
 
-  const divClassName = cnStoryTellingItem('div', { left: true })
+  function isLeft() {
+    return id % 2 !== 0;
+  }
+
+  const divClassName = cnStoryTellingItem('div', { left: isLeft() })
     .state({ shown: visible })
     .state({ hide: !visible });
 
