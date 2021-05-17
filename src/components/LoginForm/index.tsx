@@ -1,12 +1,12 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Redirect } from 'react-router';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
+import jwtDecode from 'jwt-decode';
 
 import Loader from '../../App/loader';
 import {
+  ApiLogIn,
   logIn,
-  postLogIn,
-  selectError,
   selectIsLoggedIn,
   selectLoading,
   selectNetworkError,
@@ -18,15 +18,11 @@ import { cnLogin } from './cn-login';
 
 import './index.css';
 
-// export type AccessTokenType = {
-//   payload: { token?: string | undefined };
-// };
-
 export const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const isLoading = useAppSelector(selectLoading);
-  const isError = useAppSelector(selectError);
+  const [isError, setIsError] = useState(false);
   const isNetworkError = useAppSelector(selectNetworkError);
   const login = useInput('');
   const password = useInput('');
@@ -35,7 +31,7 @@ export const LoginForm: React.FC = () => {
     event.preventDefault();
 
     const result = await dispatch(
-      postLogIn({
+      ApiLogIn({
         login: login.value,
         password: password.value,
       }),
@@ -43,10 +39,15 @@ export const LoginForm: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const { token } = result.payload;
+
     if (token) {
       await dispatch(logIn({ login: login.value as string })); // pass LogIn
       localStorage.setItem('token', token);
-    }
+      // eslint-disable-next-line camelcase
+      const { user_id } = await jwtDecode(token);
+      // eslint-disable-next-line camelcase
+      if (user_id) localStorage.setItem('id', user_id);
+    } else setIsError(true);
   };
 
   function renderForm() {

@@ -4928,6 +4928,11 @@ jju@^1.1.0:
   resolved "https://registry.yarnpkg.com/jju/-/jju-1.4.0.tgz#a3abe2718af241a2b2904f84a625970f389ae32a"
   integrity sha1-o6vicYryQaKykE+EpiWXDzia4yo=
 
+jose@^3.12.1:
+  version "3.12.1"
+  resolved "https://registry.yarnpkg.com/jose/-/jose-3.12.1.tgz#f05804006e13a928c0ceae0aa75f7ab47f4ca045"
+  integrity sha512-pzm8tpFE/KBCgF7SOUikr5mKCnCZPUQSPy2iz6YKyuEpDRjkNXaRQHsr0y6GXhkY28m4L8KpTn/zn7GRm5Nxgg==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -5042,6 +5047,11 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
+"jsonc-parser@>= 0.0.1":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jsonc-parser/-/jsonc-parser-3.0.0.tgz#abdd785701c7e7eaca8a9ec8cf070ca51a745a22"
+  integrity sha512-fQzRfAbIBnR0IQvftw9FJveWiHp72Fg20giDrHz6TdfB12UH/uue0D3hm57UB5KgAVuniLMCaS8P1IMj9NR7cA==
+
 jsonfile@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-4.0.0.tgz#8771aae0799b64076b76640fca058f9c10e33ecb"
@@ -5064,6 +5074,19 @@ jsonwebtoken@^8.5.1:
     lodash.once "^4.0.0"
     ms "^2.1.1"
     semver "^5.6.0"
+
+jsrsasign-util@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/jsrsasign-util/-/jsrsasign-util-1.0.5.tgz#51ce7863171a6d05e5f563546c54a3eacda4febb"
+  integrity sha512-e5Kp8aaT5GH2c5X8j4uaJruYmT4GcnaGb47nw8m60YqPywtnOtTISZ9hZgtZ3a+jh7B27bU2LCf3Y32wZyfhtQ==
+  dependencies:
+    jsonc-parser ">= 0.0.1"
+    jsrsasign ">= 4.8.2"
+
+"jsrsasign@>= 4.8.2", jsrsasign@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-10.2.0.tgz#960ab8046d19d3fcbb584368a57d1977cb0b7ffd"
+  integrity sha512-khMrV/10U02DRzmXhjuLQjddUF39GHndaJZ/3YiiKkbyEl1T5M6EQF9nQUq0DFVCHusmd/jl8TWl4mWt+1L5hg==
 
 jss-plugin-camel-case@^10.5.1:
   version "10.5.1"
@@ -5160,6 +5183,11 @@ jws@^3.2.2:
   dependencies:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
+
+jwt-decode@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-3.1.2.tgz#3fb319f3675a2df0c2895c8f5e9fa4b67b04ed59"
+  integrity sha512-UfpWE/VZn0iP50d8cz9NrZLM9lSWhcJ+0Gt/nm4by88UL+J1SiKN8/5dkjMmbEzwL2CAe+67GsegCbIKtbp75A==
 
 keyv@^3.0.0:
   version "3.1.0"

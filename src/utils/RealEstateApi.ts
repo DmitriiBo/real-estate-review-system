@@ -6,18 +6,24 @@ class RealEstateApi {
   constructor(options: { baseUrl: string }) {
     this.baseUrl = options.baseUrl;
     this.defaultHeaders = {
-      'Content-Type': 'application/json; charset=utf-8',
-      'Cross-Origin-Opener-Policy': 'same-origin',
       'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': 'true',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authortization',
+      'Content-Type': 'application/json; charset=utf-8',
     };
   }
 
   private getHeaders(): HeadersInit {
     const token = localStorage.getItem('token');
-
+    if (token) {
+      return {
+        ...this.defaultHeaders,
+        Authorization: `Bearer ${token}`,
+      };
+    }
     return {
       ...this.defaultHeaders,
-      Authorization: `Bearer ${token}`,
     };
   }
 
@@ -32,6 +38,7 @@ class RealEstateApi {
     return fetch(`${this.baseUrl}/${url}`, {
       headers: options.headers || this.getHeaders(),
       method: 'POST',
+      // mode: 'no-cors',
       body: JSON.stringify(options.body),
     });
   }

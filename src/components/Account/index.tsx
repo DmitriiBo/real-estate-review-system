@@ -9,6 +9,7 @@ import './index.css';
 export const Account: React.FC = () => {
   const history = useHistory();
   const LoginName = localStorage.getItem('LoginName');
+  const userId = localStorage.getItem('id') as string;
 
   const routeChange = () => {
     const path = `/add-object`;
@@ -19,6 +20,7 @@ export const Account: React.FC = () => {
       <h1>Личный кабинет</h1>
       <div className={cnAccount()}>
         <h3>Имя профиля: {LoginName}</h3>
+        <h4>id: {userId}</h4>
         <br />
 
         <Button

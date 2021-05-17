@@ -13,8 +13,6 @@ import {
 } from '@material-ui/core';
 
 import Loader from '../../App/loader';
-import { logIn, selectIsLoggedIn } from '../../redux-store/AuthReducer';
-import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 import realEstateApi from '../../utils/RealEstateApi';
 import { validateEmail, validatePassword, validatePhone } from '../../utils/validation';
 import useInput from '../hooks/useInput';
@@ -48,9 +46,6 @@ export const RegisterForm: React.FC = () => {
   const [error, setError] = useState(false);
   const [formSubmit, setFormSubmit] = useState(false);
 
-  const dispatch = useAppDispatch();
-  const isloggedIn = useAppSelector(selectIsLoggedIn);
-
   const firstName = useInput('');
   const lastName = useInput('');
   const middleName = useInput('');
@@ -63,7 +58,6 @@ export const RegisterForm: React.FC = () => {
   }, [formSubmit]);
 
   const handleSubmit = (event: FormEvent) => {
-    console.log(inputState.email);
     event.preventDefault();
     setLoading(true);
     setError(false);
@@ -101,11 +95,10 @@ export const RegisterForm: React.FC = () => {
       })
       .then((response) => {
         if (response.ok) {
-          dispatch(logIn({ login: inputState.username }));
-          localStorage.setItem('LoginName', JSON.stringify(inputState.username));
+          // dispatch(logIn({ login: inputState.username }));
+          localStorage.setItem('LoginName', inputState.username);
           setFormSubmit(true);
-        }
-        setError(true);
+        } else setError(true);
       })
       .catch(() => {
         setError(true);
@@ -186,11 +179,11 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      {formSubmit || isloggedIn ? (
+      {formSubmit || localStorage.getItem('LoginName') ? (
         <div>
           <h2>Спасибо за регистрацию!</h2>
-          <a href="/">
-            <Button>ПЕРЕЙТИ НА ГЛАВНУЮ</Button>
+          <a href="/#/login">
+            <Button>ВОЙТИ ПОД ИМЕНЕМ ПОЛЬЗОВАТЕЛЯ</Button>
           </a>
         </div>
       ) : (

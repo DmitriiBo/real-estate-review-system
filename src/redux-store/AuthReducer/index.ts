@@ -35,7 +35,7 @@ export type PromisePayloadType = {
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const postLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createAsyncThunk(
+export const ApiLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createAsyncThunk(
   'login',
   async ({ login, password }): Promise<PromisePayloadType> => {
     const response = await realEstateApi
@@ -51,7 +51,7 @@ export const postLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = create
 );
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const refreshToken: AsyncThunk<PromisePayloadType, string, {}> = createAsyncThunk(
+export const ApiRefreshToken: AsyncThunk<PromisePayloadType, string, {}> = createAsyncThunk(
   'refresh',
   async (token) => {
     const response = await realEstateApi
@@ -92,14 +92,14 @@ export const loginSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(postLogIn.pending, (state) => {
+    builder.addCase(ApiLogIn.pending, (state) => {
       // eslint-disable-next-line no-param-reassign
       state.error = false;
       // eslint-disable-next-line no-param-reassign
       state.loading = true;
     });
 
-    builder.addCase(postLogIn.fulfilled, (state: LoginStateType, { payload }) => {
+    builder.addCase(ApiLogIn.fulfilled, (state: LoginStateType, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
 
@@ -111,14 +111,14 @@ export const loginSlice = createSlice({
       state.error = true;
     });
 
-    builder.addCase(postLogIn.rejected, (state) => {
+    builder.addCase(ApiLogIn.rejected, (state) => {
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
       // eslint-disable-next-line no-param-reassign
       state.networkError = true;
     });
 
-    builder.addCase(refreshToken.fulfilled, (state: LoginStateType) => {
+    builder.addCase(ApiRefreshToken.fulfilled, (state: LoginStateType) => {
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
       // eslint-disable-next-line no-param-reassign
@@ -140,7 +140,6 @@ export const selectIsLoggedIn = (state: RootState): boolean => state.loginState.
 export const selectLoginName = (state: RootState): string | null => state.loginState.loginName;
 export const selectLoading = (state: RootState): boolean => state.loginState.loading;
 export const selectStatus = (state: RootState): boolean | null => state.loginState.statusAuth;
-export const selectError = (state: RootState): boolean => state.loginState.error;
 export const selectNetworkError = (state: RootState): boolean => state.loginState.networkError;
 
 export default loginSlice.reducer;

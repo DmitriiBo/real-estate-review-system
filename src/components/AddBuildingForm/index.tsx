@@ -21,7 +21,6 @@ import './index.css';
 export const AddBuildingForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [errorOverallFloor, setErrorOverallFloor] = useState(false);
   const [formSubmit, setFormSubmit] = useState(false);
 
   const name = useInput('');
@@ -41,6 +40,10 @@ export const AddBuildingForm: React.FC = () => {
     open: false,
     files: [],
   });
+  const [validationError, setValidationError] = useState({
+    overallFloorsError: false,
+    floorError: false,
+  });
 
   useLayoutEffect(() => {
     const isAdded = localStorage.getItem(`BuildingAdded`);
@@ -53,7 +56,7 @@ export const AddBuildingForm: React.FC = () => {
     event.preventDefault();
     setLoading(true);
     setError(false);
-    setErrorOverallFloor(false);
+    setValidationError({ floorError: false, overallFloorsError: false });
 
     realEstateApi
       .postData('api/v1/properties/', {
@@ -73,7 +76,6 @@ export const AddBuildingForm: React.FC = () => {
       })
       .then((response) => {
         if (response.ok) {
-          console.log(response);
           setFormSubmit(true);
         }
         setError(true);
@@ -97,18 +99,18 @@ export const AddBuildingForm: React.FC = () => {
     setBalcony((prevState) => !prevState);
   };
   const handleOverallFloor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputState({ ...inputState, overallFloors: (event.target.value as unknown) as number });
-    if (+inputState.floor > +inputState.overallFloors) {
-      return setErrorOverallFloor(true);
+    setInputState({ ...inputState, overallFloors: +event.target.value });
+    if (+inputState.floor > inputState.overallFloors) {
+      return setValidationError({ floorError: true, overallFloorsError: true });
     }
-    return setErrorOverallFloor(false);
+    return setValidationError({ floorError: false, overallFloorsError: false });
   };
   const handleFloor = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputState({ ...inputState, floor: (event.target.value as unknown) as number });
-    if (+inputState.floor > +inputState.overallFloors) {
-      return setErrorOverallFloor(true);
+    setInputState({ ...inputState, floor: +event.target.value });
+    if (+inputState.floor > inputState.overallFloors) {
+      return setValidationError({ overallFloorsError: true, floorError: true });
     }
-    return setErrorOverallFloor(false);
+    return setValidationError({ overallFloorsError: false, floorError: false });
   };
   const handleSavePhoto = (files: File[]): File[] => {
     return files;
@@ -190,7 +192,7 @@ export const AddBuildingForm: React.FC = () => {
                   type="number"
                   value={inputState.overallFloors}
                   onChange={handleOverallFloor}
-                  error={errorOverallFloor}
+                  error={validationError.overallFloorsError}
                   aria-describedby="my-helper-text"
                 />
               </FormControl>

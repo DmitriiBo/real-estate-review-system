@@ -13,7 +13,7 @@ import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { refresh, refreshToken } from '../redux-store/AuthReducer';
+import { ApiRefreshToken, refresh } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
 import { SitemapItem } from '../types';
 import PrivateRoute from '../utils/PrivateRoute';
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
 
   useLayoutEffect(() => {
     if (token) {
-      dispatch(refreshToken(token));
+      dispatch(ApiRefreshToken(token));
       const login = localStorage.getItem('LoginName') as string;
       dispatch(refresh({ login }));
     }
