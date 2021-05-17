@@ -1,7 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { Redirect } from 'react-router';
 import { Button, Container, FormControl, FormGroup, Input, InputLabel } from '@material-ui/core';
-import jwtDecode from 'jwt-decode';
 
 import Loader from '../../App/loader';
 import {
@@ -30,23 +29,15 @@ export const LoginForm: React.FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const result = await dispatch(
+    const { payload } = await dispatch(
       ApiLogIn({
         login: login.value,
         password: password.value,
       }),
     );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const { token } = result.payload;
 
-    if (token) {
-      await dispatch(logIn({ login: login.value as string })); // pass LogIn
-      localStorage.setItem('token', token);
-      // eslint-disable-next-line camelcase
-      const { user_id } = await jwtDecode(token);
-      // eslint-disable-next-line camelcase
-      if (user_id) localStorage.setItem('id', user_id);
+    if (payload) {
+      dispatch(logIn({ login: login.value as string })); // pass LogIn
     } else setIsError(true);
   };
 

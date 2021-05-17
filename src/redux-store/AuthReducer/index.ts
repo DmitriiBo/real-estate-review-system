@@ -1,4 +1,5 @@
 import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import jwtDecode from 'jwt-decode';
 
 import realEstateApi from '../../utils/RealEstateApi';
 import type { RootState } from '../store';
@@ -7,7 +8,12 @@ export type PayloadType = {
   login: string;
   password: string;
 };
-
+type JWTtokenType = {
+  // eslint-disable-next-line camelcase
+  user_id: string;
+  email: string;
+  exp: number;
+};
 type LoginStateType = {
   isLoggedIn: boolean;
   loginName: string | null;
@@ -42,11 +48,19 @@ export const ApiLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createA
       .postData('api/v1/login/', {
         body: { username: login, password },
       })
-      .then(async (res) => {
-        return res.json();
+      .then((result) => {
+        return result.json();
       });
+    const { token } = response;
+    // eslint-disable-next-line camelcase
+    const { user_id, email, exp }: JWTtokenType = await jwtDecode(token);
 
-    return response;
+    localStorage.setItem('token', token);
+    localStorage.setItem('user_id', user_id);
+    localStorage.setItem('email', email);
+    localStorage.setItem('exp', exp.toString());
+
+    return token;
   },
 );
 
@@ -103,12 +117,8 @@ export const loginSlice = createSlice({
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
 
-      if (payload.token) {
-        // eslint-disable-next-line no-param-reassign
-        state.error = false;
-      }
       // eslint-disable-next-line no-param-reassign
-      state.error = true;
+      state.error = !payload.token;
     });
 
     builder.addCase(ApiLogIn.rejected, (state) => {
@@ -118,6 +128,10 @@ export const loginSlice = createSlice({
       state.networkError = true;
     });
 
+    builder.addCase(ApiRefreshToken.pending, (state: LoginStateType) => {
+      // eslint-disable-next-line no-param-reassign
+      state.loading = true;
+    });
     builder.addCase(ApiRefreshToken.fulfilled, (state: LoginStateType) => {
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
@@ -125,6 +139,13 @@ export const loginSlice = createSlice({
       state.isLoggedIn = true;
       // eslint-disable-next-line no-param-reassign
       state.error = false;
+    });
+    builder.addCase(ApiRefreshToken.rejected, (state: LoginStateType) => {
+      // eslint-disable-next-line no-param-reassign
+      state.loading = false;
+      // eslint-disable-next-line no-param-reassign
+      state.isLoggedIn = false;
+      // eslint-disable-next-line no-param-reassign
     });
 
     builder.addDefaultCase((state) => {
