@@ -6860,6 +6860,11 @@ react-transition-group@^4.0.0, react-transition-group@^4.4.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react-visibility-detector@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-visibility-detector/-/react-visibility-detector-1.1.1.tgz#323724207533fc82bb9b7defeb54de5c1811433f"
+  integrity sha512-j0DMlEMsavKb+5qQdX23mh3nxPQgehekjTMzNloULI76osFS7xfMVGj8YetSqaMNv+rH88mtsrv13HLo6Bbaag==
+
 react@^17.0.1:
   version "17.0.1"
   resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
