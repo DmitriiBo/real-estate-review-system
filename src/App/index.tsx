@@ -12,6 +12,7 @@ import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
+import StoryTelling from '../components/StoryTelling/index';
 import { mockReviews } from '../mocks/review-mock-data';
 import { logIn, setLoginName } from '../redux-store/auth';
 import { useAppDispatch } from '../redux-store/hooks';
@@ -61,6 +62,8 @@ export const App: React.FC = () => {
         <Container maxWidth={false} disableGutters>
           <Header />
           <main className={cnApp('MainContent')}>
+            <StoryTelling isLogged />
+
             <Switch>
               <Route path="/" exact component={Search} />
 
@@ -77,7 +80,6 @@ export const App: React.FC = () => {
               <Route path="/register" component={RegisterForm} />
               <Route path="/login" component={LoginForm} />
             </Switch>
-
             <LastReviewsCarousel reviews={mockReviews} />
           </main>
 
