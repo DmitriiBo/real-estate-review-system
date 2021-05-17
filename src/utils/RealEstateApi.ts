@@ -38,13 +38,13 @@ class RealEstateApi {
     return this.post(url, options);
   }
 
-  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }): Promise<JSON> {
+  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }) {
     return this.get(url, options).then((response) => response.json());
   }
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:8000',
 });
 
 export default realEstateApi;

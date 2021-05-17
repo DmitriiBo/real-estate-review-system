@@ -3,15 +3,12 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import { ReviewsList } from '../../types';
 import getResultWord from '../../utils/getResultWord';
-import Review, { ReviewCardProps } from '../Review/index';
+import Review from '../Review/index';
 
 import { cnReviews } from './cn-reviews';
 import useStyles from './use-styles';
-
-interface ReviewsList {
-  reviews: ReviewCardProps[];
-}
 
 const Reviews: React.FC<ReviewsList> = ({ reviews }) => {
   const getResultRequestString = () => {

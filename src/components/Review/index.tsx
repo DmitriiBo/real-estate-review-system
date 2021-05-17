@@ -12,22 +12,11 @@ import ThumbUpAlt from '@material-ui/icons/ThumbUpAlt';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import Rating from '@material-ui/lab/Rating';
 
+import { ReviewCardProps } from '../../types';
 import getResultWord from '../../utils/getResultWord';
 
 import { cnReview } from './cn-review';
 import useStyles from './use-styles';
-
-export type ReviewCardProps = {
-  id?: number;
-  author?: string;
-  authorAvatar?: string;
-  countReview?: number;
-  date?: string;
-  stars?: number;
-  text?: string;
-  property?: string;
-  photos?: string[];
-};
 
 const Review: React.FunctionComponent<ReviewCardProps> = (props) => {
   const classes = useStyles();

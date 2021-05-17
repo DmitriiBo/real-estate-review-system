@@ -10,13 +10,15 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
+import MyProperties from '../components/MyProperties';
+import MyReviews from '../components/MyReviews';
 import { RegisterForm } from '../components/RegisterForm';
-import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 import { mockReviews } from '../mocks/review-mock-data';
 import { logIn, setLoginName } from '../redux-store/auth';
 import { useAppDispatch } from '../redux-store/hooks';
-import { SitemapItem } from '../types';
+import { reviewsGetData, SitemapItem } from '../types';
+import realEstateApi from '../utils/RealEstateApi';
 
 import { cnApp } from './cn-app';
 
@@ -46,6 +48,8 @@ export const App: React.FC = () => {
     },
   ];
 
+  const [myReviews, setMyReviews] = React.useState([{}]);
+
   const dispatch = useAppDispatch();
   const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
@@ -55,6 +59,16 @@ export const App: React.FC = () => {
       dispatch(setLoginName(LoginNameFromStorage));
     }
   }, [dispatch, LoginNameFromStorage]);
+
+  React.useEffect(() => {
+    realEstateApi
+      .getRealEstateData('/api/v1/reviews/tenant')
+      // вставить логику подрузки данных с сервера в зависимости от типа пользователя is_tenant или is_landlord
+      .then((data: reviewsGetData) => {
+        return setMyReviews(data.results);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className={cnApp()}>
@@ -69,11 +83,11 @@ export const App: React.FC = () => {
               </Route>
 
               <Route exact path="/my-objects">
-                <EstateCardList />
+                <MyProperties />
               </Route>
 
               <Route exact path="/my-reviews">
-                <Reviews reviews={mockReviews} />
+                <MyReviews reviews={myReviews} />
               </Route>
 
               <Route exact path="/cards">

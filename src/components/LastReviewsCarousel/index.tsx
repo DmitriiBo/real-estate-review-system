@@ -1,15 +1,12 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 
-import Review, { ReviewCardProps } from '../Review/index';
+import { ReviewCardProps, ReviewsList } from '../../types';
+import Review from '../Review/index';
 
 import { cnLastReviewsCarousel } from './cn-auto-slider';
 
 import './index.css';
-
-interface ReviewsList {
-  reviews: ReviewCardProps[];
-}
 
 const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
   const getLastReviews = (list: ReviewCardProps[]) => {
