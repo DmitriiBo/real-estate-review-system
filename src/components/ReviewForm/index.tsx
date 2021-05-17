@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   Button,
   Container,
@@ -9,16 +9,12 @@ import {
   Select,
   TextField,
 } from '@material-ui/core';
-import { debounce } from 'lodash';
-
-import validateSearch from '../../utils/validation';
 
 import { cnReviewForm } from './cn-ReviewForm';
 
 import './index.css';
 
-const VALIDATE_INPUT_DEBOUNCE_TIME = 800;
-const PLACEHOLDER = 'метро Гостиный двор';
+const PLACEHOLDER = 'например, Гостиный двор';
 
 type formState = {
   inputValue: string;
@@ -26,40 +22,14 @@ type formState = {
 };
 
 const Search: React.FC = () => {
-  const [validationError, setValidationError] = useState(false);
-
   const [formState, setFormState] = useState<formState>({
     inputValue: '',
     buildingType: 'Residential',
   });
 
-  const validate = (inputValue: string) => {
-    if (!inputValue) {
-      return;
-    }
-
-    const isValid = validateSearch(inputValue);
-
-    if (!isValid) {
-      setValidationError(true);
-    } else {
-      setValidationError(false);
-    }
-  };
-
-  // функция debounce, задержка перед проверкой данных
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedValidation = useCallback(
-    debounce((inputValue) => validate(inputValue), VALIDATE_INPUT_DEBOUNCE_TIME),
-    [],
-  );
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-    setValidationError(false);
     setFormState({ ...formState, inputValue: value });
-
-    debouncedValidation(value);
   };
 
   const handleBuildingTypeChange = (
@@ -70,16 +40,6 @@ const Search: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    if (!formState.inputValue) {
-      setValidationError(true);
-      return;
-    }
-
-    if (validationError) {
-      return;
-    }
-
     setFormState({ ...formState, inputValue: '' });
   };
 
@@ -94,43 +54,43 @@ const Search: React.FC = () => {
             <Input
               id="search-input"
               type="text"
-              error={validationError}
               value={formState.inputValue}
               onChange={handleInputChange}
               placeholder={PLACEHOLDER}
             />
-
-            {validationError && 'обнаружена ошибка ввода'}
           </FormControl>
         </div>
 
-        <div className={cnReviewForm('formElement')}>
-          <InputLabel id="select-house">Тип недвижимости</InputLabel>
+        <InputLabel id="select-house">Тип недвижимости</InputLabel>
 
-          <Select
-            labelId="select-house"
-            name="buildingType"
-            value={formState.buildingType}
-            onChange={handleBuildingTypeChange}
-          >
-            <MenuItem value="Residential">Жилая</MenuItem>
-            <MenuItem value="Commercial">Коммерческая</MenuItem>
-          </Select>
+        <Select
+          labelId="select-house"
+          name="buildingType"
+          value={formState.buildingType}
+          onChange={handleBuildingTypeChange}
+        >
+          <MenuItem value="Residential">Жилая</MenuItem>
+          <MenuItem value="Commercial">Коммерческая</MenuItem>
+        </Select>
 
-          <TextField
-            id="outlined-textarea"
-            label="Текст отзыва"
-            placeholder="Текст"
-            multiline
-            variant="outlined"
-          />
-        </div>
+        <TextField
+          style={{ marginTop: '22px' }}
+          id="outlined-textarea"
+          label="Текст отзыва"
+          placeholder="Текст"
+          multiline
+          variant="outlined"
+        />
 
-        <div style={{ marginTop: '22px' }}>
-          <Button variant="outlined" size="medium" color="primary" type="submit">
-            Опубликовать
-          </Button>
-        </div>
+        <Button
+          style={{ marginTop: '22px', width: 'min-content' }}
+          variant="outlined"
+          size="medium"
+          color="primary"
+          type="submit"
+        >
+          Опубликовать
+        </Button>
       </form>
     </Container>
   );
