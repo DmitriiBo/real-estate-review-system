@@ -10,7 +10,10 @@ import {
 } from '@material-ui/core';
 import { debounce } from 'lodash';
 
+import { mockReviews } from '../../mocks/review-mock-data';
 import validateSearch from '../../utils/validation';
+import LastReviewsCarousel from '../LastReviewsCarousel';
+import StoryTelling from '../StoryTelling';
 
 import { cnSearch } from './cn-Search';
 
@@ -125,6 +128,8 @@ const Search: React.FC = () => {
           </Button>
         </div>
       </form>
+      <LastReviewsCarousel reviews={mockReviews} />
+      <StoryTelling isLogged />
     </Container>
   );
 };

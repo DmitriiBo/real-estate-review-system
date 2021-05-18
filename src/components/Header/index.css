@@ -74,9 +74,13 @@
     display: flex;
     align-items: center;
     margin: 0 -5px;
-    padding: 0 15px;
+    padding: 0 10px;
     background: #1e5cf2;
-    border-radius: 16px;
+    border-radius: 20px;
+
+    button {
+      margin-left: 10px;
+    }
   }
 
   @media (max-width: 767px) {
@@ -84,6 +88,16 @@
 
     ul {
       flex-direction: column;
+    }
+
+    &__UserBar {
+      flex-direction: column;
+      padding: 10px;
+
+      button {
+        margin-top: 8px;
+        margin-left: 0;
+      }
     }
 
     &__LogoDescription {
