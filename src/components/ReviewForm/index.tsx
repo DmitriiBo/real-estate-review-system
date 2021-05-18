@@ -11,6 +11,8 @@ import {
 } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 
+import realEstateApi from '../../utils/RealEstateApi';
+
 import { cnReviewForm } from './cn-ReviewForm';
 
 import './index.css';
@@ -41,8 +43,17 @@ const Search: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
+    realEstateApi
+      .getRealEstateData(`reviews/${'tenant' || 'landlord'}`, {})
+      .then(() => {
+        // eslint-disable-next-line no-console
+        console.log('э');
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.log('запрос на создание не ушёл');
+      });
     setFormState({ ...formState, inputValue: '' });
-    // props.onSave
   };
 
   return (

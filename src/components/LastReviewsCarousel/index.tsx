@@ -26,7 +26,7 @@ const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
       {lastReviews &&
         lastReviews.map((card) => (
           <div className={cnLastReviewsCarousel('item')}>
-            <Review key={card.id} {...card} />
+            <Review key={card.description} {...card} />
           </div>
         ))}
     </Carousel>

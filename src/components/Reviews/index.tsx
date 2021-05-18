@@ -10,8 +10,10 @@ import Review from '../Review/index';
 import { cnReviews } from './cn-reviews';
 import useStyles from './use-styles';
 
+type Card = { description: string };
+
 const Reviews: React.FC = () => {
-  const [cards, setCards] = React.useState<[]>([]);
+  const [cards, setCards] = React.useState<Card[]>([]);
   // запрос списка отзывов, надо через редакс их ловить?  в views.py есть методы, которые определяются сериалайзерами, в которых есть вся информация/ отзывы лежат территориально на бэке в папке reviews/views.py, а их гет-запрос из ридми выдаёт пустой массив.
   realEstateApi
     .getRealEstateData(`reviews/${'tenant' || 'landlord'}`, {})
@@ -41,7 +43,7 @@ const Reviews: React.FC = () => {
         <Grid item xs={12} className={classes.header}>
           <Typography variant="h5">{getResultRequestString()}</Typography>
         </Grid>
-        {cards.length && cards.map((card) => <Review key={card.id} {...card} />)}
+        {cards.length && cards.map((card) => <Review key={card.description} {...card} />)}
       </Container>
     </div>
   );
