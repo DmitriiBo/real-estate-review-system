@@ -23,8 +23,9 @@ export type ReviewCardProps = {
   authorAvatar?: string;
   countReview?: number;
   date?: string;
-  stars?: number;
-  text?: string;
+  rating?: number;
+  title?: string;
+  description?: string;
   property?: string;
   photos?: string[];
 };
@@ -51,8 +52,8 @@ const Review: React.FunctionComponent<ReviewCardProps> = (props) => {
               <Typography variant="caption">{props.date}</Typography>
             </Grid>
           </Grid>
-          <Rating name="half-rating-read" defaultValue={props.stars} precision={0.5} readOnly />
-          <Typography>{props.text}</Typography>
+          <Rating name="half-rating-read" defaultValue={props.rating} precision={0.5} readOnly />
+          <Typography>{props.description}</Typography>
         </CardContent>
 
         <CardActions>

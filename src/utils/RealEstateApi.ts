@@ -34,6 +34,8 @@ class RealEstateApi {
     });
   }
 
+  // public methods:
+
   public async postData(url: string, options: { headers?: HeadersInit; body: unknown }) {
     return this.post(url, options);
   }
@@ -44,7 +46,7 @@ class RealEstateApi {
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'http://localhost:3000',
+  baseUrl: 'http://localhost:8000',
 });
 
 export default realEstateApi;

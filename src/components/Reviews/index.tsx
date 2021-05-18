@@ -3,14 +3,28 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { mockReviews as cards } from '../../mocks/review-mock-data';
 import getResultWord from '../../utils/getResultWord';
+import realEstateApi from '../../utils/RealEstateApi';
 import Review from '../Review/index';
 
 import { cnReviews } from './cn-reviews';
 import useStyles from './use-styles';
 
 const Reviews: React.FC = () => {
+  const [cards, setCards] = React.useState<[]>([]);
+  // запрос списка отзывов, надо через редакс их ловить?  в views.py есть методы, которые определяются сериалайзерами, в которых есть вся информация/ отзывы лежат территориально на бэке в папке reviews/views.py, а их гет-запрос из ридми выдаёт пустой массив.
+  realEstateApi
+    .getRealEstateData(`reviews/${'tenant' || 'landlord'}`, {})
+    .then(() => {
+      setCards(cards);
+      // eslint-disable-next-line no-console
+      console.log(cards);
+    })
+    .catch(() => {
+      // eslint-disable-next-line no-console
+      console.log('нет соединения с сервером');
+    });
+
   const getResultRequestString = () => {
     if (cards.length) {
       return `${getResultWord(cards.length, ['отзыв', 'отзыва', 'отзывов'])} ${'найдено'}`;
