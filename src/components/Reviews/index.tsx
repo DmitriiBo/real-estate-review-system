@@ -16,11 +16,11 @@ const Reviews: React.FC = () => {
   const [cards, setCards] = React.useState<Card[]>([]);
   // запрос списка отзывов, надо через редакс их ловить?  в views.py есть методы, которые определяются сериалайзерами, в которых есть вся информация/ отзывы лежат территориально на бэке в папке reviews/views.py, а их гет-запрос из ридми выдаёт пустой массив.
   realEstateApi
-    .getRealEstateData(`reviews/${'tenant' || 'landlord'}`, {})
+    .getRealEstateData(`reviews/${'tenant' || 'landlord'}`)
     .then(() => {
       setCards(cards);
       // eslint-disable-next-line no-console
-      console.log(cards);
+      console.log('cм ответ');
     })
     .catch(() => {
       // eslint-disable-next-line no-console

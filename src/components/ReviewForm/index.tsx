@@ -44,16 +44,22 @@ const Search: React.FC = () => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     realEstateApi
-      .getRealEstateData(`reviews/${'tenant' || 'landlord'}`, {})
+      .postData(`reviews/${'tenant' || 'landlord'}`, {
+        body: {
+          title: 'title',
+          description: 'description',
+          rating: 5,
+          buildingType: formState.buildingType,
+          author: 'tenant' || 'landlord',
+        },
+      })
       .then(() => {
-        // eslint-disable-next-line no-console
-        console.log('э');
+        setFormState({ ...formState, inputValue: '' });
       })
       .catch(() => {
         // eslint-disable-next-line no-console
         console.log('запрос на создание не ушёл');
       });
-    setFormState({ ...formState, inputValue: '' });
   };
 
   return (
