@@ -15,7 +15,8 @@
     width: min-content;
 
     input {
-      min-width: 260px;
+      width: 260px;
+      min-width: 185px;
     }
   }
 }

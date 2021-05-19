@@ -22,17 +22,26 @@ const PLACEHOLDER = 'например, Гостиный двор';
 type formState = {
   inputValue: string;
   buildingType: 'Residential' | 'Commercial' | unknown;
+  descriptionValue: string;
+  ratingValue: number;
 };
 
 const Search: React.FC = () => {
+  const [ratingValue, setRatingValue] = React.useState<number | null>(0);
   const [formState, setFormState] = useState<formState>({
     inputValue: '',
     buildingType: 'Residential',
+    descriptionValue: '',
+    ratingValue: 0,
   });
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
     setFormState({ ...formState, inputValue: value });
+  };
+  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const { value } = event.target;
+    setFormState({ ...formState, descriptionValue: value });
   };
 
   const handleBuildingTypeChange = (
@@ -46,15 +55,16 @@ const Search: React.FC = () => {
     realEstateApi
       .postData(`reviews/${'tenant' || 'landlord'}`, {
         body: {
-          title: 'title',
-          description: 'description',
-          rating: 5,
+          title: formState.inputValue,
+          description: formState.descriptionValue,
+          rating: ratingValue,
           buildingType: formState.buildingType,
           author: 'tenant' || 'landlord',
         },
       })
       .then(() => {
-        setFormState({ ...formState, inputValue: '' });
+        setFormState({ ...formState, inputValue: '', descriptionValue: '' });
+        setRatingValue(0);
       })
       .catch(() => {
         // eslint-disable-next-line no-console
@@ -97,7 +107,13 @@ const Search: React.FC = () => {
           </Select>
         </div>
 
-        <Rating name="pristine" value={null} />
+        <Rating
+          onChange={(event, newRatingValue) => {
+            setRatingValue(newRatingValue);
+          }}
+          name="pristine"
+          value={ratingValue}
+        />
 
         <TextField
           style={{ marginTop: '22px' }}
@@ -106,6 +122,8 @@ const Search: React.FC = () => {
           placeholder=""
           multiline
           variant="outlined"
+          value={formState.descriptionValue}
+          onChange={handleDescriptionChange}
         />
 
         <Button
