@@ -116,7 +116,6 @@ export const loginSlice = createSlice({
     builder.addCase(ApiLogIn.fulfilled, (state: LoginStateType, { payload }) => {
       // eslint-disable-next-line no-param-reassign
       state.loading = false;
-
       // eslint-disable-next-line no-param-reassign
       state.error = !payload.token;
     });
@@ -129,6 +128,10 @@ export const loginSlice = createSlice({
     });
 
     builder.addCase(ApiRefreshToken.pending, (state: LoginStateType) => {
+      // eslint-disable-next-line no-param-reassign
+      state.error = false;
+      // eslint-disable-next-line no-param-reassign
+      state.networkError = false;
       // eslint-disable-next-line no-param-reassign
       state.loading = true;
     });

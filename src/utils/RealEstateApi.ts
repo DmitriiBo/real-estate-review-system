@@ -6,10 +6,6 @@ class RealEstateApi {
   constructor(options: { baseUrl: string }) {
     this.baseUrl = options.baseUrl;
     this.defaultHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authortization',
       'Content-Type': 'application/json; charset=utf-8',
     };
   }
@@ -31,6 +27,7 @@ class RealEstateApi {
     return fetch(`${this.baseUrl}/${url}`, {
       headers: options?.headers || this.defaultHeaders,
       method: 'GET',
+      // mode: 'no-cors',
     });
   }
 

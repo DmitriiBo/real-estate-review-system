@@ -112,8 +112,30 @@ export const AddBuildingForm: React.FC = () => {
     }
     return setValidationError({ overallFloorsError: false, floorError: false });
   };
-  const handleSavePhoto = (files: File[]): File[] => {
-    return files;
+
+  const handleSavePhoto = (files: File[]): void => {
+    const formData = new FormData();
+    const reader = new FileReader();
+
+    reader.readAsBinaryString(files[0]);
+    const blob = reader.result;
+
+    reader.onload = function (event) {
+      if (blob) {
+        formData.append('sdfsfsdfsdff', files[0]);
+
+        realEstateApi
+          .postData('api/v1/images/', {
+            body: { name: 'sad', image: blob },
+          })
+          .then(async (result) => {
+            return result.json();
+          });
+      }
+      console.log(formData);
+    };
+
+    setInputState(() => ({ ...inputState, open: false }));
   };
 
   return (
@@ -182,6 +204,13 @@ export const AddBuildingForm: React.FC = () => {
                   maxFileSize={5000000}
                   onClose={() => setInputState({ ...inputState, open: false })}
                 />
+
+                {/* <RootRef rootRef={ref}> */}
+                {/*  <Paper {...rootProps}> */}
+                {/*    <input {...getInputProps()} /> */}
+                {/*    <p>Drag n drop some files here, or click to select files</p> */}
+                {/*  </Paper> */}
+                {/* </RootRef> */}
               </FormControl>
               <br />
 
