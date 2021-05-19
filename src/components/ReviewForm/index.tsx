@@ -20,7 +20,7 @@ import './index.css';
 const PLACEHOLDER = 'например, Гостиный двор';
 
 type formState = {
-  inputValue: string;
+  titleValue: string;
   buildingType: 'Residential' | 'Commercial' | unknown;
   descriptionValue: string;
   ratingValue: number;
@@ -29,7 +29,7 @@ type formState = {
 const Search: React.FC = () => {
   const [ratingValue, setRatingValue] = React.useState<number | null>(0);
   const [formState, setFormState] = useState<formState>({
-    inputValue: '',
+    titleValue: '',
     buildingType: 'Residential',
     descriptionValue: '',
     ratingValue: 0,
@@ -37,7 +37,7 @@ const Search: React.FC = () => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
-    setFormState({ ...formState, inputValue: value });
+    setFormState({ ...formState, titleValue: value });
   };
   const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target;
@@ -55,15 +55,16 @@ const Search: React.FC = () => {
     realEstateApi
       .postData(`reviews/${'tenant' || 'landlord'}`, {
         body: {
-          title: formState.inputValue,
+          title: formState.titleValue,
           description: formState.descriptionValue,
           rating: ratingValue,
           buildingType: formState.buildingType,
-          author: 'tenant' || 'landlord',
+          reviewer: 1, // айдишник выбранной из списка недвижимости
+          review_on: true,
         },
       })
       .then(() => {
-        setFormState({ ...formState, inputValue: '', descriptionValue: '' });
+        setFormState({ ...formState, titleValue: '', descriptionValue: '' });
         setRatingValue(0);
       })
       .catch(() => {
@@ -83,7 +84,7 @@ const Search: React.FC = () => {
             <Input
               id="search-input"
               type="text"
-              value={formState.inputValue}
+              value={formState.titleValue}
               onChange={handleInputChange}
               placeholder={PLACEHOLDER}
             />
@@ -106,6 +107,22 @@ const Search: React.FC = () => {
             <MenuItem value="Commercial">Коммерческая</MenuItem>
           </Select>
         </div>
+
+        {/* <div className={cnReviewForm('formElement')}>
+          <InputLabel style={{ minWidth: '300px' }} id="adress">
+            Выбрать адрес из списка
+          </InputLabel>
+
+          <Select
+            autoWidth
+            labelId="adress"
+            name="adressList"
+            value={formState.adressList}
+            onChange={handleAdressListTypeChange}
+          >
+            { .map(() => <MenuItem value="Residential" key={}/> )}
+          </Select>
+        </div> */}
 
         <Rating
           onChange={(event, newRatingValue) => {

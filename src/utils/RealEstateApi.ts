@@ -46,7 +46,7 @@ class RealEstateApi {
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'http://localhost:8000',
+  baseUrl: 'http://13.53.37.101:8000',
 });
 
 export default realEstateApi;
