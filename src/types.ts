@@ -10,9 +10,9 @@ export type reviewData = {
   title: string;
   description: string;
   rating: number;
-  reviewer: number;
+  reviewer: string;
   // eslint-disable-next-line camelcase
-  review_on: number;
+  review_on: string;
 };
 
 export type reviewsGetData = {

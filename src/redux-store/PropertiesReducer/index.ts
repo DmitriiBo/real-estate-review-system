@@ -1,8 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
 import { mockHomesData } from '../../mocks/mock-properties-data';
-// eslint-disable-next-line import/no-cycle
-import { RootState } from '../store';
 
 // eslint-disable-next-line import/no-cycle
 import { UPDATE_PROPERTIES } from './actions';

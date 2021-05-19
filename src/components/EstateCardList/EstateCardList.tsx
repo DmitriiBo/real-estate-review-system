@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, CardMedia, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -59,7 +59,7 @@ const EstateCardList: React.FC<NilHouseData> = ({ properties }) => {
                   <p style={{ fontSize: 14 }}>{home.address}</p>
 
                   <div className={cnEstateCardList('GridContainer')}>
-                    {home?.images.slice(0, 1).map((image: string) => (
+                    {home?.images?.slice(0, 1).map((image: string) => (
                       <div key={image ?? ''} className={cnEstateCardList('GridItem')}>
                         <CardMedia image={image} className={classes.CardMedia} />
                       </div>

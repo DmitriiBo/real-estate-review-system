@@ -173,9 +173,9 @@ const EstateCard: React.FC = () => {
       <div className={cnEstateCard()}>
         <Paper>
           <Container maxWidth="md">
-            <h2>{homeItem.name}</h2>
-            <p>{homeItem.city}</p>
-            <p>{homeItem.address}</p>
+            <h2>{homeItem?.name}</h2>
+            <p>{homeItem?.city}</p>
+            <p>{homeItem?.address}</p>
 
             <div className={cnEstateCard('GridContainer')}>
               {pictures.map((image: string) => (
@@ -195,17 +195,17 @@ const EstateCard: React.FC = () => {
             <Container maxWidth="md">
               <Grid container spacing={10}>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Тип дома: {homeItem.building_type}</p>
-                  <p>Отделка: {homeItem.decoration ? 'Есть' : 'Нет'}</p>
-                  <p>Этаж: {homeItem.floor}</p>
-                  <p>Всего этажей в доме: {homeItem.overall_floors}</p>
-                  <p>Общая площадь: {homeItem.overall_square}</p>
+                  <p>Тип дома: {homeItem?.building_type}</p>
+                  <p>Отделка: {homeItem?.decoration ? 'Есть' : 'Нет'}</p>
+                  <p>Этаж: {homeItem?.floor}</p>
+                  <p>Всего этажей в доме: {homeItem?.overall_floors}</p>
+                  <p>Общая площадь: {homeItem?.overall_square}</p>
                 </Grid>
                 <Grid item xs={6} sm={6} md={4}>
-                  <p>Жилая площадь: {homeItem.living_square}</p>
-                  <p>Площадь кухни: {homeItem.kitchen_square}</p>
-                  <p>Вид из окна: {homeItem.view}</p>
-                  <p>Балкон или лоджия: {homeItem.balcony ? 'Есть' : 'Нет'}</p>
+                  <p>Жилая площадь: {homeItem?.living_square}</p>
+                  <p>Площадь кухни: {homeItem?.kitchen_square}</p>
+                  <p>Вид из окна: {homeItem?.view}</p>
+                  <p>Балкон или лоджия: {homeItem?.balcony ? 'Есть' : 'Нет'}</p>
                 </Grid>
               </Grid>
             </Container>
