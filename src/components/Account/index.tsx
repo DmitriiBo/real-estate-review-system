@@ -12,10 +12,21 @@ export const Account: React.FC = () => {
   const userId = localStorage.getItem('user_id') as string;
   const email = localStorage.getItem('email') as string;
 
-  const routeChange = () => {
+  const routeChangeAddObject = () => {
     const path = `/add-object`;
     history.push(path);
   };
+
+  const routeChangeMyReviews = () => {
+    const path = '/my-reviews';
+    history.push(path);
+  };
+
+  const routeChangeMyObjects = () => {
+    const path = '/my-objects';
+    history.push(path);
+  };
+
   return (
     <Container maxWidth="md">
       <h1>Личный кабинет</h1>
@@ -32,9 +43,33 @@ export const Account: React.FC = () => {
           variant="outlined"
           size="small"
           color="inherit"
-          onClick={routeChange}
+          onClick={routeChangeAddObject}
         >
           Добавить недвижимость
+        </Button>
+
+        <Button
+          classes={{
+            root: cnAccount(),
+          }}
+          variant="outlined"
+          size="small"
+          color="inherit"
+          onClick={routeChangeMyReviews}
+        >
+          Мои отзывы
+        </Button>
+
+        <Button
+          classes={{
+            root: cnAccount(),
+          }}
+          variant="outlined"
+          size="small"
+          color="inherit"
+          onClick={routeChangeMyObjects}
+        >
+          Мои объекты
         </Button>
 
         <Button

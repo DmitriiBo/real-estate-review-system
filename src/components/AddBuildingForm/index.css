@@ -1,7 +1,8 @@
 .AddBuildingForm {
-  display: block;
   margin: 10px;
   padding: 10px;
+
+  display: block;
 
   max-width: 560px;
   min-height: 72px;
