@@ -1,4 +1,6 @@
-export const mockReviews = [
+import { reviewData } from '../types';
+
+export const mockReviews: reviewData[] = [
   {
     pk: 15645646541,
     title: 'Review1',
