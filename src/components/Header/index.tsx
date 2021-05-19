@@ -1,8 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Link, NavLink } from 'react-router-dom';
-import { AppBar, Button, List, ListItem, ListItemText } from '@material-ui/core';
+import { AppBar, Button } from '@material-ui/core';
 
-import { logOut, selectIsLoggedIn, selectLoginName } from '../../redux-store/auth/index';
+import { logOut, selectIsLoggedIn, selectLoginName } from '../../redux-store/AuthReducer';
 import { useAppDispatch, useAppSelector } from '../../redux-store/hooks';
 
 import Avatar from './avatar';
@@ -16,9 +17,10 @@ const Header: React.FC = () => {
   const loginName = useAppSelector(selectLoginName);
   const dispatch = useAppDispatch();
 
-  const [isAccountBarClicked, setIsAccountBarClicked] = React.useState(false);
-  const handleAvatarClick = () => {
-    setIsAccountBarClicked(!isAccountBarClicked);
+  const history = useHistory();
+  const routeChange = () => {
+    const path = `/account`;
+    history.push(path);
   };
 
   return (
@@ -33,56 +35,22 @@ const Header: React.FC = () => {
 
         {isLoggedIn ? (
           <div className={cnHeader('UserBar')}>
-            <div>
-              <button
-                type="button"
-                className={cnHeader('avatar-button')}
-                onClick={handleAvatarClick}
-              >
-                <Avatar width={25} height={25} />
-              </button>
-              {isAccountBarClicked && (
-                <List
-                  style={{
-                    position: 'absolute',
-                    backgroundColor: '#fff',
-                    borderRadius: '4px',
-                  }}
-                >
-                  <ListItem button>
-                    <NavLink
-                      activeClassName={cnHeader('account-link_disabled')}
-                      className={cnHeader('account-link')}
-                      exact
-                      to="/my-reviews"
-                    >
-                      <ListItemText primary="Мои отзывы" />
-                    </NavLink>
-                  </ListItem>
-                  <ListItem button>
-                    <NavLink
-                      activeClassName={cnHeader('account-link_disabled')}
-                      className={cnHeader('account-link')}
-                      exact
-                      to="/my-objects"
-                    >
-                      Мои объекты
-                    </NavLink>
-                  </ListItem>
-                </List>
-              )}
-            </div>
+            <Avatar width={25} height={25} />
 
-            <h4 style={{ marginLeft: '5px' }}>{loginName}</h4>
+            <h5 style={{ marginLeft: '8px' }}>{loginName?.slice(0, 10)}</h5>
+
+            <Button variant="outlined" size="small" color="inherit" onClick={routeChange}>
+              кабинет
+            </Button>
 
             <Button
-              style={{ marginLeft: '20px' }}
               variant="outlined"
               size="small"
               color="inherit"
               onClick={() => {
                 dispatch(logOut());
-                sessionStorage.removeItem('LoginName');
+                localStorage.removeItem('LoginName');
+                localStorage.removeItem('token');
               }}
             >
               Выйти

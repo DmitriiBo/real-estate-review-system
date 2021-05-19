@@ -4,21 +4,22 @@ import { Container } from '@material-ui/core';
 
 import '@fontsource/roboto';
 
+import { Account } from '../components/Account';
+import { AddBuildingForm } from '../components/AddBuildingForm';
 import EstateCard from '../components/EstateCard/EstateCard';
-import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import LastReviewsCarousel from '../components/LastReviewsCarousel';
 import { LoginForm } from '../components/LoginForm';
 import MyProperties from '../components/MyProperties';
 import MyReviews from '../components/MyReviews';
 import { RegisterForm } from '../components/RegisterForm';
 import Search from '../components/Search';
-import { mockReviews } from '../mocks/review-mock-data';
-import { logIn, setLoginName } from '../redux-store/auth';
+import { ApiRefreshToken, refresh } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
-import { reviewsGetData, SitemapItem } from '../types';
-import realEstateApi from '../utils/RealEstateApi';
+import { updateProperties } from '../redux-store/PropertiesReducer/actions';
+import { updateReviews } from '../redux-store/ReviewsReducer/actions';
+import { SitemapItem } from '../types';
+import PrivateRoute from '../utils/PrivateRoute';
 
 import { cnApp } from './cn-app';
 
@@ -41,67 +42,41 @@ export const App: React.FC = () => {
       name: 'Объекты',
       link: '/cards',
     },
-    {
-      id: 4,
-      name: 'Контакты',
-      link: '/',
-    },
   ];
 
-  const [myReviews, setMyReviews] = React.useState([{}]);
-
+  const token = localStorage.getItem('token') as string;
   const dispatch = useAppDispatch();
-  const LoginNameFromStorage = JSON.parse(sessionStorage.getItem('LoginName') as string);
 
   useLayoutEffect(() => {
-    if (LoginNameFromStorage != null) {
-      dispatch(logIn());
-      dispatch(setLoginName(LoginNameFromStorage));
+    if (token) {
+      dispatch(ApiRefreshToken(token));
+      const login = localStorage.getItem('LoginName') as string;
+      dispatch(refresh({ login }));
+      dispatch(updateProperties());
+      const profileType = localStorage.getItem('profileType') as string;
+      dispatch(updateReviews({ profileType }));
     }
-  }, [dispatch, LoginNameFromStorage]);
-
-  React.useEffect(() => {
-    realEstateApi
-      .getRealEstateData('/api/v1/reviews/tenant')
-      // вставить логику подрузки данных с сервера в зависимости от типа пользователя is_tenant или is_landlord
-      .then((data: reviewsGetData) => {
-        return setMyReviews(data.results);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  });
 
   return (
     <div className={cnApp()}>
       <HashRouter>
         <Container maxWidth={false} disableGutters>
           <Header />
+
           <main className={cnApp('MainContent')}>
             <Switch>
-              <Route exact path="/">
-                <Search />
-                <LastReviewsCarousel reviews={mockReviews} />
-              </Route>
-
-              <Route exact path="/my-objects">
-                <MyProperties />
-              </Route>
-
-              <Route exact path="/my-reviews">
-                <MyReviews reviews={myReviews} />
-              </Route>
-
-              <Route exact path="/cards">
-                <EstateCardList />
-              </Route>
-
-              <Route path="/cards/:id">
-                <EstateCard />
-              </Route>
+              <Route path="/" exact component={Search} />
+              <Route path="/login" component={LoginForm} />
+              <Route path="/register" component={RegisterForm} />
             </Switch>
 
             <Switch>
-              <Route path="/register" component={RegisterForm} />
-              <Route path="/login" component={LoginForm} />
+              <PrivateRoute path="/account" component={Account} exact />
+              <PrivateRoute path="/add-object" component={AddBuildingForm} exact />
+              <PrivateRoute path="/my-reviews" component={MyReviews} exact />
+              <PrivateRoute path="/my-objects" component={MyProperties} exact />
+              <PrivateRoute path="/cards/:id" component={EstateCard} exact />
             </Switch>
           </main>
 

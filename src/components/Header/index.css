@@ -25,26 +25,6 @@
     rgb(30, 92, 242) 85%
   );
 
-  &__avatar-button {
-    padding: 0;
-
-    cursor: pointer;
-
-    color: #fff;
-    background: none;
-    border: none;
-  }
-
-  &__account-link {
-    text-decoration: none;
-
-    color: #000;
-  }
-
-  &__account-link_disabled {
-    opacity: 0.5;
-  }
-
   &__LogoBlock {
     display: flex;
     align-items: center;
@@ -101,13 +81,14 @@
 
   &__UserBar {
     margin: 0 -5px;
-    padding: 0 15px;
-
-    display: flex;
-    align-items: center;
+    padding: 0 10px;
 
     background: #1e5cf2;
-    border-radius: 16px;
+    border-radius: 20px;
+
+    button {
+      margin-left: 10px;
+    }
   }
 
   @media (max-width: 767px) {
@@ -115,6 +96,17 @@
 
     ul {
       flex-direction: column;
+    }
+
+    &__UserBar {
+      padding: 10px;
+
+      flex-direction: column;
+
+      button {
+        margin-top: 8px;
+        margin-left: 0;
+      }
     }
 
     &__LogoDescription {

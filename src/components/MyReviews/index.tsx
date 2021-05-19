@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import { RootState } from '../../redux-store/store';
 import { ReviewsList } from '../../types';
 import Reviews from '../Reviews/index';
 
@@ -16,4 +18,10 @@ const MyReviews: React.FC<ReviewsList> = ({ reviews }) => {
   );
 };
 
-export default MyReviews;
+const mapStateToProps = (state: RootState) => {
+  return {
+    reviews: state.reviews.reviews,
+  };
+};
+
+export default connect(mapStateToProps, null)(MyReviews);

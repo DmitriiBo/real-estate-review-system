@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export type SitemapItem = {
   id: number;
   name: string;
@@ -5,10 +6,11 @@ export type SitemapItem = {
 };
 
 export type reviewData = {
+  pk: number;
   title: string;
   description: string;
   rating: number;
-  reviewer: string;
+  reviewer: number;
   // eslint-disable-next-line camelcase
   review_on: number;
 };
@@ -23,18 +25,27 @@ export type reviewsGetData = {
   results: reviewData[];
 };
 
-export type ReviewCardProps = {
-  id?: number;
-  author?: string;
-  authorAvatar?: string;
-  countReview?: number;
-  date?: string;
-  stars?: number;
-  text?: string;
-  property?: string;
-  photos?: string[];
-};
-
 export interface ReviewsList {
-  reviews: ReviewCardProps[];
+  reviews: reviewData[];
 }
+
+export interface HouseData {
+  pk: number;
+  name: string;
+  address: string;
+  city: string;
+  building_type: string;
+  overall_floors: number;
+  floor: number;
+  decoration: boolean;
+  overall_square: number;
+  living_square: number;
+  kitchen_square: number;
+  view: string;
+  balcony: boolean;
+  images?: string[];
+}
+
+export type NilHouseData = {
+  properties: HouseData[];
+};
