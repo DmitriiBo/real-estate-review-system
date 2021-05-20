@@ -1,0 +1,22 @@
+.ReviewForm {
+  margin: 10px;
+  padding: 0 20px 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #deddf126;
+  border-radius: 18px;
+  box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
+
+  &__formElement {
+    margin: 20px 0;
+
+    width: min-content;
+
+    input {
+      width: 260px;
+      min-width: 185px;
+    }
+  }
+}

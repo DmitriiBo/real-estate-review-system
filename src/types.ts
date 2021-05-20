@@ -15,6 +15,10 @@ export type reviewData = {
   review_on: string;
 };
 
+export interface ReviewsList {
+  reviews: reviewData[];
+}
+
 export type reviewsGetData = {
   // eslint-disable-next-line camelcase
   items_count: number;
@@ -24,10 +28,6 @@ export type reviewsGetData = {
   page_number: number;
   results: reviewData[];
 };
-
-export interface ReviewsList {
-  reviews: reviewData[];
-}
 
 export interface HouseData {
   pk: number;

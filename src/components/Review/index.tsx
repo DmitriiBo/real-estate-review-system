@@ -13,6 +13,20 @@ import { reviewData } from '../../types';
 import { cnReview } from './cn-review';
 import useStyles from './use-styles';
 
+// export type ReviewCardProps = {
+//   id?: number;
+//   author?: string;
+//   authorAvatar?: string;
+//   countReview?: number;
+//   date?: string;
+//   rating?: number;
+//   title?: string;
+//   description?: string;
+//   property?: string;
+//   photos?: string[];
+// };
+
+// const Review: React.FunctionComponent<ReviewCardProps> = (props) => {
 const Review: React.FunctionComponent<reviewData> = (props) => {
   const classes = useStyles();
 
@@ -20,6 +34,21 @@ const Review: React.FunctionComponent<reviewData> = (props) => {
     <div className={cnReview()}>
       <Card className={classes.card}>
         <CardContent className={classes.cardContent}>
+          {/* <Grid className={classes.cardContent__grid} container spacing={2}>
+            <Grid item>
+              <Avatar className={classes.largeavatar} alt={props.author} src={props.authorAvatar} />
+            </Grid>
+            <Grid item xs container spacing={0} direction="column">
+              <Typography variant="h6">{props.author}</Typography>
+              <Typography gutterBottom variant="caption" display="block">
+                {props.countReview &&
+                  getResultWord(props.countReview, ['отзыв', 'отзыва', 'отзывов'])}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="caption">{props.date}</Typography>
+            </Grid>
+          </Grid> */}
           <Typography variant="h6">{props.reviewer}</Typography>
           <Typography variant="h6">{props.title}</Typography>
           <Typography variant="h6">{props.review_on}</Typography>

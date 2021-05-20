@@ -13,10 +13,6 @@
   }
 
   &__div {
-    margin: 0;
-
-    /* position: relative;
-    top: 0; */
     margin: 0 0 0 auto;
 
     width: calc(200vw / 3);
@@ -24,7 +20,7 @@
     min-height: 300px;
 
     &_left {
-      text-align: left;
+      margin: 0 auto 0 0;
     }
 
     &_right {
