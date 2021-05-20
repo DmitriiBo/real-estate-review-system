@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     paddingBottom: theme.spacing(0),
   },
-  cardContent__grid: {
-    paddingBottom: theme.spacing(1),
-  },
   largeavatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),

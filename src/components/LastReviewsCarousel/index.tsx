@@ -1,18 +1,15 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 
-import Review, { ReviewCardProps } from '../Review/index';
+import { reviewData, ReviewsList } from '../../types';
+import Review from '../Review/index';
 
 import { cnLastReviewsCarousel } from './cn-auto-slider';
 
 import './index.css';
 
-interface ReviewsList {
-  reviews: ReviewCardProps[];
-}
-
 const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
-  const getLastReviews = (list: ReviewCardProps[]) => {
+  const getLastReviews = (list: reviewData[]) => {
     if (list.length) {
       // Здесь необходимо вставить логику сортировки массива по дате, когда вместо вместо моковых данных будут данные с сервера
       return list.slice(0, 5);
@@ -25,8 +22,8 @@ const LastReviewsCarousel: React.FC<ReviewsList> = ({ reviews }) => {
     <Carousel autoPlay animation="slide" className={cnLastReviewsCarousel()}>
       {lastReviews &&
         lastReviews.map((card) => (
-          <div className={cnLastReviewsCarousel('item')}>
-            <Review key={card.description} {...card} />
+          <div key={card.pk} className={cnLastReviewsCarousel('item')}>
+            <Review {...card} />
           </div>
         ))}
     </Carousel>

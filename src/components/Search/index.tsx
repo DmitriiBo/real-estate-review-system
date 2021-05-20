@@ -10,7 +10,10 @@ import {
 } from '@material-ui/core';
 import { debounce } from 'lodash';
 
+import { mockReviews } from '../../mocks/review-mock-data';
 import validateSearch from '../../utils/validation';
+import LastReviewsCarousel from '../LastReviewsCarousel/index';
+import StoryTelling from '../StoryTelling';
 
 import { cnSearch } from './cn-Search';
 
@@ -79,6 +82,7 @@ const Search: React.FC = () => {
       return;
     }
 
+    // eslint-disable-next-line no-console
     console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
 
     setFormState({ ...formState, inputValue: '' });
@@ -125,6 +129,8 @@ const Search: React.FC = () => {
           </Button>
         </div>
       </form>
+      <LastReviewsCarousel reviews={mockReviews} />
+      <StoryTelling />
     </Container>
   );
 };

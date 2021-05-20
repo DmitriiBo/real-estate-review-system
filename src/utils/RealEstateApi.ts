@@ -12,16 +12,20 @@ class RealEstateApi {
 
   private getHeaders(): HeadersInit {
     const token = localStorage.getItem('token');
-
+    if (token) {
+      return {
+        ...this.defaultHeaders,
+        Authorization: `Bearer ${token}`,
+      };
+    }
     return {
       ...this.defaultHeaders,
-      Authorization: `Bearer ${token}`,
     };
   }
 
   private async get(url: string, options?: { headers?: HeadersInit }) {
     return fetch(`${this.baseUrl}/${url}`, {
-      headers: options?.headers || this.defaultHeaders,
+      headers: options?.headers || this.getHeaders(),
       method: 'GET',
     });
   }
@@ -30,6 +34,7 @@ class RealEstateApi {
     return fetch(`${this.baseUrl}/${url}`, {
       headers: options.headers || this.getHeaders(),
       method: 'POST',
+      // mode: 'no-cors',
       body: JSON.stringify(options.body),
     });
   }
@@ -40,13 +45,14 @@ class RealEstateApi {
     return this.post(url, options);
   }
 
-  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }): Promise<JSON> {
+  public async getRealEstateData(url: string, options?: { headers?: HeadersInit }) {
     return this.get(url, options).then((response) => response.json());
   }
 }
 
 const realEstateApi = new RealEstateApi({
   baseUrl: 'http://13.53.37.101:8000',
+  // baseUrl: 'http://localhost:8000',
 });
 
 export default realEstateApi;
