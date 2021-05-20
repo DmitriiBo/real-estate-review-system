@@ -9,7 +9,7 @@ import { cnMyProperties } from './cn-my-properties';
 import './index.css';
 
 const MyProperties: React.FC = () => {
-  const properties = useSelector((state: RootState) => state.properties);
+  const properties = useSelector((state: RootState) => state.properties.properties);
 
   return (
     <div className={cnMyProperties()}>

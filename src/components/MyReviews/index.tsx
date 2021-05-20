@@ -9,7 +9,7 @@ import { cnMyReviews } from './cn-my-reviews';
 import './index.css';
 
 const MyReviews: React.FC = () => {
-  const reviews = useSelector((state: RootState) => state.properties.reviews);
+  const reviews = useSelector((state: RootState) => state.reviews.reviews);
 
   return (
     <div className={cnMyReviews()}>
