@@ -5,7 +5,7 @@ import { selectIsLoggedIn } from '../redux-store/AuthReducer';
 import { useAppSelector } from '../redux-store/hooks';
 
 const PrivateRoute: React.FC<{
-  component: React.FC;
+  component: React.FC | React.FC<unknown>;
   path: string;
   exact: boolean;
 }> = (props) => {

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, CardMedia, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { mockHomesData } from '../../mocks/mock-properties-data';
-import type { NilHouseData } from '../HouseData/HouseData';
+import type { HouseData, NilHouseData } from '../../types';
 
 import { cnEstateCardList } from './cn-EstateCardList';
 
@@ -31,38 +30,36 @@ const useStyles = makeStyles({
   },
 });
 
-const EstateCardList: React.FC = () => {
-  const { path } = useRouteMatch();
+const EstateCardList: React.FC<NilHouseData> = ({ properties }) => {
   const classes = useStyles();
-  const [houseCards, setHouseCards] = React.useState<NilHouseData[]>([]);
+  const [houseCards, setHouseCards] = React.useState<HouseData[]>([]);
 
   React.useEffect(() => {
-    setHouseCards(mockHomesData.slice(0, 4));
-  }, []);
+    setHouseCards(properties.slice(0, 4));
+  }, [properties]);
 
   function handleShowCardClick() {
     const newHouseCards =
-      mockHomesData.length - houseCards.length < 3
-        ? mockHomesData
-        : mockHomesData.slice(0, houseCards.length + 3);
+      properties.length - houseCards.length < 3
+        ? properties
+        : (properties.slice(0, houseCards.length + 3) as HouseData[]);
 
     setHouseCards(newHouseCards);
   }
 
   return (
     <div>
-      <h1 className={cnEstateCardList('Title')}>Результаты поиска</h1>
       <Container maxWidth="lg" style={{ display: 'grid', gap: 15, gridTemplateColumns: '1fr 1fr' }}>
-        {houseCards.map((home: NilHouseData) => (
-          <Container maxWidth="xs" key={home?.id}>
-            <Link to={`${path}/${home?.id}`} style={{ textDecoration: 'none' }}>
+        {houseCards.map((home: HouseData) => (
+          <Container maxWidth="xs" key={home.pk}>
+            <Link to={`cards/${home.pk}`} style={{ textDecoration: 'none' }}>
               <Paper>
                 <Container maxWidth="xs" style={{ padding: 15, justifyContent: 'center' }}>
-                  <h2 style={{ fontSize: 18 }}>{home?.title}</h2>
-                  <p style={{ fontSize: 14 }}>{home?.place}</p>
+                  <h2 style={{ fontSize: 18 }}>{home.name}</h2>
+                  <p style={{ fontSize: 14 }}>{home.address}</p>
 
                   <div className={cnEstateCardList('GridContainer')}>
-                    {home?.images.slice(0, 1).map((image: string) => (
+                    {home?.images?.slice(0, 1).map((image: string) => (
                       <div key={image ?? ''} className={cnEstateCardList('GridItem')}>
                         <CardMedia image={image} className={classes.CardMedia} />
                       </div>
@@ -75,7 +72,7 @@ const EstateCardList: React.FC = () => {
         ))}
       </Container>
 
-      {mockHomesData.length > houseCards.length && (
+      {properties.length > houseCards.length && (
         <Button
           variant="contained"
           style={{ fontSize: 18 }}

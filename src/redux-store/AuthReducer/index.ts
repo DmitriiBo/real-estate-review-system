@@ -16,6 +16,7 @@ type JWTtokenType = {
 };
 type LoginStateType = {
   isLoggedIn: boolean;
+  profileType: string | null;
   loginName: string | null;
   email: string | null;
   password: string | null;
@@ -26,6 +27,7 @@ type LoginStateType = {
 };
 const initialState: LoginStateType = {
   isLoggedIn: false,
+  profileType: null,
   loginName: null,
   email: null,
   password: null,
@@ -51,7 +53,8 @@ export const ApiLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createA
       .then((result) => {
         return result.json();
       });
-    const { token } = response;
+    // eslint-disable-next-line camelcase
+    const { token, profile_type } = response;
     // eslint-disable-next-line camelcase
     const { user_id, email, exp }: JWTtokenType = await jwtDecode(token);
 
@@ -59,6 +62,7 @@ export const ApiLogIn: AsyncThunk<PromisePayloadType, PayloadType, {}> = createA
     localStorage.setItem('user_id', user_id);
     localStorage.setItem('email', email);
     localStorage.setItem('exp', exp.toString());
+    localStorage.setItem('profileType', profile_type);
 
     return token;
   },

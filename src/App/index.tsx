@@ -7,14 +7,19 @@ import '@fontsource/roboto';
 import { Account } from '../components/Account';
 import { AddBuildingForm } from '../components/AddBuildingForm';
 import EstateCard from '../components/EstateCard/EstateCard';
-import EstateCardList from '../components/EstateCardList/EstateCardList';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { LoginForm } from '../components/LoginForm';
+import MyProperties from '../components/MyProperties';
+import MyReviews from '../components/MyReviews';
 import { RegisterForm } from '../components/RegisterForm';
+import ReviewForm from '../components/ReviewForm';
+// import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 import { ApiRefreshToken, refresh } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
+import { updateProperties } from '../redux-store/PropertiesReducer/actions';
+import { updateReviews } from '../redux-store/ReviewsReducer/actions';
 import { SitemapItem } from '../types';
 import PrivateRoute from '../utils/PrivateRoute';
 
@@ -32,7 +37,7 @@ export const App: React.FC = () => {
     {
       id: 2,
       name: 'Отзывы',
-      link: '/',
+      link: '/reviews',
     },
     {
       id: 3,
@@ -49,8 +54,11 @@ export const App: React.FC = () => {
       dispatch(ApiRefreshToken(token));
       const login = localStorage.getItem('LoginName') as string;
       dispatch(refresh({ login }));
+      dispatch(updateProperties());
+      const profileType = localStorage.getItem('profileType') as string;
+      dispatch(updateReviews({ profileType }));
     }
-  }, [dispatch, token]);
+  });
 
   return (
     <div className={cnApp()}>
@@ -60,20 +68,22 @@ export const App: React.FC = () => {
 
           <main className={cnApp('MainContent')}>
             <Switch>
-              <Route path="/" exact component={Search} />
+              <Route exact path="/" component={ReviewForm} />
+            </Switch>
+
+            <Switch>
+              <Route exact path="/" component={Search} />
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
-              <Route exact path="/cards">
-                <EstateCardList />
-              </Route>
-              <Route path="/cards/:id">
-                <EstateCard />
-              </Route>
             </Switch>
 
             <Switch>
               <PrivateRoute path="/account" component={Account} exact />
               <PrivateRoute path="/add-object" component={AddBuildingForm} exact />
+              <PrivateRoute path="/my-reviews" component={MyReviews} exact />
+              <PrivateRoute path="/my-objects" component={MyProperties} exact />
+              <PrivateRoute path="/cards/:id" component={EstateCard} exact />
+              {/* <PrivateRoute path="/reviews" component={Reviews} exact /> */}
             </Switch>
           </main>
 
