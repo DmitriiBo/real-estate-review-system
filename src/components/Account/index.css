@@ -1,7 +1,6 @@
 .Account {
   margin: 10px;
   padding: 10px;
-
   display: flex;
   flex-direction: column;
 
@@ -12,9 +11,16 @@
   border-radius: 18px;
   box-shadow: 6px 8px 8px -4px rgba(34, 60, 80, 0.2);
 
-  button {
-    margin-top: 10px;
+  .ButtonsGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
 
-    width: 130px;
+  button {
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 120px;
   }
 }

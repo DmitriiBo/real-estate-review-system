@@ -13,6 +13,7 @@ import { DropzoneDialog } from 'material-ui-dropzone';
 import Loader from '../../App/loader';
 import realEstateApi from '../../utils/RealEstateApi';
 import useInput from '../hooks/useInput';
+import { Pagination } from '../Padination/Pagination';
 
 import { cnAddBuildingForm } from './cn-building';
 
@@ -39,6 +40,7 @@ export const AddBuildingForm: React.FC = () => {
     buildingPhoto: '',
     open: false,
     files: [],
+    file: [],
   });
   const [validationError, setValidationError] = useState({
     overallFloorsError: false,
@@ -89,6 +91,7 @@ export const AddBuildingForm: React.FC = () => {
       files: [],
       overallFloors: 3,
       floor: 2,
+      file: [],
     });
   };
 
@@ -112,13 +115,40 @@ export const AddBuildingForm: React.FC = () => {
     }
     return setValidationError({ overallFloorsError: false, floorError: false });
   };
-  const handleSavePhoto = (files: File[]): File[] => {
-    return files;
+
+  const handleSavePhoto = (files: File[]): void => {
+    const formData = new FormData();
+    const reader = new FileReader();
+
+    formData.append('s', files[0]);
+
+    reader.readAsDataURL(files[0]);
+    realEstateApi
+      .postData('api/v1/images/', {
+        body: { name: 'sad', image: reader.result },
+      })
+      .then(async (result) => {
+        return result.json();
+      });
+
+    // reader.readAsBinaryString(files[0]);
+    // const blob = reader.result;
+    //
+    // reader.onload = function (event) {
+    //   if (blob) {
+    //     formData.append('sdfsfsdfsdff', files[0]);
+    //   }
+    //   console.log(formData);
+    // };
+
+    setInputState(() => ({ ...inputState, open: false }));
   };
 
   return (
     <Container maxWidth="md">
       <h1>Добавьте недвижимость</h1>
+      <Pagination />
+
       {formSubmit ? (
         <div>
           <h2>Спасибо за размещение объекта!</h2>
@@ -171,6 +201,7 @@ export const AddBuildingForm: React.FC = () => {
                 >
                   Добавить изображения
                 </Button>
+
                 <DropzoneDialog
                   clearOnUnmount
                   dialogTitle="Загрузить изображения"

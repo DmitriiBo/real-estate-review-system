@@ -9,6 +9,7 @@ import { CloseIcon } from '../../assets/icons/CloseIcon';
 import { NextIcon } from '../../assets/icons/NextIcon';
 import { RootState } from '../../redux-store/store';
 import { HouseData } from '../../types';
+import { Pagination } from '../Padination/Pagination';
 
 import { cnEstateCard } from './cn-EstateCard';
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const EstateCard: React.FC = () => {
   const classes = useStyles();
-  const properties = useSelector((state: RootState) => state.properties.properties) as HouseData[];
+  const properties = useSelector((state: RootState) => state.properties.properties);
 
   const [showButton, setShowButton] = React.useState(true);
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
@@ -169,10 +170,12 @@ const EstateCard: React.FC = () => {
   });
 
   return (
-    <>
+    <Container maxWidth="md">
       <div className={cnEstateCard()}>
         <Paper>
           <Container maxWidth="md">
+            <br />
+            <Pagination />
             <h2>{homeItem?.name}</h2>
             <p>{homeItem?.city}</p>
             <p>{homeItem?.address}</p>
@@ -257,7 +260,7 @@ const EstateCard: React.FC = () => {
           </button>
         )}
       </div>
-    </>
+    </Container>
   );
 };
 

@@ -1,3 +1,5 @@
+const BASE_URL = 'http://localhost:8000';
+
 class RealEstateApi {
   readonly baseUrl: string;
 
@@ -34,13 +36,11 @@ class RealEstateApi {
     return fetch(`${this.baseUrl}/${url}`, {
       headers: options.headers || this.getHeaders(),
       method: 'POST',
-      // mode: 'no-cors',
       body: JSON.stringify(options.body),
     });
   }
 
   // public methods:
-
   public async postData(url: string, options: { headers?: HeadersInit; body: unknown }) {
     return this.post(url, options);
   }
@@ -51,8 +51,7 @@ class RealEstateApi {
 }
 
 const realEstateApi = new RealEstateApi({
-  baseUrl: 'http://13.53.37.101:8000',
-  // baseUrl: 'http://localhost:8000',
+  baseUrl: BASE_URL,
 });
 
 export default realEstateApi;

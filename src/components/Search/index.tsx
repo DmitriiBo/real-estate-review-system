@@ -11,6 +11,7 @@ import {
 import { debounce } from 'lodash';
 
 import { mockReviews } from '../../mocks/review-mock-data';
+import realEstateApi from '../../utils/RealEstateApi';
 import validateSearch from '../../utils/validation';
 import LastReviewsCarousel from '../LastReviewsCarousel/index';
 import StoryTelling from '../StoryTelling';
@@ -34,6 +35,8 @@ const Search: React.FC = () => {
     inputValue: '',
     buildingType: 'Residential',
   });
+  const [isFound, setIsFound] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const validate = (inputValue: string) => {
     if (!inputValue) {
@@ -82,8 +85,13 @@ const Search: React.FC = () => {
       return;
     }
 
-    // eslint-disable-next-line no-console
-    console.log(`Данные успешно отправлены ${JSON.stringify(formState)}`);
+    // get DATA
+    realEstateApi
+      .getRealEstateData('api/v1/properties/')
+      .then(({ results }) => {
+        if (!results.length) setIsFound(false);
+      })
+      .catch(() => setIsError(true));
 
     setFormState({ ...formState, inputValue: '' });
   };
@@ -129,8 +137,16 @@ const Search: React.FC = () => {
           </Button>
         </div>
       </form>
-      <LastReviewsCarousel reviews={mockReviews} />
+      <br />
+      {!isFound && <p style={{ color: '#901111' }}>Объекты не найдены</p>}
+      {isError && (
+        <p style={{ color: '#901111FF' }}>Ошибка при отправке данных, попробуйте снова</p>
+      )}
+
+      <br />
+      <br />
       <StoryTelling />
+      <LastReviewsCarousel reviews={mockReviews} />
     </Container>
   );
 };

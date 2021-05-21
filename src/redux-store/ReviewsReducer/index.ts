@@ -1,18 +1,24 @@
-import { PayloadAction } from '@reduxjs/toolkit';
-
 import { mockReviews } from '../../mocks/review-mock-data';
+import { reviewData } from '../../types';
 
-// eslint-disable-next-line import/no-cycle
 import { UPDATE_REVIEWS } from './actions';
 
+type state = {
+  reviews: reviewData[];
+};
+
+type actionType = {
+  type: string;
+  payload?: reviewData[];
+};
 const initialState = {
   reviews: mockReviews,
 };
 
-export function reviewsReducer(state = initialState, action: PayloadAction): unknown {
+export function reviewsReducer(state = initialState, action: actionType): state {
   switch (action.type) {
     case UPDATE_REVIEWS:
-      if (action.payload.length) {
+      if (action.payload?.length) {
         return { ...state, reviews: action.payload };
       }
       return state;
