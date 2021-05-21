@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from './AuthReducer';
-// eslint-disable-next-line import/no-cycle
 import { propertiesReducer } from './PropertiesReducer';
 import regReducer from './RegReducer';
-// eslint-disable-next-line import/no-cycle
 import { reviewsReducer } from './ReviewsReducer';
 
 export const store = configureStore({

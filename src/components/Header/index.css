@@ -80,14 +80,16 @@
   }
 
   &__UserBar {
-    margin: 0 -5px;
+    display: flex;
+    align-items: center;
+    margin: 0 5px;
     padding: 0 10px;
-
     background: #1e5cf2;
     border-radius: 20px;
 
     button {
       margin-left: 10px;
+      font-size: 12px;
     }
   }
 

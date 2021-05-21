@@ -14,7 +14,6 @@ import MyProperties from '../components/MyProperties';
 import MyReviews from '../components/MyReviews';
 import { RegisterForm } from '../components/RegisterForm';
 import ReviewForm from '../components/ReviewForm';
-// import Reviews from '../components/Reviews';
 import Search from '../components/Search';
 import { ApiRefreshToken, refresh } from '../redux-store/AuthReducer';
 import { useAppDispatch } from '../redux-store/hooks';
@@ -68,22 +67,19 @@ export const App: React.FC = () => {
 
           <main className={cnApp('MainContent')}>
             <Switch>
-              <Route exact path="/" component={ReviewForm} />
-            </Switch>
-
-            <Switch>
               <Route exact path="/" component={Search} />
               <Route path="/login" component={LoginForm} />
               <Route path="/register" component={RegisterForm} />
             </Switch>
-
+            <Switch>
+              <Route exact path="/" component={ReviewForm} />
+            </Switch>
             <Switch>
               <PrivateRoute path="/account" component={Account} exact />
               <PrivateRoute path="/add-object" component={AddBuildingForm} exact />
               <PrivateRoute path="/my-reviews" component={MyReviews} exact />
               <PrivateRoute path="/my-objects" component={MyProperties} exact />
               <PrivateRoute path="/cards/:id" component={EstateCard} exact />
-              {/* <PrivateRoute path="/reviews" component={Reviews} exact /> */}
             </Switch>
           </main>
 

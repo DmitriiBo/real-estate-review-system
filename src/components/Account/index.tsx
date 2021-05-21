@@ -36,62 +36,66 @@ export const Account: React.FC = () => {
     <Container maxWidth="md">
       <h1>Личный кабинет</h1>
       <div className={cnAccount()}>
-        <h3>Имя профиля: {LoginName}</h3>
-        <h4>id: {userId}</h4>
-        <h4>email: {email}</h4>
+        <ul>
+          <li>Имя профиля: {LoginName}</li>
+          <li>id: {userId}</li>
+          <li>email: {email}</li>
+        </ul>
+
         <br />
+        <div className={cnAccount('ButtonsGroup')}>
+          <Button
+            classes={{
+              root: cnAccount(),
+            }}
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={routeChangeAddObject}
+          >
+            Добавить недвижимость
+          </Button>
 
-        <Button
-          classes={{
-            root: cnAccount(),
-          }}
-          variant="outlined"
-          size="small"
-          color="inherit"
-          onClick={routeChangeAddObject}
-        >
-          Добавить недвижимость
-        </Button>
+          <Button
+            classes={{
+              root: cnAccount(),
+            }}
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={routeChangeMyReviews}
+          >
+            Мои отзывы
+          </Button>
 
-        <Button
-          classes={{
-            root: cnAccount(),
-          }}
-          variant="outlined"
-          size="small"
-          color="inherit"
-          onClick={routeChangeMyReviews}
-        >
-          Мои отзывы
-        </Button>
+          <Button
+            classes={{
+              root: cnAccount(),
+            }}
+            variant="outlined"
+            size="small"
+            color="primary"
+            onClick={routeChangeMyObjects}
+          >
+            Мои объекты
+          </Button>
 
-        <Button
-          classes={{
-            root: cnAccount(),
-          }}
-          variant="outlined"
-          size="small"
-          color="inherit"
-          onClick={routeChangeMyObjects}
-        >
-          Мои объекты
-        </Button>
-
-        <Button
-          classes={{
-            root: cnAccount(),
-          }}
-          variant="outlined"
-          size="small"
-          color="inherit"
-          onClick={() => {
-            dispatch(logOut());
-            localStorage.removeItem('LoginName');
-            localStorage.removeItem('token');
-          }}
-        >
-          Выйти
-        </Button>
+          <Button
+            classes={{
+              root: cnAccount(),
+            }}
+            variant="outlined"
+            size="small"
+            color="secondary"
+            onClick={() => {
+              dispatch(logOut());
+              localStorage.removeItem('LoginName');
+              localStorage.removeItem('token');
+            }}
+          >
+            Выйти
+          </Button>
+        </div>
       </div>
     </Container>
   );
